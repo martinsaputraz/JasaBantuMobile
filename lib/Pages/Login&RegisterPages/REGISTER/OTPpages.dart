@@ -204,7 +204,7 @@ class _OTPPagesState extends State<OTPPages> {
 
                       if (pin.length == 6) {
                         logicApi.verifyOTPRegistrasi(
-                            context, data_nilai, constant.flagnewUser);
+                            context, constant.flagnewUser, data_nilai);
                       }
                     },
                   ),

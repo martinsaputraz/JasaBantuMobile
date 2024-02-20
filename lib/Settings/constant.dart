@@ -51,7 +51,7 @@ class Constant {
   String PREFIX_KEY = "\$2y\$";
   int ROT_NUM = 15;
   String backprefix = "\$";
-  
+
   String flagWa = "WA";
   String flagSms = "SMS";
   String delimeterRegistration = ":";
