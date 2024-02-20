@@ -145,6 +145,7 @@ class _OTPLoginState extends State<OTPLogin> {
       body: Center(
         child: Column(
           children: [
+
             /// TITLE TEXT
             Container(
               padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
@@ -162,7 +163,7 @@ class _OTPLoginState extends State<OTPLogin> {
               padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
               child: Text(
                 'Cek kotak pesan SMS kamu untuk melihat kode\n'
-                'OTP yang kami kirimkan ke nomor',
+                    'OTP yang kami kirimkan ke nomor',
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 15, color: assetsColor.textOTPArea),
               ),
@@ -192,7 +193,10 @@ class _OTPLoginState extends State<OTPLogin> {
                     obscureText: true,
                     keyboardType: TextInputType.number,
                     length: 6,
-                    width: MediaQuery.of(context).size.width,
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width,
                     textFieldAlignment: MainAxisAlignment.spaceAround,
                     fieldWidth: 40,
                     fieldStyle: FieldStyle.box,
@@ -203,9 +207,12 @@ class _OTPLoginState extends State<OTPLogin> {
                         textRotate =
                             storedNoHp! + constant.delimeterRegistration + pin;
 
-                        rotatedText = Rotasi.rotateText(textRotate, 15);
+                        rotatedText = Rotasi.rotateText(textRotate,
+                            constant.ROT_NUM);
 
-                        data_nilai = base64Encode(utf8.encode(rotatedText));
+                        data_nilai = constant.PREFIX_KEY +
+                            constant.ROT_NUM.toString() + constant.backprefix +
+                            base64Encode(utf8.encode(rotatedText));
                       });
 
                       if (pin.length == 6) {
@@ -252,28 +259,28 @@ class _OTPLoginState extends State<OTPLogin> {
                 ),
                 child: isResendOTPPressed
                     ? Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const CupertinoActivityIndicator(),
-                          const SizedBox(width: 5),
-                          Text(
-                            'Kirim Ulang',
-                            style: TextStyle(
-                                color: assetsColor.textResendOTPButtonPressed),
-                          ),
-                          const SizedBox(width: 5),
-                          Text(
-                            _formatDuration(remainingTime),
-                            style: TextStyle(
-                                color: assetsColor.textResendOTPButtonPressed),
-                          ),
-                        ],
-                      )
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const CupertinoActivityIndicator(),
+                    const SizedBox(width: 5),
+                    Text(
+                      'Kirim Ulang',
+                      style: TextStyle(
+                          color: assetsColor.textResendOTPButtonPressed),
+                    ),
+                    const SizedBox(width: 5),
+                    Text(
+                      _formatDuration(remainingTime),
+                      style: TextStyle(
+                          color: assetsColor.textResendOTPButtonPressed),
+                    ),
+                  ],
+                )
                     : Text(
-                        'Kirim Ulang OTP',
-                        style:
-                            TextStyle(color: assetsColor.textResendOTPButton),
-                      ),
+                  'Kirim Ulang OTP',
+                  style:
+                  TextStyle(color: assetsColor.textResendOTPButton),
+                ),
               ),
             ),
 
@@ -322,7 +329,7 @@ class _OTPLoginState extends State<OTPLogin> {
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor:
-                                  assetsColor.buttonOtpMethodButton,
+                              assetsColor.buttonOtpMethodButton,
                               side: BorderSide(
                                   color: assetsColor.borderOtpMethodButton),
                               shape: RoundedRectangleBorder(
@@ -335,7 +342,7 @@ class _OTPLoginState extends State<OTPLogin> {
                                   children: [
                                     Padding(
                                       padding:
-                                          const EdgeInsets.only(right: 20.0),
+                                      const EdgeInsets.only(right: 20.0),
                                       child: Icon(
                                         sendOTPViaWhatsApp
                                             ? FontAwesomeIcons.whatsapp

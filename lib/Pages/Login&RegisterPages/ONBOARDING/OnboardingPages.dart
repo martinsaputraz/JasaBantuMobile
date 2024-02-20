@@ -7,11 +7,13 @@ import 'package:jasa_bantu/Assets/AssetsLogo.dart';
 import 'package:jasa_bantu/Pages/Login&RegisterPages/LOGIN/LoginPages.dart';
 import 'package:jasa_bantu/Pages/Login&RegisterPages/ONBOARDING/OnboardingContent.dart';
 import 'package:jasa_bantu/Pages/Login&RegisterPages/REGISTER/RegisterPages.dart';
+import 'package:jasa_bantu/Settings/logicapi.dart';
 
 AssetsColor assetsColor = AssetsColor();
 AssetsLogo assetsLogo = AssetsLogo();
 AssetsIcon assetsIcon = AssetsIcon();
 AssetsImages assetsImages = AssetsImages();
+LogicApi logicApi = LogicApi();
 
 class OnboardingPages extends StatefulWidget {
   const OnboardingPages({super.key});
@@ -25,6 +27,27 @@ class _OnboardingPagesState extends State<OnboardingPages> {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
   User? _user;
+
+  void _handleGoogleSignIn() async {
+    try {
+      GoogleAuthProvider googleAuthProvider = GoogleAuthProvider();
+      UserCredential userCredential =
+          await _auth.signInWithProvider(googleAuthProvider);
+      User? user = userCredential.user;
+
+      if (user != null) {
+        setState(() {
+          _user = user;
+
+          logicApi.LoginApi(context, _user!.email!);
+        });
+      } else {
+        print("User is null");
+      }
+    } catch (error) {
+      print(error);
+    }
+  }
 
   @override
   void initState() {
@@ -210,25 +233,5 @@ class _OnboardingPagesState extends State<OnboardingPages> {
         ],
       ),
     );
-  }
-
-  void _handleGoogleSignIn() async {
-    try {
-      GoogleAuthProvider googleAuthProvider = GoogleAuthProvider();
-      UserCredential userCredential =
-          await _auth.signInWithProvider(googleAuthProvider);
-      User? user = userCredential.user;
-
-      if (user != null) {
-        setState(() {
-          _user = user;
-          print("data_user: ${_user}");
-        });
-      } else {
-        print("User is null");
-      }
-    } catch (error) {
-      print(error);
-    }
   }
 }

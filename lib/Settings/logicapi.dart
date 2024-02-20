@@ -23,7 +23,7 @@ class LogicApi {
   String processAccess = "";
   String token = "";
   String ID = "";
-  String authorizationToken = 'MTIzNDUxOldlbGhhbjo2MjgxMjk2MDIzMDUx';
+
 
   ///Send Otp
   sendOTPDefault(context, String phone) async {
@@ -217,43 +217,6 @@ class LogicApi {
     }
   }
 
-/*
-  Future<void> verifyOTPRegistrasi(context, String hasilEncode) async {
-    final FlutterSecureStorage secureStorage = FlutterSecureStorage();
-
-    final response = await http.post(
-      Uri.parse(constant.urlAPi + constant.verifyOTP),
-      // Ganti URL dengan URL endpoint Flask Anda
-
-      headers: {'Authorization': 'Bearer $hasilEncode'},
-    );
-
-    if (response.statusCode == 200) {
-      var jsonResponse = json.decode(response.body);
-
-      if (jsonResponse != null) {
-        statusresponse = jsonResponse['status'];
-        messageresponse = jsonResponse['message'];
-      }
-
-      if (statusresponse == "success") {
-        ID = jsonResponse['data']['id'];
-        token = jsonResponse['data']['token'];
-
-        await secureStorage.write(key: 'ID', value: ID);
-        await secureStorage.write(key: 'token', value: token);
-
-        Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(
-                builder: (BuildContext context) => const InputName()),
-            (Route<dynamic> route) => false);
-      }
-    } else if (response.statusCode == 400) {
-      print('message: ${jsonDecode(response.body)['message']}');
-    }
-  }
-*/
-
   Future<void> verifyLogin(context, String hasilEncode, String process) async {
     final response = await http.post(
       Uri.parse(constant.urlAPi + constant.verifyOTP),
@@ -390,9 +353,10 @@ class LogicApi {
 
     RegExp emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
     RegExp numberRegex = RegExp(r'^[0-9]+$');
-
+    String? email;
     if (emailRegex.hasMatch(users)) {
       await secureStorage.write(key: 'email', value: users);
+      email = users;
     } else if (numberRegex.hasMatch(users)) {
       await secureStorage.write(key: 'nomorHp', value: users);
     }
@@ -418,12 +382,31 @@ class LogicApi {
 
       sharedPreferences.setString("process_steps", processAccess);
 
-      print(ID);
+
       await secureStorage.write(key: 'ID', value: ID);
 
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (BuildContext context) => OTPLogin()),
-              (Route<dynamic> route) => true);
+
+      if (email != null) {
+        if (processAccess == "1") {
+          Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(builder: (BuildContext context) => InputName()),
+                  (Route<dynamic> route) => true);
+        } else if (processAccess == "2") {
+          Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(
+                  builder: (BuildContext context) => SettingPIN()),
+                  (Route<dynamic> route) => true);
+        } else if (processAccess == "3") {
+          Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(builder: (BuildContext context) => PINLogin()),
+                  (Route<dynamic> route) => true);
+        }
+      }
+      else {
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (BuildContext context) => OTPLogin()),
+                (Route<dynamic> route) => true);
+      }
     } else if (response.statusCode == 202) {
       var jsonResponse = json.decode(response.body);
 
@@ -526,4 +509,6 @@ class LogicApi {
       print('message: ${jsonDecode(response.body)['message']}');
     }
   }
+
+
 }

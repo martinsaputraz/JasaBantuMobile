@@ -194,9 +194,12 @@ class _OTPPagesState extends State<OTPPages> {
                         textRotate =
                             storedNoHp! + constant.delimeterRegistration + pin;
 
-                        rotatedText = Rotasi.rotateText(textRotate, 15);
-
-                        data_nilai = base64Encode(utf8.encode(rotatedText));
+                        rotatedText =
+                            Rotasi.rotateText(textRotate, constant.ROT_NUM);
+                        data_nilai = constant.PREFIX_KEY +
+                            constant.ROT_NUM.toString() +
+                            constant.backprefix +
+                            base64Encode(utf8.encode(rotatedText));
                       });
 
                       if (pin.length == 6) {

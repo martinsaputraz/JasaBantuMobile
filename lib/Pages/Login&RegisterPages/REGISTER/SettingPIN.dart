@@ -65,7 +65,6 @@ class _SettingPINState extends State<SettingPIN> {
       body: Center(
         child: Column(
           children: [
-
             /// ICON
             Container(
               child: Image.asset(
@@ -92,10 +91,10 @@ class _SettingPINState extends State<SettingPIN> {
               padding: const EdgeInsets.fromLTRB(20, 5, 20, 20),
               child: Text(
                 'PIN akan digunakan untuk hal penting seperti\n'
-                    'masuk ke akun, bertransaksi, dll',
+                'masuk ke akun, bertransaksi, dll',
                 textAlign: TextAlign.center,
                 style:
-                TextStyle(fontSize: 15, color: assetsColor.textSetPINArea),
+                    TextStyle(fontSize: 15, color: assetsColor.textSetPINArea),
               ),
             ),
 
@@ -110,10 +109,7 @@ class _SettingPINState extends State<SettingPIN> {
                     obscureText: true,
                     keyboardType: TextInputType.number,
                     length: 6,
-                    width: MediaQuery
-                        .of(context)
-                        .size
-                        .width,
+                    width: MediaQuery.of(context).size.width,
                     textFieldAlignment: MainAxisAlignment.spaceAround,
                     fieldWidth: 40,
                     fieldStyle: FieldStyle.box,
@@ -124,8 +120,7 @@ class _SettingPINState extends State<SettingPIN> {
                         setState(() {
                           setPinSimpan = pin;
                         });
-                      }
-                      else {
+                      } else {
                         print("heloworld");
                       }
                     },
@@ -144,15 +139,19 @@ class _SettingPINState extends State<SettingPIN> {
               child: Center(
                 child: ElevatedButton(
                   onPressed: () async {
-                    if (setPinSimpan == "") {} else {
+                    if (setPinSimpan == "") {
+                    } else {
                       setState(() {
                         textRotate = ID! +
                             constant.delimeterRegistration +
                             setPinSimpan!;
 
-                        rotatedText = Rotasi.rotateText(textRotate, 15);
-                        data_nilai = base64Encode(utf8.encode(rotatedText));
-                        print(data_nilai);
+                        rotatedText =
+                            Rotasi.rotateText(textRotate, constant.ROT_NUM);
+                        data_nilai = constant.PREFIX_KEY +
+                            constant.ROT_NUM.toString() +
+                            constant.backprefix +
+                            base64Encode(utf8.encode(rotatedText));
                       });
 
                       logicApi.setPIN(context, data_nilai);
