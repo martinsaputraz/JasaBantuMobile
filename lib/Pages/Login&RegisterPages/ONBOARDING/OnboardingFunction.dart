@@ -129,7 +129,7 @@ class OnBoardingFunctionState extends State<OnBoardingFunction> {
                                 controller: _pageController,
                                 count: widget.totalPage,
                                 effect: ExpandingDotsEffect(
-                                  activeDotColor: assetsColor.indicatorSlide,
+                                  activeDotColor: assetsColor.indicatorWhite,
                                   dotColor: Colors.white,
                                   dotHeight: 10,
                                   dotWidth: 10,

@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:jasa_bantu/Assets/AssetsColor.dart';
 import 'package:jasa_bantu/Pages/Login&RegisterPages/FORGET_PIN/ForgetPIN.dart';
+import 'package:jasa_bantu/assets/AssetsColor.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
 
@@ -33,9 +33,9 @@ class _PINLoginState extends State<PINLogin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: assetsColor.bgSettingPINPages,
+      backgroundColor: assetsColor.bgLightMode,
       appBar: AppBar(
-        backgroundColor: assetsColor.bgSettingPINPages,
+        backgroundColor: assetsColor.bgLightMode,
         title: const Text(
           'Masuk',
           style: TextStyle(fontSize: 20),
@@ -52,7 +52,7 @@ class _PINLoginState extends State<PINLogin> {
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
-                    color: assetsColor.textSetPINArea),
+                    color: assetsColor.textBlack),
               ),
             ),
 
@@ -101,16 +101,16 @@ class _PINLoginState extends State<PINLogin> {
                           builder: (context) => const ForgetPIN()));
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: assetsColor.buttonForgetPIN,
-                  side: BorderSide(color: assetsColor.borderForgetPINButton),
+                  backgroundColor: assetsColor.buttonWhite,
+                  side: BorderSide(color: assetsColor.borderDefault),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5.0)),
                 ),
                 icon: Icon(Icons.live_help_outlined,
-                    color: assetsColor.textForgetPINButton),
+                    color: assetsColor.textBlack),
                 label: Text(
                   'Lupa PIN?',
-                  style: TextStyle(color: assetsColor.textForgetPINButton),
+                  style: TextStyle(color: assetsColor.textBlack),
                 ),
               ),
             ),

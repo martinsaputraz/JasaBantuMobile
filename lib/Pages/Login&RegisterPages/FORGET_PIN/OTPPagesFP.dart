@@ -1,12 +1,15 @@
 import 'dart:async';
+import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:jasa_bantu/Assets/AssetsColor.dart';
 import 'package:jasa_bantu/Pages/Login&RegisterPages/FORGET_PIN/NewPIN.dart';
+import 'package:jasa_bantu/Pages/Login&RegisterPages/LOGIN/LoginPages.dart';
 import 'package:jasa_bantu/Pages/Login&RegisterPages/REGISTER/ModalBottomOTPContent.dart';
+import 'package:jasa_bantu/Pages/Login&RegisterPages/ResendOTPButtonFunction.dart';
+import 'package:jasa_bantu/Settings/rotasi.dart';
+import 'package:jasa_bantu/assets/AssetsColor.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
 
@@ -23,7 +26,7 @@ class _OTPPagesFPState extends State<OTPPagesFP> {
   //
 
   ///FOR 'OTP'
-  OtpFieldController otpController = OtpFieldController();
+  OtpFieldController otpFPController = OtpFieldController();
 
   /// FOR BUTTON "RESEND OTP"
   bool isResendOTPPressed = false;
@@ -40,9 +43,21 @@ class _OTPPagesFPState extends State<OTPPagesFP> {
   bool sendOTPViaSMS = false;
   bool sendOTPViaWhatsApp = false;
 
+  String? storedNoHp;
+  String rotatedText = "";
+  String textRotate = "";
+  String data_nilai = "";
+  String process = "";
+
   @override
   void initState() {
     super.initState();
+
+/*
+    setState(() {
+      process =
+    });
+*/
 
     // Set waktu akhir, contoh 1 menit dari waktu sekarang
     endTime = DateTime.now().add(const Duration(minutes: 1));
@@ -78,9 +93,9 @@ class _OTPPagesFPState extends State<OTPPagesFP> {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: assetsColor.bgOTPPages,
+      backgroundColor: assetsColor.bgLightMode,
       appBar: AppBar(
-        backgroundColor: assetsColor.bgOTPPages,
+        backgroundColor: assetsColor.bgLightMode,
         title: const Text(
           'Verifikasi',
           style: TextStyle(fontSize: 20),
@@ -94,16 +109,16 @@ class _OTPPagesFPState extends State<OTPPagesFP> {
                     MaterialPageRoute(builder: (context) => const NewPIN()));
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: assetsColor.buttonHelpButton,
-                side: BorderSide(color: assetsColor.borderHelpButton),
+                backgroundColor: assetsColor.buttonWhite,
+                side: BorderSide(color: assetsColor.borderDefault),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5.0)),
               ),
-              icon: Icon(Icons.live_help_outlined,
-                  color: assetsColor.textHelpButton),
+              icon:
+                  Icon(Icons.live_help_outlined, color: assetsColor.textBlack),
               label: Text(
                 'Bantuan',
-                style: TextStyle(color: assetsColor.textHelpButton),
+                style: TextStyle(color: assetsColor.textBlack),
               ),
             ),
           ),
@@ -120,7 +135,7 @@ class _OTPPagesFPState extends State<OTPPagesFP> {
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
-                    color: assetsColor.textOTPArea),
+                    color: assetsColor.textBlack),
               ),
             ),
 
@@ -130,7 +145,7 @@ class _OTPPagesFPState extends State<OTPPagesFP> {
               child: Text(
                 'Cek kotak pesan SMS kamu untuk melihat kode\nOTP yang kami kirimkan ke nomor',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 15, color: assetsColor.textOTPArea),
+                style: TextStyle(fontSize: 15, color: assetsColor.textBlack),
               ),
             ),
 
@@ -143,7 +158,7 @@ class _OTPPagesFPState extends State<OTPPagesFP> {
                 style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
-                    color: assetsColor.textOTPArea),
+                    color: assetsColor.textPrimary),
               ),
             ),
 
@@ -154,7 +169,7 @@ class _OTPPagesFPState extends State<OTPPagesFP> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   OTPTextField(
-                    controller: otpController,
+                    controller: otpFPController,
                     obscureText: true,
                     keyboardType: TextInputType.number,
                     length: 6,
@@ -165,12 +180,18 @@ class _OTPPagesFPState extends State<OTPPagesFP> {
                     outlineBorderRadius: 5,
                     style: const TextStyle(fontSize: 15),
                     onChanged: (pin) {
-                      if (kDebugMode) {
-                        print("Changed: $pin");
+                      setState(() {
+                        textRotate =
+                            storedNoHp! + constant.delimeterRegistration + pin;
+
+                        rotatedText = Rotasi.rotateText(textRotate, 15);
+
+                        data_nilai = base64Encode(utf8.encode(rotatedText));
+                      });
+
+                      if (pin.length == 6) {
+                        logicApi.verifyLogin(context, data_nilai, process);
                       }
-                      // if (pin.isEmpty) {
-                      //   FocusScope.of(context).previousFocus();
-                      // }
                     },
                     onCompleted: (pin) {
                       if (kDebugMode) {
@@ -184,55 +205,16 @@ class _OTPPagesFPState extends State<OTPPagesFP> {
 
             Container(
               padding: const EdgeInsets.fromLTRB(50, 30, 50, 0),
-              child: ElevatedButton(
-                onPressed: () {
-                  // Set state saat tombol ditekan
-                  setState(() {
-                    isResendOTPPressed = true;
-                  });
-
-                  Future.delayed(const Duration(minutes: 1), () {
-                    setState(() {
-                      isResendOTPPressed = false;
-                    });
-                  });
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: isResendOTPPressed
-                      ? assetsColor.buttonResendOTPPressed
-                      : assetsColor.buttonResendOTP,
-                  side: BorderSide(
-                      color: isResendOTPPressed
-                          ? assetsColor.borderResendOTPPressed
-                          : assetsColor.borderResendOTP),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
+              child: OtpTimerButtonFunction(
+                height: 40,
+                onPressed: () {},
+                text: const Text(
+                  'Kirim Ulang',
+                  style: TextStyle(color: Colors.white, fontSize: 15),
                 ),
-                child: isResendOTPPressed
-                    ? Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const CupertinoActivityIndicator(),
-                          const SizedBox(width: 10),
-                          Text(
-                            'Kirim Ulang',
-                            style: TextStyle(
-                                color: assetsColor.textResendOTPButtonPressed),
-                          ),
-                          const SizedBox(width: 10),
-                          Text(
-                            _formatDuration(remainingTime),
-                            style: TextStyle(
-                                color: assetsColor.textResendOTPButtonPressed),
-                          ),
-                        ],
-                      )
-                    : Text(
-                        'Kirim Ulang OTP',
-                        style:
-                            TextStyle(color: assetsColor.textResendOTPButton),
-                      ),
+                backgroundColor: assetsColor.buttonPrimary,
+                duration: 120,
+                radius: 5,
               ),
             ),
 
@@ -248,8 +230,8 @@ class _OTPPagesFPState extends State<OTPPagesFP> {
                     padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
                     child: Text(
                       'Kode OTP tidak masuk? Gunakan cara lain',
-                      style: TextStyle(
-                          fontSize: 15, color: assetsColor.textOTPArea),
+                      style:
+                          TextStyle(fontSize: 15, color: assetsColor.textBlack),
                     ),
                   ),
 
@@ -280,10 +262,9 @@ class _OTPPagesFPState extends State<OTPPagesFP> {
                               );
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor:
-                                  assetsColor.buttonOtpMethodButton,
-                              side: BorderSide(
-                                  color: assetsColor.borderOtpMethodButton),
+                              backgroundColor: assetsColor.buttonWhite,
+                              side:
+                                  BorderSide(color: assetsColor.borderDefault),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(5.0)),
                             ),
@@ -301,7 +282,7 @@ class _OTPPagesFPState extends State<OTPPagesFP> {
                                             : Icons.message_outlined,
                                         color: sendOTPViaWhatsApp
                                             ? Colors.lightGreen
-                                            : assetsColor.textOTPArea,
+                                            : assetsColor.textBlack,
                                         size: 20,
                                       ),
                                     ),
@@ -310,13 +291,13 @@ class _OTPPagesFPState extends State<OTPPagesFP> {
                                           ? 'OTP dikirim ke WhatsApp'
                                           : 'OTP dikirim ke SMS',
                                       style: TextStyle(
-                                          color: assetsColor.textOTPArea),
+                                          color: assetsColor.textBlack),
                                     ),
                                   ],
                                 ),
                                 Icon(
                                   Icons.expand_more,
-                                  color: assetsColor.textOTPArea,
+                                  color: assetsColor.textBlack,
                                 ),
                               ],
                             ),

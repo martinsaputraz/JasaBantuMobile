@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:jasa_bantu/assets/AssetsColor.dart';
+
+AssetsColor assetsColor = AssetsColor();
 
 class PromotionCard extends StatefulWidget {
   const PromotionCard({super.key});
@@ -13,28 +16,32 @@ class _PromotionCardState extends State<PromotionCard> {
     {
       'promotionCardTitle': 'Salon Anabul Kesayangan',
       'promotionCardPromoType': 'Promo 50%',
-      'promotionCardImagePath': 'assets/images/Ads(1).jpg',
+      'promotionCardImagePath':
+          'assets/images/PromoGridContent/PromoGrid(1).png',
       'promotionCardColorBox': Colors.blue,
       'promotionCardBGColor': Colors.blue[50],
     },
     {
       'promotionCardTitle': 'Salon Anabul Kesayangan',
       'promotionCardPromoType': 'Gratis Ongkir',
-      'promotionCardImagePath': 'assets/images/Ads(1).jpg',
+      'promotionCardImagePath':
+          'assets/images/PromoGridContent/PromoGrid(2).png',
       'promotionCardColorBox': Colors.deepOrange,
       'promotionCardBGColor': Colors.deepOrange[50],
     },
     {
       'promotionCardTitle': 'Salon Anabul Kesayangan',
       'promotionCardPromoType': 'Promo 50%',
-      'promotionCardImagePath': 'assets/images/Ads(1).jpg',
+      'promotionCardImagePath':
+          'assets/images/PromoGridContent/PromoGrid(3).png',
       'promotionCardColorBox': Colors.amber,
       'promotionCardBGColor': Colors.amber[50],
     },
     {
       'promotionCardTitle': 'Salon Anabul Kesayangan',
       'promotionCardPromoType': 'Promo 50%',
-      'promotionCardImagePath': 'assets/images/Ads(1).jpg',
+      'promotionCardImagePath':
+          'assets/images/PromoGridContent/PromoGrid(4).png',
       'promotionCardColorBox': Colors.green,
       'promotionCardBGColor': Colors.green[50],
     },
@@ -45,7 +52,7 @@ class _PromotionCardState extends State<PromotionCard> {
     return Container(
       height: 230,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: assetsColor.bgLightMode,
       ),
       padding: const EdgeInsets.all(10),
       child: GridView.builder(
@@ -107,8 +114,8 @@ class _PromotionCardState extends State<PromotionCard> {
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           softWrap: true,
-                          style: const TextStyle(
-                            color: Colors.white,
+                          style: TextStyle(
+                            color: assetsColor.textWhite,
                             fontSize: 10,
                           ),
                         ),
@@ -120,13 +127,13 @@ class _PromotionCardState extends State<PromotionCard> {
                   ),
                   Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
+                      borderRadius: BorderRadius.circular(50),
                     ),
                     child: Image.asset(
                       promotionCardData[index]['promotionCardImagePath'],
                       fit: BoxFit.cover,
                       height: 100,
-                      width: 60,
+                      width: 50,
                     ),
                   ),
                 ],
