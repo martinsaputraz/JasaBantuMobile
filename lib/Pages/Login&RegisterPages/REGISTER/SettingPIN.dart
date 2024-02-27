@@ -2,11 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:jasa_bantu/Assets/AssetsColor.dart';
-import 'package:jasa_bantu/Pages/Login&RegisterPages/ONBOARDING/OnboardingPages.dart';
 import 'package:jasa_bantu/Settings/constant.dart';
 import 'package:jasa_bantu/Settings/logicapi.dart';
 import 'package:jasa_bantu/Settings/rotasi.dart';
+import 'package:jasa_bantu/assets/AssetsColor.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
 
@@ -25,7 +24,7 @@ class _SettingPINState extends State<SettingPIN> {
 
   ///FOR 'OTP'
   OtpFieldController setPINController = OtpFieldController();
-  final FlutterSecureStorage secureStorage = FlutterSecureStorage();
+  final FlutterSecureStorage secureStorage = const FlutterSecureStorage();
   Constant constant = Constant();
 
   String? ID;
@@ -54,9 +53,9 @@ class _SettingPINState extends State<SettingPIN> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: assetsColor.bgSettingPINPages,
+      backgroundColor: assetsColor.bgLightMode,
       appBar: AppBar(
-        backgroundColor: assetsColor.bgSettingPINPages,
+        backgroundColor: assetsColor.bgLightMode,
         title: const Text(
           'Atur PIN',
           style: TextStyle(fontSize: 20),
@@ -67,10 +66,16 @@ class _SettingPINState extends State<SettingPIN> {
           children: [
             /// ICON
             Container(
-              child: Image.asset(
-                assetsIcon.iconNewpin,
-                width: 100,
-                height: 100,
+              height: 100,
+              width: 100,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: assetsColor.primaryColor,
+              ),
+              child: Icon(
+                Icons.password,
+                size: 50,
+                color: assetsColor.textWhite,
               ),
             ),
 
@@ -82,7 +87,7 @@ class _SettingPINState extends State<SettingPIN> {
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
-                    color: assetsColor.textSetPINArea),
+                    color: assetsColor.textBlack),
               ),
             ),
 
@@ -93,8 +98,7 @@ class _SettingPINState extends State<SettingPIN> {
                 'PIN akan digunakan untuk hal penting seperti\n'
                 'masuk ke akun, bertransaksi, dll',
                 textAlign: TextAlign.center,
-                style:
-                    TextStyle(fontSize: 15, color: assetsColor.textSetPINArea),
+                style: TextStyle(fontSize: 15, color: assetsColor.textBlack),
               ),
             ),
 
@@ -158,7 +162,7 @@ class _SettingPINState extends State<SettingPIN> {
                     }
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: assetsColor.buttonSavePIN,
+                    backgroundColor: assetsColor.buttonPrimary,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5.0),
                     ),
@@ -171,7 +175,7 @@ class _SettingPINState extends State<SettingPIN> {
                         // '& Selesai'
                         ,
                         style: TextStyle(
-                            color: assetsColor.textSavePINButton, fontSize: 18),
+                            color: assetsColor.textWhite, fontSize: 18),
                       ),
                     ],
                   ),

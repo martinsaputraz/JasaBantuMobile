@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:jasa_bantu/assets/AssetsColor.dart';
+
+AssetsColor assetsColor = AssetsColor();
 
 class VendorCard extends StatefulWidget {
   const VendorCard({Key? key}) : super(key: key);
@@ -11,24 +14,30 @@ class VendorCard extends StatefulWidget {
 class _VendorCardState extends State<VendorCard> {
   List<Map<String, dynamic>> vendorCardData = [
     {
-      'vendorCardBannerPict': 'assets/images/Background_DiscountCard(1).jpg',
-      'vendorCardProfilePict': 'assets/images/Background_DiscountCard(1).jpg',
+      'vendorCardBannerPict':
+          'assets/images/CardImages/CardContent_Banner(9).png',
+      'vendorCardProfilePict':
+          'assets/images/CardImages/CardContent_Profile(9).png',
       'vendorCardTitle': 'Anika Service Lifestyle',
       'vendorCardLocation': 'Jakarta Barat',
       'vendorCardRating': '4.9',
       'vendorCardTotalFollowers': '500+',
     },
     {
-      'vendorCardBannerPict': 'assets/images/Background_DiscountCard(1).jpg',
-      'vendorCardProfilePict': 'assets/images/Background_DiscountCard(1).jpg',
+      'vendorCardBannerPict':
+          'assets/images/CardImages/CardContent_Banner(8).png',
+      'vendorCardProfilePict':
+          'assets/images/CardImages/CardContent_Profile(8).png',
       'vendorCardTitle': 'Fleify Landscape',
       'vendorCardLocation': 'Surabaya',
       'vendorCardRating': '4.6',
       'vendorCardTotalFollowers': '6,2K+',
     },
     {
-      'vendorCardBannerPict': 'assets/images/Background_DiscountCard(1).jpg',
-      'vendorCardProfilePict': 'assets/images/Background_DiscountCard(1).jpg',
+      'vendorCardBannerPict':
+          'assets/images/CardImages/CardContent_Banner(7).png',
+      'vendorCardProfilePict':
+          'assets/images/CardImages/CardContent_Profile(7).png',
       'vendorCardTitle': 'Jennifer Andrea',
       'vendorCardLocation': 'Tangerang Selatan',
       'vendorCardRating': '4.7',
@@ -52,13 +61,19 @@ class _VendorCardState extends State<VendorCard> {
                 padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
                 child: Column(
                   children: [
-                    const Row(
+                    Row(
                       children: [
-                        Icon(Icons.shopping_bag_outlined),
-                        SizedBox(width: 5),
+                        Icon(
+                          Icons.shopping_bag_outlined,
+                          color: assetsColor.textPrimary,
+                        ),
+                        const SizedBox(width: 5),
                         Text(
                           'Vendor',
-                          style: TextStyle(fontSize: 20),
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: assetsColor.textPrimary,
+                          ),
                         ),
                       ],
                     ),
@@ -66,12 +81,12 @@ class _VendorCardState extends State<VendorCard> {
                     const Row(
                       children: [
                         Text(
-                          'Vendor pilihan untuk kebutuhanmu',
+                          'Vendor pilihan untuk kebutuhanmu 🤩',
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),
-                        SizedBox(width: 5),
-                        Icon(Icons.star),
+                        // SizedBox(width: 5),
+                        // Icon(Icons.star),
                       ],
                     ),
                     Container(
@@ -216,7 +231,7 @@ class SurroundingServicesWidget extends StatelessWidget {
                 maxWidth: 150,
               ),
               decoration: BoxDecoration(
-                color: Colors.black12,
+                color: Colors.grey[200],
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Row(

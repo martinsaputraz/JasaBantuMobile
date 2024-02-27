@@ -32,7 +32,6 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   final PackageInfo packageInfo;
 
-
   _MyAppState({required this.packageInfo});
 
   @override
@@ -43,7 +42,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         // colorScheme: ColorScheme.fromSeed(seedColor: Colors.black87),
         useMaterial3: true,
-        indicatorColor: assetsColor.indicatorColor,
+        indicatorColor: assetsColor.primaryColor,
         inputDecorationTheme: const InputDecorationTheme(),
       ),
       home: SplashScreen(packageInfo: packageInfo),

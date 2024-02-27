@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:jasa_bantu/Assets/AssetsColor.dart';
+import 'package:jasa_bantu/Pages/DASHBOARD/HOMEPAGES/ArticleContent.dart';
 import 'package:jasa_bantu/Pages/DASHBOARD/HOMEPAGES/DiscountCard.dart';
 import 'package:jasa_bantu/Pages/DASHBOARD/HOMEPAGES/GridMenu.dart';
+import 'package:jasa_bantu/Pages/DASHBOARD/HOMEPAGES/HelpPages.dart';
 import 'package:jasa_bantu/Pages/DASHBOARD/HOMEPAGES/ImagesAds.dart';
 import 'package:jasa_bantu/Pages/DASHBOARD/HOMEPAGES/MyCurrentLocation.dart';
 import 'package:jasa_bantu/Pages/DASHBOARD/HOMEPAGES/ProgressCard.dart';
@@ -10,6 +11,7 @@ import 'package:jasa_bantu/Pages/DASHBOARD/HOMEPAGES/SliderDiscount.dart';
 import 'package:jasa_bantu/Pages/DASHBOARD/HOMEPAGES/SliderImages.dart';
 import 'package:jasa_bantu/Pages/DASHBOARD/HOMEPAGES/SurroundingServicesCard.dart';
 import 'package:jasa_bantu/Pages/DASHBOARD/HOMEPAGES/VendorCard.dart';
+import 'package:jasa_bantu/assets/AssetsColor.dart';
 
 AssetsColor assetsColor = AssetsColor();
 
@@ -26,39 +28,59 @@ class _HomePagesState extends State<HomePages> {
 
   @override
   Widget build(BuildContext context) {
-    final deviceSize = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.white30,
+      backgroundColor: assetsColor.bgGrey,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60.0),
         child: AppBar(
+          backgroundColor: assetsColor.bgLightMode,
           automaticallyImplyLeading: false,
           title: Row(
             children: [
               Expanded(
                 child: Container(
                   width: double.infinity,
-                  height: 50,
+                  height: 45,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: Colors.black12,
+                    color: assetsColor.bgGrey200,
                   ),
-                  child: TextField(
-                    controller: searchHomePagesController,
-                    keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                      hintText: 'Cari di Jasa Bantu...',
-                      border: InputBorder.none,
-                      prefixIcon:
-                          const Icon(Icons.search, color: Colors.black45),
-                      suffixIcon: IconButton(
-                        icon: const Icon(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          controller: searchHomePagesController,
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                            hintText: 'Cari di Jasa Bantu...',
+                            hintStyle: TextStyle(
+                              color: assetsColor.hintText,
+                              fontWeight: FontWeight.normal,
+                              fontSize: 15,
+                            ),
+                            border: InputBorder.none,
+                            prefixIcon:
+                                Icon(Icons.search, color: assetsColor.hintText),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        height: 30,
+                        // Atur tinggi garis sesuai kebutuhan
+                        width: 1.0,
+                        // Lebar garis, Anda bisa atur sesuai kebutuhan
+                        color: assetsColor.hintText, // Warna garis
+                      ),
+                      IconButton(
+                        icon: Icon(
                           Icons.qr_code_scanner,
-                          color: Colors.black45,
+                          color: assetsColor.hintText,
                         ),
                         onPressed: () {},
                       ),
-                    ),
+                    ],
                   ),
                 ),
               ),
@@ -67,30 +89,30 @@ class _HomePagesState extends State<HomePages> {
           actions: [
             IconButton(
               onPressed: () {},
-              icon: const Icon(
-                Icons.local_mall_outlined,
-                color: Colors.black45,
-              ),
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(
+              icon: Icon(
                 Icons.receipt_outlined,
-                color: Colors.black45,
+                color: assetsColor.hintText,
               ),
             ),
             // IconButton(
             //   onPressed: () {},
-            //   icon: const Icon(
+            //   icon: Icon(
             //     Icons.notifications,
-            //     color: Colors.black45,
+            //     color: assetsColor.hintText,
             //   ),
             // ),
             IconButton(
               onPressed: () {},
-              icon: const Icon(
+              icon: Icon(
+                Icons.local_mall_outlined,
+                color: assetsColor.hintText,
+              ),
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: Icon(
                 Icons.menu_outlined,
-                color: Colors.black45,
+                color: assetsColor.hintText,
               ),
             ),
           ],
@@ -122,7 +144,7 @@ class _HomePagesState extends State<HomePages> {
           /// IMAGES ADS
           ImagesAds(),
 
-          // /// RECOMMENDED GRID SERVICES CARD
+          /// RECOMMENDED GRID SERVICES CARD
           // RecommendedServices(),
 
           /// VENDOR CARD
@@ -134,11 +156,13 @@ class _HomePagesState extends State<HomePages> {
           /// SLIDER ADS
           SliderDiscount(),
 
+          SizedBox(height: 10),
+
           /// ARTICLE CONTENT
-          // const ArticleContent(),
-          //
-          // /// HELP SERVICES
-          // const HelpPages(),
+          ArticleContent(),
+
+          /// HELP SERVICES
+          HelpPages(),
           //
         ],
       ),

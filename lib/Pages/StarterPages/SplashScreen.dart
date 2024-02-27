@@ -1,52 +1,66 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:jasa_bantu/Assets/AssetsColor.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:jasa_bantu/Pages/Login&RegisterPages/ONBOARDING/OnboardingPages.dart';
 import 'package:jasa_bantu/Settings/constant.dart';
+import 'package:jasa_bantu/assets/AssetsColor.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 AssetsColor assetsColor = AssetsColor();
 Constant constant = Constant();
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
   final PackageInfo packageInfo;
 
   const SplashScreen({Key? key, required this.packageInfo}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    Future.delayed(
-      const Duration(seconds: 3),
-      () {
-        Navigator.pushReplacement(
-          context,
-          PageRouteBuilder(
-            pageBuilder: (context, animation, secondaryAnimation) =>
-                const OnboardingPages(),
-            transitionsBuilder:
-                (context, animation, secondaryAnimation, child) {
-              const begin = Offset(1.0, 0.0);
-              const end = Offset.zero;
-              const curve = Curves.easeIn;
-              var tween = Tween(begin: begin, end: end).chain(
-                CurveTween(curve: curve),
-              );
+  _SplashScreenState createState() => _SplashScreenState();
+}
 
-              var offsetAnimation = animation.drive(tween);
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+    _navigateToNextScreen();
+    initialization();
+  }
 
-              return SlideTransition(
-                position: offsetAnimation,
-                child: child,
-              );
-            },
-          ),
-        );
-      },
+  void initialization() async {
+    FlutterNativeSplash.remove();
+  }
+
+  Future<void> _navigateToNextScreen() async {
+    await Future.delayed(const Duration(seconds: 3));
+    Navigator.pushReplacement(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            const OnboardingPages(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          const begin = Offset(1.0, 0.0);
+          const end = Offset.zero;
+          const curve = Curves.easeIn;
+          var tween = Tween(begin: begin, end: end).chain(
+            CurveTween(curve: curve),
+          );
+
+          var offsetAnimation = animation.drive(tween);
+
+          return SlideTransition(
+            position: offsetAnimation,
+            child: child,
+          );
+        },
+      ),
     );
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: assetsColor.bgSplashScreen,
+      backgroundColor: assetsColor.primaryColor,
       body: Center(
         child: Column(
           children: [
@@ -54,7 +68,7 @@ class SplashScreen extends StatelessWidget {
             Container(
               margin: const EdgeInsets.only(top: 150, bottom: 10),
               child: Image.asset(
-                assetsLogo.assetsLogo,
+                assetsLogo.jbLogoSloganWhite,
                 width: 250,
                 height: 100,
               ),
@@ -71,14 +85,14 @@ class SplashScreen extends StatelessWidget {
               child: Column(
                 children: [
                   Text(
-                    'Versi ${packageInfo.version} (Alpha)',
+                    'Versi ${widget.packageInfo.version} (Alpha)',
                     textAlign: TextAlign.center,
-                    style: TextStyle(color: assetsColor.textSplashScreen),
+                    style: TextStyle(color: assetsColor.textWhite),
                   ),
                   Text(
                     constant.namaPT,
                     textAlign: TextAlign.center,
-                    style: TextStyle(color: assetsColor.textSplashScreen),
+                    style: TextStyle(color: assetsColor.textWhite),
                   ),
                 ],
               ),

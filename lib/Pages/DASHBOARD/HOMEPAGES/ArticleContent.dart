@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:jasa_bantu/assets/AssetsColor.dart';
+
+AssetsColor assetsColor = AssetsColor();
 
 class ArticleContent extends StatefulWidget {
   const ArticleContent({Key? key}) : super(key: key);
@@ -12,19 +15,19 @@ class _ArticleContentState extends State<ArticleContent> {
     {
       'articleTitle': 'Apa itu efek rumah kaca? Dampak dan Penyebabnya',
       'articleCategory': 'Rumah',
-      'articleImages': 'assets/images/Background_DiscountCard(1).jpg',
+      'articleImages': 'assets/images/ArticlePages/Article(1).png',
       'articleRoutes': '/articleRoutes',
     },
     {
       'articleTitle': 'Hal yang Harus Diperhatikan Kalau Cari Mobil Bekas',
       'articleCategory': 'Kendaraan',
-      'articleImages': 'assets/images/Background_DiscountCard(1).jpg',
+      'articleImages': 'assets/images/ArticlePages/Article(2).png',
       'articleRoutes': '/articleRoutes',
     },
     {
       'articleTitle': 'Ini 10 Tips Perawatan Diri untuk Perempuan',
       'articleCategory': 'Perawatan',
-      'articleImages': 'assets/images/Background_DiscountCard(1).jpg',
+      'articleImages': 'assets/images/ArticlePages/Article(3).png',
       'articleRoutes': '/articleRoutes',
     },
     // Add more data entries as needed
@@ -33,28 +36,31 @@ class _ArticleContentState extends State<ArticleContent> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // constraints: const BoxConstraints(
-      //   maxHeight: 300,
-      // ),
+      padding: const EdgeInsets.only(top: 10),
+      constraints: const BoxConstraints(
+        maxHeight: 620,
+      ),
       decoration: const BoxDecoration(
         color: Colors.white,
-
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-
           /// ARTICLE TITLE CONTENT
           Container(
             padding: const EdgeInsets.fromLTRB(20, 20, 20, 5),
-            child: const Row(
+            child: Row(
               children: [
-                Icon(Icons.menu_book_outlined),
-                SizedBox(width: 5),
+                Icon(
+                  Icons.menu_book_outlined,
+                  color: assetsColor.textPrimary,
+                ),
+                const SizedBox(width: 5),
                 Text(
                   'Artikel',
                   style: TextStyle(
                     fontSize: 18,
+                    color: assetsColor.textPrimary,
                   ),
                 ),
               ],
@@ -80,7 +86,9 @@ class _ArticleContentState extends State<ArticleContent> {
             child: Expanded(
               child: ListView.separated(
                 physics: const NeverScrollableScrollPhysics(),
-                separatorBuilder: (context, index) => const Divider(),
+                separatorBuilder: (context, index) => const Divider(
+                  thickness: 0.1,
+                ),
                 itemCount: articleListViewData.length,
                 itemBuilder: (context, index) {
                   final articleData = articleListViewData[index];
@@ -92,7 +100,7 @@ class _ArticleContentState extends State<ArticleContent> {
                       );
                     },
                     child: Container(
-                      padding: const EdgeInsets.all(20),
+                      padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
                       child: Row(
                         children: [
                           Expanded(
@@ -109,6 +117,7 @@ class _ArticleContentState extends State<ArticleContent> {
                                   ),
                                 ),
                                 Container(
+                                  padding: const EdgeInsets.only(top: 10),
                                   child: Text(
                                     articleData['articleCategory'],
                                     style: const TextStyle(
@@ -138,7 +147,7 @@ class _ArticleContentState extends State<ArticleContent> {
 
           /// BUTTON "LIHAT SEMUA"
           Container(
-            padding: const EdgeInsets.fromLTRB(20, 5, 20, 20),
+            padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
             child: Align(
               alignment: Alignment.centerRight,
               child: TextButton(

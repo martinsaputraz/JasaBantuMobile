@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:jasa_bantu/Assets/AssetsColor.dart';
+import 'package:jasa_bantu/assets/AssetsColor.dart';
 
 AssetsColor assetsColor = AssetsColor();
 
@@ -41,11 +41,11 @@ class _ModalBottomOTPContentState extends State<ModalBottomOTPContent> {
                 });
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: assetsColor.buttonOtpMethodOptButton,
+                backgroundColor: assetsColor.buttonWhite,
                 side: BorderSide(
                     color: _sendOTPViaSMS
-                        ? assetsColor.borderOtpMethodOptButton
-                        : assetsColor.borderOtpMethodOptButtonUnpressed),
+                        ? assetsColor.borderBlack
+                        : assetsColor.borderDefault),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5.0)),
               ),
@@ -58,14 +58,13 @@ class _ModalBottomOTPContentState extends State<ModalBottomOTPContent> {
                         padding: const EdgeInsets.only(right: 20.0),
                         child: Icon(
                           Icons.message_outlined,
-                          color: assetsColor.textOtpMethodOptButton,
+                          color: assetsColor.textBlack,
                           size: 20,
                         ),
                       ),
                       Text(
                         'OTP dikirim ke SMS',
-                        style: TextStyle(
-                            color: assetsColor.textOtpMethodOptButton),
+                        style: TextStyle(color: assetsColor.textBlack),
                       ),
                     ],
                   ),
@@ -73,7 +72,7 @@ class _ModalBottomOTPContentState extends State<ModalBottomOTPContent> {
                     _sendOTPViaSMS
                         ? Icons.radio_button_checked
                         : Icons.radio_button_unchecked_outlined,
-                    color: assetsColor.textOtpMethodOptButton,
+                    color: assetsColor.textBlack,
                   ),
                 ],
               ),
@@ -92,11 +91,11 @@ class _ModalBottomOTPContentState extends State<ModalBottomOTPContent> {
                 });
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: assetsColor.buttonOtpMethodOptButton,
+                backgroundColor: assetsColor.buttonWhite,
                 side: BorderSide(
                     color: _sendOTPViaWhatsApp
-                        ? assetsColor.borderOtpMethodOptButton
-                        : assetsColor.borderOtpMethodOptButtonUnpressed),
+                        ? assetsColor.borderBlack
+                        : assetsColor.borderDefault),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5.0)),
               ),
@@ -115,8 +114,7 @@ class _ModalBottomOTPContentState extends State<ModalBottomOTPContent> {
                       ),
                       Text(
                         'OTP dikirim ke WhatsApp',
-                        style: TextStyle(
-                            color: assetsColor.textOtpMethodOptButton),
+                        style: TextStyle(color: assetsColor.textBlack),
                       ),
                     ],
                   ),
@@ -124,7 +122,7 @@ class _ModalBottomOTPContentState extends State<ModalBottomOTPContent> {
                     _sendOTPViaWhatsApp
                         ? Icons.radio_button_checked
                         : Icons.radio_button_unchecked_outlined,
-                    color: assetsColor.textOtpMethodOptButton,
+                    color: assetsColor.textBlack,
                   ),
                 ],
               ),
@@ -141,7 +139,7 @@ class _ModalBottomOTPContentState extends State<ModalBottomOTPContent> {
                   } else if (_sendOTPViaWhatsApp == true) {}
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: assetsColor.buttonSendOTPCode,
+                  backgroundColor: assetsColor.buttonPrimary,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5.0),
                   ),
@@ -151,9 +149,8 @@ class _ModalBottomOTPContentState extends State<ModalBottomOTPContent> {
                   children: [
                     Text(
                       'Kirim kode OTP',
-                      style: TextStyle(
-                          color: assetsColor.textSentOTPCodeButton,
-                          fontSize: 18),
+                      style:
+                          TextStyle(color: assetsColor.textWhite, fontSize: 18),
                     ),
                   ],
                 ),

@@ -1,8 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:jasa_bantu/Assets/AssetsColor.dart';
 import 'package:jasa_bantu/Pages/DASHBOARD/DashboardPages.dart';
-import 'package:jasa_bantu/Pages/Login&RegisterPages/ONBOARDING/OnboardingPages.dart';
+import 'package:jasa_bantu/assets/AssetsColor.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
 
@@ -34,9 +33,9 @@ class _NewPINState extends State<NewPIN> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: assetsColor.bgSettingPINPages,
+      backgroundColor: assetsColor.bgLightMode,
       appBar: AppBar(
-        backgroundColor: assetsColor.bgSettingPINPages,
+        backgroundColor: assetsColor.bgLightMode,
         title: const Text(
           'Atur PIN',
           style: TextStyle(fontSize: 20),
@@ -47,10 +46,16 @@ class _NewPINState extends State<NewPIN> {
           children: [
             /// ICON
             Container(
-              child: Image.asset(
-                assetsIcon.iconNewpin,
-                width: 100,
-                height: 100,
+              height: 100,
+              width: 100,
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.indigo,
+              ),
+              child: const Icon(
+                Icons.password,
+                size: 50,
+                color: Colors.white,
               ),
             ),
 
@@ -58,11 +63,11 @@ class _NewPINState extends State<NewPIN> {
             Container(
               padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
               child: Text(
-                'Biar PIN baru kamu',
+                'Buat PIN baru kamu',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
-                    color: assetsColor.textSetPINArea),
+                    color: assetsColor.textBlack),
               ),
             ),
 
@@ -73,8 +78,7 @@ class _NewPINState extends State<NewPIN> {
                 'PIN akan digunakan untuk hal penting seperti\n'
                 'masuk ke akun, bertransaksi, dll',
                 textAlign: TextAlign.center,
-                style:
-                    TextStyle(fontSize: 15, color: assetsColor.textSetPINArea),
+                style: TextStyle(fontSize: 15, color: assetsColor.textBlack),
               ),
             ),
 
@@ -130,7 +134,7 @@ class _NewPINState extends State<NewPIN> {
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: assetsColor.buttonSavePIN,
+                    backgroundColor: assetsColor.buttonPrimary,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5.0),
                     ),
@@ -141,7 +145,7 @@ class _NewPINState extends State<NewPIN> {
                       Text(
                         'Simpan PIN & Selesai',
                         style: TextStyle(
-                            color: assetsColor.textSavePINButton, fontSize: 18),
+                            color: assetsColor.textWhite, fontSize: 18),
                       ),
                     ],
                   ),

@@ -2,10 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:jasa_bantu/Assets/AssetsColor.dart';
 import 'package:jasa_bantu/Pages/Login&RegisterPages/LOGIN/LoginPages.dart';
 import 'package:jasa_bantu/Settings/constant.dart';
 import 'package:jasa_bantu/Settings/rotasi.dart';
+import 'package:jasa_bantu/assets/AssetsColor.dart';
 
 AssetsColor assetsColor = AssetsColor();
 
@@ -47,12 +47,12 @@ class _InputNameState extends State<InputName> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: assetsColor.bgRegisterPages,
+      backgroundColor: assetsColor.bgLightMode,
       appBar: AppBar(
-        backgroundColor: assetsColor.bgRegisterPages,
+        backgroundColor: assetsColor.bgLightMode,
         title: Text(
           'Daftar',
-          style: TextStyle(fontSize: 20, color: assetsColor.textRegisterArea),
+          style: TextStyle(fontSize: 20, color: assetsColor.textBlack),
         ),
       ),
       body: Column(
@@ -77,7 +77,7 @@ class _InputNameState extends State<InputName> {
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
-                  color: assetsColor.textRegisterArea),
+                  color: assetsColor.textBlack),
             ),
           ),
 
@@ -88,7 +88,7 @@ class _InputNameState extends State<InputName> {
           //     'Masukkan nomor handphone kamu dan pastikan nomor kamu benar dan aktif',
           //     style: TextStyle(
           //       fontSize: 15,
-          //       color: assetsColor.textRegisterArea,
+          //       color: assetsColor.textBlack,
           //     ),
           //   ),
           // ),
@@ -105,7 +105,7 @@ class _InputNameState extends State<InputName> {
                       borderRadius: BorderRadius.circular(5.0)),
                   labelText: 'Masukkan Nama Kamu',
                   prefixIcon: Icon(Icons.account_circle_outlined,
-                      color: assetsColor.textRegisterArea),
+                      color: assetsColor.hintText),
                 ),
               ),
             ),
@@ -129,16 +129,16 @@ class _InputNameState extends State<InputName> {
 
                     rotatedText =
                         Rotasi.rotateText(textRotate, constant.ROT_NUM);
-                    data_nilai =
-                        constant.PREFIX_KEY + constant.ROT_NUM.toString() +
-                            constant.backprefix +
-                            base64Encode(utf8.encode(rotatedText));
+                    data_nilai = constant.PREFIX_KEY +
+                        constant.ROT_NUM.toString() +
+                        constant.backprefix +
+                        base64Encode(utf8.encode(rotatedText));
 
                     logicApi.setName(context, _inputName.text, data_nilai);
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: assetsColor.buttonNextRegister,
+                  backgroundColor: assetsColor.buttonPrimary,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5.0),
                   ),
@@ -148,8 +148,8 @@ class _InputNameState extends State<InputName> {
                   children: [
                     Text(
                       'Lanjutkan',
-                      style: TextStyle(
-                          color: assetsColor.textNextButton, fontSize: 18),
+                      style:
+                          TextStyle(color: assetsColor.textWhite, fontSize: 18),
                     ),
                   ],
                 ),

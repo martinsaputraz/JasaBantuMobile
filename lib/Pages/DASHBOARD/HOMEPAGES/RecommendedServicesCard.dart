@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:jasa_bantu/assets/AssetsColor.dart';
+
+AssetsColor assetsColor = AssetsColor();
 
 class RecommendedServices extends StatefulWidget {
   const RecommendedServices({Key? key}) : super(key: key);
@@ -21,7 +24,10 @@ class _RecommendedServicesState extends State<RecommendedServices> {
       'recommendCardDiscountPercentage': '40%',
       'recommendCardDiscountedPrice': '275.000',
       'recommendCardRating': '4.9',
-      'recommendCardImagePath': 'assets/images/Background_DiscountCard(1).jpg',
+      'recommendCardBannerImages':
+          'assets/images/CardImages/CardContent_Banner(1).png',
+      'recommendCardProfileImages':
+          'assets/images/CardImages/CardContent_Profile(1).png',
     },
     {
       'recommendCardTitle': 'Again Faster',
@@ -34,7 +40,10 @@ class _RecommendedServicesState extends State<RecommendedServices> {
       'recommendCardDiscountPercentage': '40%',
       'recommendCardDiscountedPrice': '275.000',
       'recommendCardRating': '5.0',
-      'recommendCardImagePath': 'assets/images/Background_DiscountCard(1).jpg',
+      'recommendCardBannerImages':
+          'assets/images/CardImages/CardContent_Banner(4).png',
+      'recommendCardProfileImages':
+          'assets/images/CardImages/CardContent_Profile(4).png',
     },
     {
       'recommendCardTitle': 'Anika Lifestyle Service',
@@ -47,7 +56,10 @@ class _RecommendedServicesState extends State<RecommendedServices> {
       'recommendCardDiscountPercentage': '40%',
       'recommendCardDiscountedPrice': '275.000',
       'recommendCardRating': '4.5',
-      'recommendCardImagePath': 'assets/images/Background_DiscountCard(1).jpg',
+      'recommendCardBannerImages':
+          'assets/images/CardImages/CardContent_Banner(5).png',
+      'recommendCardProfileImages':
+          'assets/images/CardImages/CardContent_Profile(5).png',
     },
     {
       'recommendCardTitle': 'Story Bots',
@@ -60,7 +72,10 @@ class _RecommendedServicesState extends State<RecommendedServices> {
       'recommendCardDiscountPercentage': '40%',
       'recommendCardDiscountedPrice': '275.000',
       'recommendCardRating': '4.4',
-      'recommendCardImagePath': 'assets/images/Background_DiscountCard(1).jpg',
+      'recommendCardBannerImages':
+          'assets/images/CardImages/CardContent_Banner(6).png',
+      'recommendCardProfileImages':
+          'assets/images/CardImages/CardContent_Profile(6).png',
     },
     // Add more data entries as needed
   ];
@@ -70,7 +85,7 @@ class _RecommendedServicesState extends State<RecommendedServices> {
     return Column(
       children: [
         Container(
-          constraints: BoxConstraints(maxHeight: 1000),
+          constraints: const BoxConstraints(maxHeight: 1000),
           padding: const EdgeInsets.fromLTRB(20, 10, 0, 10),
           decoration: const BoxDecoration(
             color: Colors.white,
@@ -80,39 +95,44 @@ class _RecommendedServicesState extends State<RecommendedServices> {
             children: [
               Container(
                 padding: const EdgeInsets.all(5),
-                child: const Row(
+                child: Row(
                   children: [
                     Icon(
                       Icons.star_border,
-                      color: Colors.indigo,
+                      color: assetsColor.textPrimary,
                     ),
-                    SizedBox(width: 5),
+                    const SizedBox(width: 5),
                     Text(
                       'Rekomendasi',
-                      style: TextStyle(fontSize: 18),
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: assetsColor.textPrimary,
+                      ),
                     ),
                   ],
                 ),
               ),
               Container(
-                child: const Text(
+                child: Text(
                   'Jasa yang mungkin kamu butuh',
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
-                      color: Colors.black),
+                      color: assetsColor.textBlack),
                 ),
               ),
               GridView.count(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 crossAxisCount: 2,
+                // crossAxisSpacing: 5,
+                // mainAxisSpacing: 5,
+                // childAspectRatio: 1,
                 children: List.generate(
                   recommendedServicesData.length,
                   (index) => Padding(
                     padding: const EdgeInsets.all(5),
                     child: Flexible(
-                      // Tambahkan Flexible di sini
                       child: SurroundingServicesWidget(
                         cardSurroundingServices: recommendedServicesData[index],
                       ),
@@ -140,8 +160,12 @@ class SurroundingServicesWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: Container(
+        decoration: BoxDecoration(
+          color: assetsColor.bgLightMode,
+        ),
         constraints: const BoxConstraints(
           maxWidth: 180,
+          maxHeight: 500,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -154,7 +178,7 @@ class SurroundingServicesWidget extends StatelessWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(10),
                   child: Image.asset(
-                    cardSurroundingServices['recommendCardImagePath'],
+                    cardSurroundingServices['recommendCardBannerImages'],
                     height: 100,
                     width: 200,
                     fit: BoxFit.cover,
@@ -175,10 +199,10 @@ class SurroundingServicesWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        const Icon(Icons.star, color: Colors.white),
+                        const Icon(Icons.star, color: Colors.amber),
                         const SizedBox(width: 5),
                         Text(cardSurroundingServices['recommendCardRating'],
-                            style: const TextStyle(color: Colors.white)),
+                            style: TextStyle(color: assetsColor.textWhite)),
                       ],
                     ),
                   ),
@@ -192,8 +216,8 @@ class SurroundingServicesWidget extends StatelessWidget {
                     radius: 40,
                     backgroundColor: Colors.brown.shade800,
                     backgroundImage: showImage
-                        ? AssetImage(
-                            cardSurroundingServices['recommendCardImagePath'])
+                        ? AssetImage(cardSurroundingServices[
+                            'recommendCardProfileImages'])
                         : null,
                     child: showImage ? null : const Text('EP'),
                   ),
@@ -232,8 +256,8 @@ class SurroundingServicesWidget extends StatelessWidget {
               child: Text(
                 cardSurroundingServices['recommendCardLocation'],
                 textAlign: TextAlign.start,
-                style: const TextStyle(
-                  color: Colors.black45,
+                style: TextStyle(
+                  color: assetsColor.hintText,
                   fontWeight: FontWeight.w500,
                   fontSize: 15,
                 ),
@@ -299,17 +323,17 @@ class SurroundingServicesWidget extends StatelessWidget {
                 children: [
                   Text(
                     '${cardSurroundingServices['recommendCardTimesServicesUsed']}x',
-                    style: const TextStyle(
-                      color: Colors.black45,
+                    style: TextStyle(
+                      color: assetsColor.hintText,
                       fontWeight: FontWeight.bold,
                       fontSize: 15,
                     ),
                   ),
                   const SizedBox(width: 5),
-                  const Text(
+                  Text(
                     'digunakan',
                     style: TextStyle(
-                      color: Colors.black45,
+                      color: assetsColor.hintText,
                       fontSize: 15,
                     ),
                   ),
@@ -320,9 +344,9 @@ class SurroundingServicesWidget extends StatelessWidget {
             /// PRICE AREA
             Container(
               padding: const EdgeInsets.only(left: 10),
-              child: const Text(
+              child: Text(
                 'Mulai dari',
-                style: TextStyle(color: Colors.black45, fontSize: 15),
+                style: TextStyle(color: assetsColor.hintText, fontSize: 15),
               ),
             ),
             Container(
@@ -337,10 +361,10 @@ class SurroundingServicesWidget extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ' /pcs',
                     style: TextStyle(
-                      color: Colors.black45,
+                      color: assetsColor.hintText,
                       fontSize: 15,
                     ),
                   ),
@@ -367,9 +391,9 @@ class SurroundingServicesWidget extends StatelessWidget {
                   const SizedBox(width: 5),
                   Text(
                     'Rp${cardSurroundingServices['recommendCardDiscountedPrice']}',
-                    style: const TextStyle(
+                    style: TextStyle(
                       decoration: TextDecoration.lineThrough,
-                      color: Colors.black45,
+                      color: assetsColor.hintText,
                       fontSize: 15,
                     ),
                   ),

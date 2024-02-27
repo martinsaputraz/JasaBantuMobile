@@ -1,9 +1,11 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:jasa_bantu/Assets/AssetsColor.dart';
+import 'package:jasa_bantu/Pages/Login&RegisterPages/LOGIN/OTPLogin.dart';
 import 'package:jasa_bantu/Pages/Login&RegisterPages/ONBOARDING/OnboardingPages.dart';
+import 'package:jasa_bantu/Pages/Login&RegisterPages/RESET_PHONE/resetPhone.dart';
 import 'package:jasa_bantu/Settings/logicapi.dart';
+import 'package:jasa_bantu/assets/AssetsColor.dart';
 
 AssetsColor assetsColor = AssetsColor();
 LogicApi logicApi = LogicApi();
@@ -29,12 +31,12 @@ class _LoginPagesState extends State<LoginPages> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: assetsColor.bgLoginPages,
+      backgroundColor: assetsColor.bgLightMode,
       appBar: AppBar(
-        backgroundColor: assetsColor.bgLoginPages,
+        backgroundColor: assetsColor.bgLightMode,
         title: Text(
           'Masuk',
-          style: TextStyle(fontSize: 20, color: assetsColor.textLoginArea),
+          style: TextStyle(fontSize: 20, color: assetsColor.textBlack),
         ),
       ),
       body: Column(
@@ -45,7 +47,7 @@ class _LoginPagesState extends State<LoginPages> {
           Container(
             padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
             child: Image.asset(
-              assetsLogo.jbLogoBGWhite,
+              assetsLogo.jbLogoBlack,
               width: 115,
               height: 25,
             ),
@@ -59,7 +61,7 @@ class _LoginPagesState extends State<LoginPages> {
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
-                  color: assetsColor.textLoginArea),
+                  color: assetsColor.textBlack),
             ),
           ),
 
@@ -70,7 +72,7 @@ class _LoginPagesState extends State<LoginPages> {
               'Selamat datang kembali!',
               style: TextStyle(
                 fontSize: 15,
-                color: assetsColor.textLoginArea,
+                color: assetsColor.textBlack,
               ),
             ),
           ),
@@ -84,8 +86,7 @@ class _LoginPagesState extends State<LoginPages> {
                   border: const OutlineInputBorder(
                     borderSide: BorderSide(),
                   ),
-                  prefixIcon:
-                      Icon(Icons.phone, color: assetsColor.textLoginArea),
+                  prefixIcon: Icon(Icons.phone, color: assetsColor.hintText),
                 ),
                 initialCountryCode: 'ID',
                 // Set the initial country code to Indonesia
@@ -112,23 +113,23 @@ class _LoginPagesState extends State<LoginPages> {
                       TextSpan(
                         text: ' Nomor sudah tidak aktif atau hilang? ',
                         style: TextStyle(
-                          color: assetsColor.textLoginArea,
+                          color: assetsColor.textBlack,
                         ),
                       ),
                       TextSpan(
                         text: 'Atur ulang',
                         style: TextStyle(
-                          color: assetsColor.textLoginArea,
+                          color: assetsColor.textBlack,
                           fontWeight: FontWeight.bold,
                           decoration: TextDecoration.underline,
                         ),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //       builder: (context) => const RegisterApps()),
-                            // );
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const ResetPhone()),
+                            );
                           },
                       ),
                     ],
@@ -156,13 +157,13 @@ class _LoginPagesState extends State<LoginPages> {
                         TextSpan(
                           text: 'Dengan melanjutkan, kamu setuju sama\n',
                           style: TextStyle(
-                            color: assetsColor.textLoginArea,
+                            color: assetsColor.textBlack,
                           ),
                         ),
                         TextSpan(
                           text: 'Ketentuan Layanan',
                           style: TextStyle(
-                            color: assetsColor.textLoginArea,
+                            color: assetsColor.textBlack,
                             fontWeight: FontWeight.bold,
                             decoration: TextDecoration.underline,
                           ),
@@ -178,13 +179,13 @@ class _LoginPagesState extends State<LoginPages> {
                         TextSpan(
                           text: ' dan ',
                           style: TextStyle(
-                            color: assetsColor.textLoginArea,
+                            color: assetsColor.textBlack,
                           ),
                         ),
                         TextSpan(
                           text: 'Kebijakan Privasi',
                           style: TextStyle(
-                            color: assetsColor.textLoginArea,
+                            color: assetsColor.textBlack,
                             fontWeight: FontWeight.bold,
                             decoration: TextDecoration.underline,
                           ),
@@ -200,7 +201,7 @@ class _LoginPagesState extends State<LoginPages> {
                         TextSpan(
                           text: ' Jasa Bantu',
                           style: TextStyle(
-                            color: assetsColor.textLoginArea,
+                            color: assetsColor.textBlack,
                           ),
                         ),
                       ],
@@ -224,9 +225,14 @@ class _LoginPagesState extends State<LoginPages> {
 
                         logicApi.LoginApi(context, phoneNumber);
                       }
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const OTPLogin()),
+                      );
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: assetsColor.buttonNextRegister,
+                      backgroundColor: assetsColor.buttonPrimary,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5.0),
                       ),
@@ -237,7 +243,7 @@ class _LoginPagesState extends State<LoginPages> {
                         Text(
                           'Lanjutkan',
                           style: TextStyle(
-                              color: assetsColor.textNextButton, fontSize: 18),
+                              color: assetsColor.textWhite, fontSize: 18),
                         ),
                       ],
                     ),

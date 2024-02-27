@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:jasa_bantu/Assets/AssetsColor.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:jasa_bantu/Pages/Login&RegisterPages/FORGET_PIN/OTPPagesFP.dart';
+import 'package:jasa_bantu/assets/AssetsColor.dart';
 
 AssetsColor assetsColor = AssetsColor();
 
@@ -19,12 +20,12 @@ class _ForgetPINState extends State<ForgetPIN> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: assetsColor.bgLoginPages,
+      backgroundColor: assetsColor.bgLightMode,
       appBar: AppBar(
-        backgroundColor: assetsColor.bgLoginPages,
+        backgroundColor: assetsColor.bgLightMode,
         title: Text(
           'Lupa PIN',
-          style: TextStyle(fontSize: 20, color: assetsColor.textSetPINArea),
+          style: TextStyle(fontSize: 20, color: assetsColor.textBlack),
         ),
       ),
       body: Column(
@@ -39,24 +40,31 @@ class _ForgetPINState extends State<ForgetPIN> {
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
-                  color: assetsColor.textSetPINArea),
+                  color: assetsColor.textBlack),
             ),
           ),
 
           /// "PHONE" TEXT FIELDS
           Container(
-            padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
+            padding: const EdgeInsets.all(20),
             child: Center(
-              child: TextField(
-                controller: _phoneNumberFP,
-                keyboardType: TextInputType.phone,
+              child: IntlPhoneField(
                 decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0)),
-                    labelText: 'Nomor Handphone',
-                    prefixIcon:
-                        Icon(Icons.phone, color: assetsColor.textSetPINArea),
-                    prefixText: '+62 '),
+                  labelText: 'Nomor Handphone',
+                  border: const OutlineInputBorder(
+                    borderSide: BorderSide(),
+                  ),
+                  prefixIcon: Icon(Icons.phone, color: assetsColor.hintText),
+                ),
+                initialCountryCode: 'ID',
+                // Set the initial country code to Indonesia
+                // Limit selection to Indonesia
+                onChanged: (phone) {
+                  setState(() {
+                    // phoneNumberLogin = phone.completeNumber;
+                  });
+                },
+                inputFormatters: const [],
               ),
             ),
           ),
@@ -81,7 +89,7 @@ class _ForgetPINState extends State<ForgetPIN> {
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: assetsColor.buttonSavePIN,
+                      backgroundColor: assetsColor.buttonPrimary,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5.0),
                       ),
@@ -92,8 +100,7 @@ class _ForgetPINState extends State<ForgetPIN> {
                         Text(
                           'Lanjutkan',
                           style: TextStyle(
-                              color: assetsColor.textSavePINButton,
-                              fontSize: 18),
+                              color: assetsColor.textWhite, fontSize: 18),
                         ),
                       ],
                     ),

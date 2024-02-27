@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:jasa_bantu/assets/AssetsColor.dart';
+
+AssetsColor assetsColor = AssetsColor();
 
 class GridMenu extends StatefulWidget {
   const GridMenu({super.key});
@@ -13,7 +16,7 @@ class _GridMenuState extends State<GridMenu> {
     {
       'gridMenuIcon': Icons.grid_view_rounded,
       'gridMenuText': 'Kategori',
-      'gridMenuColor': Colors.purpleAccent,
+      'gridMenuColor': Colors.deepPurple[200],
       'gridMenuRoutes': '/home',
     },
     {
@@ -88,8 +91,8 @@ class _GridMenuState extends State<GridMenu> {
   Widget build(BuildContext context) {
     return Container(
       height: 180,
-      decoration: const BoxDecoration(
-        color: Colors.white,
+      decoration: BoxDecoration(
+        color: assetsColor.bgLightMode,
       ),
       padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
       child: GridView.builder(
@@ -153,14 +156,14 @@ class GridMenuTile extends StatelessWidget {
               ),
               child: Icon(
                 gridMenuIcon,
-                color: Colors.white,
+                color: assetsColor.textWhite,
               ),
             ),
           ),
           const SizedBox(height: 5),
           Text(
             gridMenuText,
-            style: const TextStyle(fontSize: 10),
+            style: TextStyle(color: assetsColor.textBlack, fontSize: 10),
           ),
         ],
       ),

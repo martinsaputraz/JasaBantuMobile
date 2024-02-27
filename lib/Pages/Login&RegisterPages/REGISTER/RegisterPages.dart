@@ -1,9 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:jasa_bantu/Assets/AssetsColor.dart';
 import 'package:jasa_bantu/Pages/Login&RegisterPages/ONBOARDING/OnboardingPages.dart';
+import 'package:jasa_bantu/Pages/Login&RegisterPages/REGISTER/OTPpages.dart';
 import 'package:jasa_bantu/Settings/logicapi.dart';
+import 'package:jasa_bantu/assets/AssetsColor.dart';
 
 AssetsColor assetsColor = AssetsColor();
 
@@ -41,12 +42,12 @@ class _RegisterPagesState extends State<RegisterPages> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: assetsColor.bgRegisterPages,
+      backgroundColor: assetsColor.bgLightMode,
       appBar: AppBar(
-        backgroundColor: assetsColor.bgRegisterPages,
+        backgroundColor: assetsColor.bgLightMode,
         title: Text(
           'Daftar',
-          style: TextStyle(fontSize: 20, color: assetsColor.textRegisterArea),
+          style: TextStyle(fontSize: 20, color: assetsColor.textBlack),
         ),
       ),
       body: Column(
@@ -57,7 +58,7 @@ class _RegisterPagesState extends State<RegisterPages> {
           Container(
             padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
             child: Image.asset(
-              assetsLogo.jbLogoBGWhite,
+              assetsLogo.jbLogoBlack,
               width: 115,
               height: 25,
             ),
@@ -71,7 +72,7 @@ class _RegisterPagesState extends State<RegisterPages> {
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
-                  color: assetsColor.textRegisterArea),
+                  color: assetsColor.textBlack),
             ),
           ),
 
@@ -82,7 +83,7 @@ class _RegisterPagesState extends State<RegisterPages> {
               'Masukkan nomor handphone kamu dan pastikan nomor kamu benar dan aktif',
               style: TextStyle(
                 fontSize: 15,
-                color: assetsColor.textRegisterArea,
+                color: assetsColor.textBlack,
               ),
             ),
           ),
@@ -99,7 +100,7 @@ class _RegisterPagesState extends State<RegisterPages> {
                         borderRadius: BorderRadius.circular(5.0)),
                     labelText: 'Nomor Handphone',
                     prefixIcon:
-                        Icon(Icons.phone, color: assetsColor.textRegisterArea),
+                        Icon(Icons.phone, color: assetsColor.textBlack),
                     prefixText: '+62 '),
               ),
             ),
@@ -111,11 +112,10 @@ class _RegisterPagesState extends State<RegisterPages> {
               child: IntlPhoneField(
                 decoration: InputDecoration(
                   labelText: 'Nomor Handphone',
-                  border: OutlineInputBorder(
+                  border: const OutlineInputBorder(
                     borderSide: BorderSide(),
                   ),
-                  prefixIcon:
-                      Icon(Icons.phone, color: assetsColor.textLoginArea),
+                  prefixIcon: Icon(Icons.phone, color: assetsColor.hintText),
                 ),
                 initialCountryCode: 'ID',
                 // Set the initial country code to Indonesia
@@ -135,7 +135,7 @@ class _RegisterPagesState extends State<RegisterPages> {
               padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
               child: Text(
                 messagecheck!,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.red, // Warna teks merah
                 ),
               ),
@@ -155,8 +155,8 @@ class _RegisterPagesState extends State<RegisterPages> {
                     padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
                     child: Text(
                       'Atau lebih mudah dengan Google',
-                      style: TextStyle(
-                          fontSize: 15, color: assetsColor.textRegisterArea),
+                      style:
+                          TextStyle(fontSize: 15, color: assetsColor.textBlack),
                     ),
                   ),
 
@@ -169,11 +169,8 @@ class _RegisterPagesState extends State<RegisterPages> {
                           child: ElevatedButton(
                             onPressed: () {},
                             style: ElevatedButton.styleFrom(
-                              backgroundColor:
-                                  assetsColor.buttonRegisterwithGoogle,
-                              side: BorderSide(
-                                  color: assetsColor
-                                      .borderRegisterwithGoogleButton),
+                              backgroundColor: assetsColor.buttonWhite,
+                              side: BorderSide(color: assetsColor.borderBlack),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(5.0),
                               ),
@@ -196,14 +193,14 @@ class _RegisterPagesState extends State<RegisterPages> {
                                     Text(
                                       'Masuk dengan Google',
                                       style: TextStyle(
-                                        color: assetsColor.textRegisterArea,
+                                        color: assetsColor.textBlack,
                                       ),
                                     ),
                                   ],
                                 ),
                                 Icon(
                                   Icons.arrow_forward,
-                                  color: assetsColor.textRegisterArea,
+                                  color: assetsColor.textBlack,
                                   size: 20,
                                 ),
                               ],
@@ -227,13 +224,13 @@ class _RegisterPagesState extends State<RegisterPages> {
                         TextSpan(
                           text: 'Dengan melanjutkan, kamu setuju sama\n',
                           style: TextStyle(
-                            color: assetsColor.textRegisterArea,
+                            color: assetsColor.textBlack,
                           ),
                         ),
                         TextSpan(
                           text: 'Ketentuan Layanan',
                           style: TextStyle(
-                            color: assetsColor.textRegisterArea,
+                            color: assetsColor.textBlack,
                             fontWeight: FontWeight.bold,
                             decoration: TextDecoration.underline,
                           ),
@@ -249,13 +246,13 @@ class _RegisterPagesState extends State<RegisterPages> {
                         TextSpan(
                           text: ' dan ',
                           style: TextStyle(
-                            color: assetsColor.textRegisterArea,
+                            color: assetsColor.textBlack,
                           ),
                         ),
                         TextSpan(
                           text: 'Kebijakan Privasi',
                           style: TextStyle(
-                            color: assetsColor.textRegisterArea,
+                            color: assetsColor.textBlack,
                             fontWeight: FontWeight.bold,
                             decoration: TextDecoration.underline,
                           ),
@@ -271,7 +268,7 @@ class _RegisterPagesState extends State<RegisterPages> {
                         TextSpan(
                           text: ' Jasa Bantu',
                           style: TextStyle(
-                            color: assetsColor.textRegisterArea,
+                            color: assetsColor.textBlack,
                           ),
                         ),
                       ],
@@ -294,9 +291,13 @@ class _RegisterPagesState extends State<RegisterPages> {
                         }
                         logicApi.sendOTPDefault(context, phoneNumber);
                       }
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const OTPPages()));
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: assetsColor.buttonNextRegister,
+                      backgroundColor: assetsColor.buttonPrimary,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5.0),
                       ),
@@ -307,7 +308,7 @@ class _RegisterPagesState extends State<RegisterPages> {
                         Text(
                           'Lanjutkan',
                           style: TextStyle(
-                              color: assetsColor.textNextButton, fontSize: 18),
+                              color: assetsColor.textWhite, fontSize: 18),
                         ),
                       ],
                     ),

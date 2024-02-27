@@ -1,19 +1,18 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:jasa_bantu/Assets/AssetsColor.dart';
-import 'package:jasa_bantu/Assets/AssetsIcon.dart';
-import 'package:jasa_bantu/Assets/AssetsImage.dart';
-import 'package:jasa_bantu/Assets/AssetsLogo.dart';
+import 'package:jasa_bantu/Pages/DASHBOARD/DashboardPages.dart';
 import 'package:jasa_bantu/Pages/Login&RegisterPages/LOGIN/LoginPages.dart';
 import 'package:jasa_bantu/Pages/Login&RegisterPages/ONBOARDING/OnboardingContent.dart';
 import 'package:jasa_bantu/Pages/Login&RegisterPages/REGISTER/RegisterPages.dart';
-import 'package:jasa_bantu/Settings/logicapi.dart';
+import 'package:jasa_bantu/assets/AssetsColor.dart';
+import 'package:jasa_bantu/assets/AssetsIcon.dart';
+import 'package:jasa_bantu/assets/AssetsImage.dart';
+import 'package:jasa_bantu/assets/AssetsLogo.dart';
 
 AssetsColor assetsColor = AssetsColor();
 AssetsLogo assetsLogo = AssetsLogo();
 AssetsIcon assetsIcon = AssetsIcon();
 AssetsImages assetsImages = AssetsImages();
-LogicApi logicApi = LogicApi();
 
 class OnboardingPages extends StatefulWidget {
   const OnboardingPages({super.key});
@@ -28,27 +27,6 @@ class _OnboardingPagesState extends State<OnboardingPages> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   User? _user;
 
-  void _handleGoogleSignIn() async {
-    try {
-      GoogleAuthProvider googleAuthProvider = GoogleAuthProvider();
-      UserCredential userCredential =
-          await _auth.signInWithProvider(googleAuthProvider);
-      User? user = userCredential.user;
-
-      if (user != null) {
-        setState(() {
-          _user = user;
-
-          logicApi.LoginApi(context, _user!.email!);
-        });
-      } else {
-        print("User is null");
-      }
-    } catch (error) {
-      print(error);
-    }
-  }
-
   @override
   void initState() {
     // TODO: implement initState
@@ -58,7 +36,7 @@ class _OnboardingPagesState extends State<OnboardingPages> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: assetsColor.bgOnboardingPages,
+      backgroundColor: assetsColor.primaryColor,
       body: Column(
         children: [
           /// LOGO COMPANY & BUTTON "BAHASA"
@@ -69,7 +47,7 @@ class _OnboardingPagesState extends State<OnboardingPages> {
               children: [
                 /// IMAGE LOGO
                 Image.asset(
-                  assetsLogo.jbLogoCutting,
+                  assetsLogo.jbLogoWhite,
                   width: 135,
                   height: 25,
                 ),
@@ -80,16 +58,17 @@ class _OnboardingPagesState extends State<OnboardingPages> {
                     //
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: assetsColor.buttonSwitchLanguage,
+                    backgroundColor: assetsColor.transparentColor,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5.0),
+                      side: BorderSide(color: assetsColor.borderWhite),
                     ),
                   ),
                   icon: Icon(Icons.translate,
-                      color: assetsColor.textSwitchLanguage, size: 20),
+                      color: assetsColor.textWhite, size: 20),
                   label: Text(
                     'Bahasa',
-                    style: TextStyle(color: assetsColor.textSwitchLanguage),
+                    style: TextStyle(color: assetsColor.textWhite),
                   ),
                 ),
               ],
@@ -114,10 +93,15 @@ class _OnboardingPagesState extends State<OnboardingPages> {
                   padding: const EdgeInsets.only(left: 20, right: 20),
                   child: ElevatedButton(
                     onPressed: () async {
-                      _handleGoogleSignIn();
+                      // _handleGoogleSignIn();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const DashboardPages()),
+                      );
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: assetsColor.buttonLoginwithGoogle,
+                      backgroundColor: assetsColor.buttonWhite,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5.0),
                       ),
@@ -131,21 +115,20 @@ class _OnboardingPagesState extends State<OnboardingPages> {
                               padding: const EdgeInsets.only(right: 20.0),
                               child: Image.asset(
                                 assetsIcon.coloredGoogle,
-                                // color: assetsColor.textLoginwithGoogle,
+                                // color: assetsColor.textBlack,
                                 height: 20,
                                 width: 20,
                               ),
                             ),
                             Text(
                               'Masuk dengan Google',
-                              style: TextStyle(
-                                  color: assetsColor.textLoginwithGoogle),
+                              style: TextStyle(color: assetsColor.textBlack),
                             ),
                           ],
                         ),
                         Icon(
                           Icons.arrow_forward,
-                          color: assetsColor.textLoginwithGoogle,
+                          color: assetsColor.textBlack,
                           size: 20,
                         ),
                       ],
@@ -168,7 +151,7 @@ class _OnboardingPagesState extends State<OnboardingPages> {
             child: Text(
               'Atau gunakan nomor handphone kamu',
               textAlign: TextAlign.center,
-              style: TextStyle(color: assetsColor.textOnboardingArea),
+              style: TextStyle(color: assetsColor.textWhite),
             ),
           ),
 
@@ -189,15 +172,15 @@ class _OnboardingPagesState extends State<OnboardingPages> {
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: assetsColor.buttonLogin,
-                      side: BorderSide(color: assetsColor.borderLoginButton),
+                      backgroundColor: Colors.transparent,
+                      side: BorderSide(color: assetsColor.borderWhite),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5.0)),
                     ),
                     child: Text(
                       'Masuk',
-                      style: TextStyle(
-                          color: assetsColor.textButtonLogin, fontSize: 18),
+                      style:
+                          TextStyle(color: assetsColor.textWhite, fontSize: 18),
                     ),
                   ),
                 ),
@@ -216,14 +199,14 @@ class _OnboardingPagesState extends State<OnboardingPages> {
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: assetsColor.buttonRegister,
+                      backgroundColor: assetsColor.buttonWhite,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5.0)),
                     ),
                     child: Text(
                       'Daftar',
-                      style: TextStyle(
-                          color: assetsColor.textButtonRegister, fontSize: 18),
+                      style:
+                          TextStyle(color: assetsColor.textBlack, fontSize: 18),
                     ),
                   ),
                 ),
@@ -233,5 +216,25 @@ class _OnboardingPagesState extends State<OnboardingPages> {
         ],
       ),
     );
+  }
+
+  void _handleGoogleSignIn() async {
+    try {
+      GoogleAuthProvider googleAuthProvider = GoogleAuthProvider();
+      UserCredential userCredential =
+          await _auth.signInWithProvider(googleAuthProvider);
+      User? user = userCredential.user;
+
+      if (user != null) {
+        setState(() {
+          _user = user;
+          print("data_user: ${_user}");
+        });
+      } else {
+        print("User is null");
+      }
+    } catch (error) {
+      print(error);
+    }
   }
 }

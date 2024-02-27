@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jasa_bantu/main.dart';
 
 class MyCurrentLocation extends StatelessWidget {
   const MyCurrentLocation({super.key});
@@ -6,48 +7,48 @@ class MyCurrentLocation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
-        color: Colors.white,
+      decoration: BoxDecoration(
+        color: assetsColor.bgLightMode,
       ),
-        padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
-        child: Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-                color: Colors.black12,
-              ),
-              child: const Row(
-                children: [
-                  Icon(
-                    Icons.location_on_outlined,
-                    color: Colors.black45,
-                  ),
-                  Text(
-                    'Rumah Saya',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black45,
-                    ),
-                  ),
-                ],
-              ),
+      padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(5),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5),
+              color: assetsColor.bgGrey200,
             ),
-            const SizedBox(width: 10),
-            const Flexible(
-              child: Text(
-                'Jl. In Aja Dulu, Baru Tau Nanti, Abcdefghijkl',
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                style: TextStyle(
-                  color: Colors.black45,
+            child: Row(
+              children: [
+                Icon(
+                  Icons.location_on_outlined,
+                  color: assetsColor.hintText,
                 ),
+                Text(
+                  'Rumah Saya',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: assetsColor.hintText,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 10),
+          Flexible(
+            child: Text(
+              'Jl. In Aja Dulu, Baru Tau Nanti, Abcdefghijkl',
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+              style: TextStyle(
+                color: assetsColor.hintText,
               ),
             ),
-            const Icon(Icons.expand_more_rounded),
-          ],
-        ),
-      );
+          ),
+          const Icon(Icons.expand_more_rounded),
+        ],
+      ),
+    );
   }
 }
