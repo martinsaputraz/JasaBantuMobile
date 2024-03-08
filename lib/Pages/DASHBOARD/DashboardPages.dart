@@ -12,21 +12,37 @@ class DashboardPages extends StatefulWidget {
 }
 
 class _DashboardPagesState extends State<DashboardPages> {
-  /// FOR "MENU" AT BOTTOM NAVIGATION BAR
   int _selectedIndexMenuNavBar = 0;
-  final List<Widget> _bottomMenuNavBar = [
-    const HomePages(),
-    // const ProductsPages(),
-    // const OrderPages(),
-    // const ChatPages(),
-    // const ProfilePages(),
-  ];
+  late PageController _pageController;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(initialPage: _selectedIndexMenuNavBar);
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: assetsColor.bgGrey200,
-      body: _bottomMenuNavBar[_selectedIndexMenuNavBar],
+      body: PageView(
+        controller: _pageController,
+        onPageChanged: (index) {
+          setState(() {
+            _selectedIndexMenuNavBar = index;
+          });
+        },
+        children: const [
+          HomePages(),
+          // Halaman-halaman lainnya
+        ],
+      ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: assetsColor.bgLightMode,
         type: BottomNavigationBarType.fixed,
@@ -54,5 +70,10 @@ class _DashboardPagesState extends State<DashboardPages> {
     setState(() {
       _selectedIndexMenuNavBar = index;
     });
+    _pageController.animateToPage(
+      index,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.bounceIn,
+    );
   }
 }

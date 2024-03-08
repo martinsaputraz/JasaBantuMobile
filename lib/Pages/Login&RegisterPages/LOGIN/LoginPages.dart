@@ -1,11 +1,14 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:jasa_bantu/Pages/Login&RegisterPages/LOGIN/OTPLogin.dart';
 import 'package:jasa_bantu/Pages/Login&RegisterPages/ONBOARDING/OnboardingPages.dart';
 import 'package:jasa_bantu/Pages/Login&RegisterPages/RESET_PHONE/resetPhone.dart';
+import 'package:jasa_bantu/Settings/Languange.dart';
 import 'package:jasa_bantu/Settings/logicapi.dart';
 import 'package:jasa_bantu/assets/AssetsColor.dart';
+import 'package:translator/translator.dart';
 
 AssetsColor assetsColor = AssetsColor();
 LogicApi logicApi = LogicApi();
@@ -24,6 +27,142 @@ class _LoginPagesState extends State<LoginPages> {
   final TextEditingController _phoneNumber = TextEditingController();
 */
 
+  final translator = GoogleTranslator();
+  final FlutterLocalization _localization = FlutterLocalization.instance;
+
+  String tombolAppbar = "";
+  String teks1 = "";
+  String teks2 = "";
+  String fieldTeks = "";
+  String teks3 = "";
+  String teks4 = "";
+  String teks5 = "";
+  String teks6 = "";
+  String teks7 = "";
+  String teks8 = "";
+  bool bahasatrigger = true;
+
+  String tombolLanjutkan = "";
+
+  Future<void> fetchTranslatedText(String pilihan) async {
+    try {
+      List<Future<Translation>> translations = [];
+
+      if (pilihan == "id") {
+        translations = [
+          translator.translate("Signin", from: 'en', to: 'id'),
+          translator.translate("Signin with your cellphone number",
+              from: 'en', to: 'id'),
+          translator.translate("Welcome back!", from: 'en', to: 'id'),
+          translator.translate("Mobile phone number", from: 'en', to: 'id'),
+          translator.translate("Number is no longer active or lost?",
+              from: 'en', to: 'id'),
+          translator.translate("reset", from: 'en', to: 'id'),
+          translator.translate("By continuing, you agree to the same",
+              from: 'en', to: 'id'),
+          translator.translate("Terms of Service", from: 'en', to: 'id'),
+          translator.translate("and", from: 'en', to: 'id'),
+          translator.translate("Privacy Policy", from: 'en', to: 'id'),
+          translator.translate("Lanjutkan", from: 'en', to: 'id'),
+        ];
+      } else if (pilihan == "en") {
+        translations = [
+          translator.translate("Signin", from: 'id', to: 'en'),
+          translator.translate("Signin dengan nomor HP Kamu",
+              from: 'id', to: 'en'),
+          translator.translate("Selamat datang kembali!", from: 'id', to: 'en'),
+          translator.translate("Nomor Handphone", from: 'id', to: 'en'),
+          translator.translate("Nomor sudah tidak aktif atau hilang?",
+              from: 'id', to: 'en'),
+          translator.translate("Atur ulang", from: 'id', to: 'en'),
+          translator.translate("Dengan melanjutkan, kamu setuju sama",
+              from: 'id', to: 'en'),
+          translator.translate("Terms of Service", from: 'id', to: 'en'),
+          translator.translate("dan", from: 'id', to: 'en'),
+          translator.translate("Kebijakan Privasi", from: 'id', to: 'en'),
+          translator.translate("Next", from: 'id', to: 'en'),
+        ];
+      } else {
+        translations = [
+          translator.translate("Signin", from: 'id', to: 'en'),
+          translator.translate("Signin with your cellphone number",
+              from: 'id', to: 'en'),
+          translator.translate("Welcome back!", from: 'en', to: 'id'),
+          translator.translate("Mobile phone number", from: 'en', to: 'id'),
+          translator.translate("Number is no longer active or lost?",
+              from: 'en', to: 'id'),
+          translator.translate("reset", from: 'en', to: 'id'),
+          translator.translate("By continuing, you agree to the same\n",
+              from: 'en', to: 'id'),
+          translator.translate("Terms of Service", from: 'en', to: 'id'),
+          translator.translate("and", from: 'id', to: 'en'),
+          translator.translate("Lanjutkan", from: 'en', to: 'id'),
+        ];
+      }
+
+      List<Translation> translatedTexts = await Future.wait(translations);
+
+      setState(() {
+        tombolAppbar = translatedTexts[0].toString();
+        teks1 = translatedTexts[1].toString();
+        teks2 = translatedTexts[2].toString();
+        fieldTeks = translatedTexts[3].toString();
+        teks3 = translatedTexts[4].toString();
+        teks4 = translatedTexts[5].toString();
+        teks5 = translatedTexts[6].toString();
+        teks6 = translatedTexts[7].toString();
+        teks7 = translatedTexts[8].toString();
+        teks8 = translatedTexts[9].toString();
+
+        tombolLanjutkan = translatedTexts[10].toString();
+      });
+    } catch (e) {
+      print("Error during translation: $e");
+    }
+  }
+
+  @override
+  void initState() {
+    modelSharePreferences.dataShareprefrences().then((data) {
+      String bahasa = data['bahasa'] ?? 'id';
+
+      if (bahasa == "id") {
+        _localization.translate('id');
+        bahasatrigger = true;
+      } else if (bahasa == "en") {
+        _localization.translate('en');
+        bahasatrigger = false;
+      } else {
+        _localization.translate('id');
+        bahasatrigger = true;
+      }
+
+      // Memanggil fungsi fetchTranslatedText untuk menerjemahkan teks
+      fetchTranslatedText(bahasa);
+    });
+
+    _localization.init(
+      mapLocales: [
+        const MapLocale(
+          'id',
+          Bahasa.ID,
+        ),
+        const MapLocale(
+          'en',
+          Bahasa.EN,
+        ),
+      ],
+      initLanguageCode: 'id',
+    );
+    _localization.onTranslatedLanguage = _onTranslatedLanguage;
+
+    super.initState();
+  }
+
+  void _onTranslatedLanguage(Locale? locale) {
+    setState(() {});
+  }
+
   String phoneNumber = "";
   String phoneNumberLogin = "";
 
@@ -35,7 +174,7 @@ class _LoginPagesState extends State<LoginPages> {
       appBar: AppBar(
         backgroundColor: assetsColor.bgLightMode,
         title: Text(
-          'Masuk',
+          tombolAppbar,
           style: TextStyle(fontSize: 20, color: assetsColor.textBlack),
         ),
       ),
@@ -57,7 +196,7 @@ class _LoginPagesState extends State<LoginPages> {
           Container(
             padding: const EdgeInsets.only(left: 20, right: 20),
             child: Text(
-              'Masuk dengan nomor HP Kamu',
+              teks1,
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
@@ -69,7 +208,7 @@ class _LoginPagesState extends State<LoginPages> {
           Container(
             padding: const EdgeInsets.fromLTRB(20, 5, 20, 10),
             child: Text(
-              'Selamat datang kembali!',
+              teks2,
               style: TextStyle(
                 fontSize: 15,
                 color: assetsColor.textBlack,
@@ -82,7 +221,7 @@ class _LoginPagesState extends State<LoginPages> {
             child: Center(
               child: IntlPhoneField(
                 decoration: InputDecoration(
-                  labelText: 'Nomor Handphone',
+                  labelText: fieldTeks,
                   border: const OutlineInputBorder(
                     borderSide: BorderSide(),
                   ),
@@ -111,13 +250,13 @@ class _LoginPagesState extends State<LoginPages> {
                   text: TextSpan(
                     children: [
                       TextSpan(
-                        text: ' Nomor sudah tidak aktif atau hilang? ',
+                        text: teks3 + "\t",
                         style: TextStyle(
                           color: assetsColor.textBlack,
                         ),
                       ),
                       TextSpan(
-                        text: 'Atur ulang',
+                        text: teks4,
                         style: TextStyle(
                           color: assetsColor.textBlack,
                           fontWeight: FontWeight.bold,
@@ -155,13 +294,13 @@ class _LoginPagesState extends State<LoginPages> {
                     text: TextSpan(
                       children: [
                         TextSpan(
-                          text: 'Dengan melanjutkan, kamu setuju sama\n',
+                          text: teks5 + "\n",
                           style: TextStyle(
                             color: assetsColor.textBlack,
                           ),
                         ),
                         TextSpan(
-                          text: 'Ketentuan Layanan',
+                          text: teks6,
                           style: TextStyle(
                             color: assetsColor.textBlack,
                             fontWeight: FontWeight.bold,
@@ -177,13 +316,13 @@ class _LoginPagesState extends State<LoginPages> {
                             },
                         ),
                         TextSpan(
-                          text: ' dan ',
+                          text: "\t" + teks7 + "\t",
                           style: TextStyle(
                             color: assetsColor.textBlack,
                           ),
                         ),
                         TextSpan(
-                          text: 'Kebijakan Privasi',
+                          text: teks8,
                           style: TextStyle(
                             color: assetsColor.textBlack,
                             fontWeight: FontWeight.bold,
@@ -216,7 +355,7 @@ class _LoginPagesState extends State<LoginPages> {
                 child: Center(
                   child: ElevatedButton(
                     onPressed: () async {
-                      if (phoneNumberLogin == "") {
+                      /*  if (phoneNumberLogin == "") {
                       } else {
                         if (phoneNumberLogin.startsWith('+')) {
                           phoneNumber = phoneNumberLogin
@@ -224,7 +363,7 @@ class _LoginPagesState extends State<LoginPages> {
                         }
 
                         logicApi.LoginApi(context, phoneNumber);
-                      }
+                      }*/
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -241,7 +380,7 @@ class _LoginPagesState extends State<LoginPages> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Lanjutkan',
+                          tombolLanjutkan,
                           style: TextStyle(
                               color: assetsColor.textWhite, fontSize: 18),
                         ),

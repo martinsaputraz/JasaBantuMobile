@@ -1,8 +1,11 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:jasa_bantu/Pages/Login&RegisterPages/ONBOARDING/ModalBottomLanguange.dart';
 import 'package:jasa_bantu/Pages/Login&RegisterPages/ONBOARDING/OnboardingPages.dart';
 import 'package:jasa_bantu/Pages/Login&RegisterPages/REGISTER/OTPpages.dart';
+import 'package:jasa_bantu/Settings/Languange.dart';
 import 'package:jasa_bantu/Settings/logicapi.dart';
 import 'package:jasa_bantu/assets/AssetsColor.dart';
 
@@ -18,24 +21,64 @@ class RegisterPages extends StatefulWidget {
 }
 
 LogicApi logicApi = LogicApi();
+Bahasa bahasa = Bahasa();
 
 class _RegisterPagesState extends State<RegisterPages> {
+  final FlutterLocalization _localization = FlutterLocalization.instance;
+
   //
   /// FOR 'NOMOR HANDPHONE'
   // TextEditingController _phoneNumber = TextEditingController();
   String phoneNumberRegis = "";
   String phoneNumber = "";
+  String? bahasa;
+  bool bahasatrigger = true;
 
   String messagecheck = "";
 
   @override
   void initState() {
-    // TODO: implement initState
+    modelSharePreferences.dataShareprefrences().then((data) {
+      setState(() {
+        // Ambil nilai dari SharePreferences
+        bahasa = data['bahasa'] ?? 'id';
+
+        if (bahasa == "id") {
+          _localization.translate('id');
+          bahasatrigger = true;
+        } else if (bahasa == "en") {
+          _localization.translate('en');
+          bahasatrigger = false;
+        } else {
+          _localization.translate('id');
+          bahasatrigger = true;
+        }
+      });
+    });
+
+    _localization.init(
+      mapLocales: [
+        const MapLocale(
+          'id',
+          Bahasa.ID,
+        ),
+        const MapLocale(
+          'en',
+          Bahasa.EN,
+        ),
+      ],
+      initLanguageCode: 'id',
+    );
+    _localization.onTranslatedLanguage = _onTranslatedLanguage;
 
     setState(() {
       messagecheck = widget.message;
     });
     super.initState();
+  }
+
+  void _onTranslatedLanguage(Locale? locale) {
+    setState(() {});
   }
 
   @override
@@ -46,7 +89,7 @@ class _RegisterPagesState extends State<RegisterPages> {
       appBar: AppBar(
         backgroundColor: assetsColor.bgLightMode,
         title: Text(
-          'Daftar',
+          bahasatrigger ? Bahasa.ID['APPBARDAFTAR'] : Bahasa.EN['APPBARDAFTAR'],
           style: TextStyle(fontSize: 20, color: assetsColor.textBlack),
         ),
       ),
@@ -68,7 +111,7 @@ class _RegisterPagesState extends State<RegisterPages> {
           Container(
             padding: const EdgeInsets.only(left: 20, right: 20),
             child: Text(
-              'Daftar dengan nomor HP Kamu',
+              bahasatrigger ? Bahasa.ID['TeksTitle'] : Bahasa.EN['TeksTitle'],
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
@@ -80,7 +123,9 @@ class _RegisterPagesState extends State<RegisterPages> {
           Container(
             padding: const EdgeInsets.fromLTRB(20, 5, 20, 20),
             child: Text(
-              'Masukkan nomor handphone kamu dan pastikan nomor kamu benar dan aktif',
+              bahasatrigger
+                  ? Bahasa.ID['SubTeksTitle']
+                  : Bahasa.EN['SubTeksTitle'],
               style: TextStyle(
                 fontSize: 15,
                 color: assetsColor.textBlack,
@@ -89,35 +134,24 @@ class _RegisterPagesState extends State<RegisterPages> {
           ),
 
           /// "PHONE" TEXT FIELDS
-          /*Container(
-            padding: const EdgeInsets.fromLTRB(20, 5, 20, 0),
-            child: Center(
-              child: TextField(
-                controller: _phoneNumber,
-                keyboardType: TextInputType.phone,
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0)),
-                    labelText: 'Nomor Handphone',
-                    prefixIcon:
-                        Icon(Icons.phone, color: assetsColor.textBlack),
-                    prefixText: '+62 '),
-              ),
-            ),
-          ),*/
 
           Container(
             padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
             child: Center(
               child: IntlPhoneField(
                 decoration: InputDecoration(
-                  labelText: 'Nomor Handphone',
+                  labelText: bahasatrigger
+                      ? Bahasa.ID['labelText']
+                      : Bahasa.EN['labelText'],
                   border: const OutlineInputBorder(
                     borderSide: BorderSide(),
                   ),
                   prefixIcon: Icon(Icons.phone, color: assetsColor.hintText),
                 ),
-                initialCountryCode: 'ID',
+                initialCountryCode: bahasatrigger
+                    ? Bahasa.ID['initialCountryCode']
+                    : Bahasa.EN['initialCountryCode'],
+
                 // Set the initial country code to Indonesia
                 // Limit selection to Indonesia
                 onChanged: (phone) {
@@ -154,7 +188,9 @@ class _RegisterPagesState extends State<RegisterPages> {
                   Container(
                     padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
                     child: Text(
-                      'Atau lebih mudah dengan Google',
+                      bahasatrigger
+                          ? Bahasa.ID['Teksdibawahfield']
+                          : Bahasa.EN['Teksdibawahfield'],
                       style:
                           TextStyle(fontSize: 15, color: assetsColor.textBlack),
                     ),
@@ -184,14 +220,15 @@ class _RegisterPagesState extends State<RegisterPages> {
                                       padding:
                                           const EdgeInsets.only(right: 20.0),
                                       child: Image.asset(
-                                        'assets/icon/Icon_Google.png',
-                                        // color: assetsColor.textLoginwithGoogle,
+                                        assetsIcon.coloredGoogle,
                                         height: 20,
                                         width: 20,
                                       ),
                                     ),
                                     Text(
-                                      'Masuk dengan Google',
+                                      bahasatrigger
+                                          ? Bahasa.ID['ButtonMasukGoogle']
+                                          : Bahasa.EN['ButtonMasukGoogle'],
                                       style: TextStyle(
                                         color: assetsColor.textBlack,
                                       ),
@@ -222,13 +259,17 @@ class _RegisterPagesState extends State<RegisterPages> {
                     text: TextSpan(
                       children: [
                         TextSpan(
-                          text: 'Dengan melanjutkan, kamu setuju sama\n',
+                          text: bahasatrigger
+                              ? Bahasa.ID['privasi1']
+                              : Bahasa.EN['privasi1'],
                           style: TextStyle(
                             color: assetsColor.textBlack,
                           ),
                         ),
                         TextSpan(
-                          text: 'Ketentuan Layanan',
+                          text: bahasatrigger
+                              ? Bahasa.ID['privasi2']
+                              : Bahasa.EN['privasi2'],
                           style: TextStyle(
                             color: assetsColor.textBlack,
                             fontWeight: FontWeight.bold,
@@ -244,13 +285,17 @@ class _RegisterPagesState extends State<RegisterPages> {
                             },
                         ),
                         TextSpan(
-                          text: ' dan ',
+                          text: bahasatrigger
+                              ? Bahasa.ID['privasi3']
+                              : Bahasa.EN['privasi3'],
                           style: TextStyle(
                             color: assetsColor.textBlack,
                           ),
                         ),
                         TextSpan(
-                          text: 'Kebijakan Privasi',
+                          text: bahasatrigger
+                              ? Bahasa.ID['privasi4']
+                              : Bahasa.EN['privasi4'],
                           style: TextStyle(
                             color: assetsColor.textBlack,
                             fontWeight: FontWeight.bold,
@@ -306,7 +351,9 @@ class _RegisterPagesState extends State<RegisterPages> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Lanjutkan',
+                          bahasatrigger
+                              ? Bahasa.ID['nextButton']
+                              : Bahasa.EN['nextButton'],
                           style: TextStyle(
                               color: assetsColor.textWhite, fontSize: 18),
                         ),

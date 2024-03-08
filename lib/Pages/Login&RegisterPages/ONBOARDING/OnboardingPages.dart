@@ -1,9 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:jasa_bantu/Pages/DASHBOARD/DashboardPages.dart';
 import 'package:jasa_bantu/Pages/Login&RegisterPages/LOGIN/LoginPages.dart';
+import 'package:jasa_bantu/Pages/Login&RegisterPages/ONBOARDING/ModalBottomLanguange.dart';
 import 'package:jasa_bantu/Pages/Login&RegisterPages/ONBOARDING/OnboardingContent.dart';
 import 'package:jasa_bantu/Pages/Login&RegisterPages/REGISTER/RegisterPages.dart';
+import 'package:jasa_bantu/Settings/Languange.dart';
+import 'package:jasa_bantu/Settings/logicapi.dart';
 import 'package:jasa_bantu/assets/AssetsColor.dart';
 import 'package:jasa_bantu/assets/AssetsIcon.dart';
 import 'package:jasa_bantu/assets/AssetsImage.dart';
@@ -21,16 +25,78 @@ class OnboardingPages extends StatefulWidget {
   State<OnboardingPages> createState() => _OnboardingPagesState();
 }
 
+LogicApi logicApi = LogicApi();
+Bahasa bahasa = Bahasa();
+
 class _OnboardingPagesState extends State<OnboardingPages> {
-  //
+  final FlutterLocalization _localization = FlutterLocalization.instance;
+
+  String? bahasa;
+  bool bahasatrigger = true;
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
   User? _user;
 
+  void _handleGoogleSignIn() async {
+    try {
+      GoogleAuthProvider googleAuthProvider = GoogleAuthProvider();
+      UserCredential userCredential =
+          await _auth.signInWithProvider(googleAuthProvider);
+      User? user = userCredential.user;
+
+      if (user != null) {
+        setState(() {
+          _user = user;
+
+          logicApi.LoginApi(context, _user!.email!);
+        });
+      } else {
+        print("User is null");
+      }
+    } catch (error) {
+      print(error);
+    }
+  }
+
   @override
   void initState() {
-    // TODO: implement initState
+    modelSharePreferences.dataShareprefrences().then((data) {
+      bahasa = data['bahasa'] ?? 'id';
+
+      if (bahasa == "id") {
+        _localization.translate('id');
+        bahasatrigger = true;
+      } else if (bahasa == "en") {
+        _localization.translate('en');
+        bahasatrigger = false;
+      } else {
+        _localization.translate('id');
+        bahasatrigger = true;
+      }
+
+      // Memanggil fungsi fetchTranslatedText untuk menerjemahkan teks
+    });
+
+    _localization.init(
+      mapLocales: [
+        const MapLocale(
+          'id',
+          Bahasa.ID,
+        ),
+        const MapLocale(
+          'en',
+          Bahasa.EN,
+        ),
+      ],
+      initLanguageCode: 'id',
+    );
+    _localization.onTranslatedLanguage = _onTranslatedLanguage;
+
     super.initState();
+  }
+
+  void _onTranslatedLanguage(Locale? locale) {
+    setState(() {});
   }
 
   @override
@@ -55,7 +121,19 @@ class _OnboardingPagesState extends State<OnboardingPages> {
                 /// BUTTON "BAHASA"
                 ElevatedButton.icon(
                   onPressed: () {
-                    //
+                    showModalBottomSheet(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      context: context,
+                      builder: (BuildContext context) {
+                        return ModalBottomLanguange(
+                          updateSelection: (bool ID, bool EN) {
+                            setState(() {});
+                          },
+                        );
+                      },
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: assetsColor.transparentColor,
@@ -67,7 +145,9 @@ class _OnboardingPagesState extends State<OnboardingPages> {
                   icon: Icon(Icons.translate,
                       color: assetsColor.textWhite, size: 20),
                   label: Text(
-                    'Bahasa',
+                    bahasatrigger
+                        ? Bahasa.ID['ButtonBahasa']
+                        : Bahasa.EN['ButtonBahasa'],
                     style: TextStyle(color: assetsColor.textWhite),
                   ),
                 ),
@@ -93,7 +173,9 @@ class _OnboardingPagesState extends State<OnboardingPages> {
                   padding: const EdgeInsets.only(left: 20, right: 20),
                   child: ElevatedButton(
                     onPressed: () async {
-                      // _handleGoogleSignIn();
+/*
+                      _handleGoogleSignIn();
+*/
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -121,7 +203,9 @@ class _OnboardingPagesState extends State<OnboardingPages> {
                               ),
                             ),
                             Text(
-                              'Masuk dengan Google',
+                              bahasatrigger
+                                  ? Bahasa.ID['ButtonMasukGoogle']
+                                  : Bahasa.EN['ButtonMasukGoogle'],
                               style: TextStyle(color: assetsColor.textBlack),
                             ),
                           ],
@@ -149,7 +233,9 @@ class _OnboardingPagesState extends State<OnboardingPages> {
           Container(
             padding: const EdgeInsets.only(bottom: 15),
             child: Text(
-              'Atau gunakan nomor handphone kamu',
+              bahasatrigger
+                  ? Bahasa.ID['TextPageOnBoarding']
+                  : Bahasa.EN['TextPageOnBoarding'],
               textAlign: TextAlign.center,
               style: TextStyle(color: assetsColor.textWhite),
             ),
@@ -178,7 +264,9 @@ class _OnboardingPagesState extends State<OnboardingPages> {
                           borderRadius: BorderRadius.circular(5.0)),
                     ),
                     child: Text(
-                      'Masuk',
+                      bahasatrigger
+                          ? Bahasa.ID['ButtonMasuk']
+                          : Bahasa.EN['ButtonMasuk'],
                       style:
                           TextStyle(color: assetsColor.textWhite, fontSize: 18),
                     ),
@@ -204,7 +292,9 @@ class _OnboardingPagesState extends State<OnboardingPages> {
                           borderRadius: BorderRadius.circular(5.0)),
                     ),
                     child: Text(
-                      'Daftar',
+                      bahasatrigger
+                          ? Bahasa.ID['ButtonRegistrasi']
+                          : Bahasa.EN['ButtonRegistrasi'],
                       style:
                           TextStyle(color: assetsColor.textBlack, fontSize: 18),
                     ),
@@ -216,25 +306,5 @@ class _OnboardingPagesState extends State<OnboardingPages> {
         ],
       ),
     );
-  }
-
-  void _handleGoogleSignIn() async {
-    try {
-      GoogleAuthProvider googleAuthProvider = GoogleAuthProvider();
-      UserCredential userCredential =
-          await _auth.signInWithProvider(googleAuthProvider);
-      User? user = userCredential.user;
-
-      if (user != null) {
-        setState(() {
-          _user = user;
-          print("data_user: ${_user}");
-        });
-      } else {
-        print("User is null");
-      }
-    } catch (error) {
-      print(error);
-    }
   }
 }

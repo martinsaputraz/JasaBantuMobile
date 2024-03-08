@@ -24,7 +24,6 @@ class LogicApi {
   String token = "";
   String ID = "";
 
-
   ///Send Otp
   sendOTPDefault(context, String phone) async {
     final FlutterSecureStorage secureStorage = FlutterSecureStorage();
@@ -72,7 +71,7 @@ class LogicApi {
               MaterialPageRoute(
                   builder: (BuildContext context) =>
                       RegisterPages(message: messageresponse)),
-                  (Route<dynamic> route) => true);
+              (Route<dynamic> route) => true);
         }
       } else if (response.statusCode == 400) {
         var jsonResponse = json.decode(response.body);
@@ -171,10 +170,8 @@ class LogicApi {
   }
 
   ///verify OTp
-
   verifyOTPRegistrasi(context, String flag, String hasilEncode) async {
     final FlutterSecureStorage secureStorage = FlutterSecureStorage();
-
 
     Map<String, dynamic> data = {
       'flag': flag,
@@ -210,7 +207,7 @@ class LogicApi {
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(
                 builder: (BuildContext context) => const InputName()),
-                (Route<dynamic> route) => false);
+            (Route<dynamic> route) => false);
       }
     } else if (response.statusCode == 400) {
       print('message: ${jsonDecode(response.body)['message']}');
@@ -236,15 +233,15 @@ class LogicApi {
       if (process == "1") {
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (BuildContext context) => InputName()),
-                (Route<dynamic> route) => true);
+            (Route<dynamic> route) => true);
       } else if (process == "2") {
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (BuildContext context) => SettingPIN()),
-                (Route<dynamic> route) => true);
+            (Route<dynamic> route) => true);
       } else if (process == "3") {
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (BuildContext context) => PINLogin()),
-                (Route<dynamic> route) => true);
+            (Route<dynamic> route) => true);
       }
     } else if (response.statusCode == 400) {
       print('message: ${jsonDecode(response.body)['message']}');
@@ -301,7 +298,7 @@ class LogicApi {
               MaterialPageRoute(
                   builder: (BuildContext context) =>
                       RegisterPages(message: messageresponse)),
-                  (Route<dynamic> route) => true);
+              (Route<dynamic> route) => true);
         }
       } else if (response.statusCode == 400) {
         var jsonResponse = json.decode(response.body);
@@ -339,7 +336,7 @@ class LogicApi {
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(
                 builder: (BuildContext context) => const DashboardPages()),
-                (Route<dynamic> route) => false);
+            (Route<dynamic> route) => false);
       }
     } else if (response.statusCode == 400) {
       print('message: ${jsonDecode(response.body)['message']}');
@@ -382,30 +379,27 @@ class LogicApi {
 
       sharedPreferences.setString("process_steps", processAccess);
 
-
       await secureStorage.write(key: 'ID', value: ID);
-
 
       if (email != null) {
         if (processAccess == "1") {
           Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(builder: (BuildContext context) => InputName()),
-                  (Route<dynamic> route) => true);
+              (Route<dynamic> route) => true);
         } else if (processAccess == "2") {
           Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(
                   builder: (BuildContext context) => SettingPIN()),
-                  (Route<dynamic> route) => true);
+              (Route<dynamic> route) => true);
         } else if (processAccess == "3") {
           Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(builder: (BuildContext context) => PINLogin()),
-                  (Route<dynamic> route) => true);
+              (Route<dynamic> route) => true);
         }
-      }
-      else {
+      } else {
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (BuildContext context) => OTPLogin()),
-                (Route<dynamic> route) => true);
+            (Route<dynamic> route) => true);
       }
     } else if (response.statusCode == 202) {
       var jsonResponse = json.decode(response.body);
@@ -465,7 +459,7 @@ class LogicApi {
 
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (BuildContext context) => OTPLogin()),
-              (Route<dynamic> route) => true);
+          (Route<dynamic> route) => true);
     } else if (response.statusCode == 202) {
       var jsonResponse = json.decode(response.body);
 
@@ -503,12 +497,371 @@ class LogicApi {
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(
                 builder: (BuildContext context) => const DashboardPages()),
-                (Route<dynamic> route) => false);
+            (Route<dynamic> route) => false);
       }
     } else if (response.statusCode == 400) {
       print('message: ${jsonDecode(response.body)['message']}');
     }
   }
 
+  ///get Promo Slider
+  getPromoSlider(context, String flag, String hasilEncode) async {
+    final FlutterSecureStorage secureStorage = FlutterSecureStorage();
 
+    Map<String, dynamic> data = {
+      'flag': flag,
+    };
+
+    String uri = constant.urlAPi + constant.RequestOTP;
+    Uri uriValue = Uri.parse(uri);
+
+    var response = await http.post(
+      uriValue,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $hasilEncode',
+      },
+      body: json.encode(data),
+    );
+
+    if (response.statusCode == 200) {
+      var jsonResponse = json.decode(response.body);
+
+      if (jsonResponse != null) {
+        statusresponse = jsonResponse['status'];
+        messageresponse = jsonResponse['message'];
+      }
+
+      if (statusresponse == "success") {
+        ID = jsonResponse['data']['id'];
+        token = jsonResponse['data']['token'];
+
+        await secureStorage.write(key: 'ID', value: ID);
+        await secureStorage.write(key: 'token', value: token);
+
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(
+                builder: (BuildContext context) => const InputName()),
+            (Route<dynamic> route) => false);
+      }
+    } else if (response.statusCode == 400) {
+      print('message: ${jsonDecode(response.body)['message']}');
+    }
+  }
+
+  ///get produk diskon
+  getProdukDiskon(context, String flag, String hasilEncode) async {
+    final FlutterSecureStorage secureStorage = FlutterSecureStorage();
+
+    Map<String, dynamic> data = {
+      'flag': flag,
+    };
+
+    String uri = constant.urlAPi + constant.RequestOTP;
+    Uri uriValue = Uri.parse(uri);
+
+    var response = await http.post(
+      uriValue,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $hasilEncode',
+      },
+      body: json.encode(data),
+    );
+
+    if (response.statusCode == 200) {
+      var jsonResponse = json.decode(response.body);
+
+      if (jsonResponse != null) {
+        statusresponse = jsonResponse['status'];
+        messageresponse = jsonResponse['message'];
+      }
+
+      if (statusresponse == "success") {
+        ID = jsonResponse['data']['id'];
+        token = jsonResponse['data']['token'];
+
+        await secureStorage.write(key: 'ID', value: ID);
+        await secureStorage.write(key: 'token', value: token);
+
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(
+                builder: (BuildContext context) => const InputName()),
+            (Route<dynamic> route) => false);
+      }
+    } else if (response.statusCode == 400) {
+      print('message: ${jsonDecode(response.body)['message']}');
+    }
+  }
+
+  ///get jasa sekitar mu
+  getJasaSekitarmu(context, String flag, String hasilEncode) async {
+    final FlutterSecureStorage secureStorage = FlutterSecureStorage();
+
+    Map<String, dynamic> data = {
+      'flag': flag,
+    };
+
+    String uri = constant.urlAPi + constant.RequestOTP;
+    Uri uriValue = Uri.parse(uri);
+
+    var response = await http.post(
+      uriValue,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $hasilEncode',
+      },
+      body: json.encode(data),
+    );
+
+    if (response.statusCode == 200) {
+      var jsonResponse = json.decode(response.body);
+
+      if (jsonResponse != null) {
+        statusresponse = jsonResponse['status'];
+        messageresponse = jsonResponse['message'];
+      }
+
+      if (statusresponse == "success") {
+        ID = jsonResponse['data']['id'];
+        token = jsonResponse['data']['token'];
+
+        await secureStorage.write(key: 'ID', value: ID);
+        await secureStorage.write(key: 'token', value: token);
+
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(
+                builder: (BuildContext context) => const InputName()),
+            (Route<dynamic> route) => false);
+      }
+    } else if (response.statusCode == 400) {
+      print('message: ${jsonDecode(response.body)['message']}');
+    }
+  }
+
+  ///get artikel
+  getArtikel(context, String flag, String hasilEncode) async {
+    final FlutterSecureStorage secureStorage = FlutterSecureStorage();
+
+    Map<String, dynamic> data = {
+      'flag': flag,
+    };
+
+    String uri = constant.urlAPi + constant.RequestOTP;
+    Uri uriValue = Uri.parse(uri);
+
+    var response = await http.post(
+      uriValue,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $hasilEncode',
+      },
+      body: json.encode(data),
+    );
+
+    if (response.statusCode == 200) {
+      var jsonResponse = json.decode(response.body);
+
+      if (jsonResponse != null) {
+        statusresponse = jsonResponse['status'];
+        messageresponse = jsonResponse['message'];
+      }
+
+      if (statusresponse == "success") {
+        ID = jsonResponse['data']['id'];
+        token = jsonResponse['data']['token'];
+
+        await secureStorage.write(key: 'ID', value: ID);
+        await secureStorage.write(key: 'token', value: token);
+
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(
+                builder: (BuildContext context) => const InputName()),
+            (Route<dynamic> route) => false);
+      }
+    } else if (response.statusCode == 400) {
+      print('message: ${jsonDecode(response.body)['message']}');
+    }
+  }
+
+  ///getbantuan
+  getBantuan(context, String flag, String hasilEncode) async {
+    final FlutterSecureStorage secureStorage = FlutterSecureStorage();
+
+    Map<String, dynamic> data = {
+      'flag': flag,
+    };
+
+    String uri = constant.urlAPi + constant.RequestOTP;
+    Uri uriValue = Uri.parse(uri);
+
+    var response = await http.post(
+      uriValue,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $hasilEncode',
+      },
+      body: json.encode(data),
+    );
+
+    if (response.statusCode == 200) {
+      var jsonResponse = json.decode(response.body);
+
+      if (jsonResponse != null) {
+        statusresponse = jsonResponse['status'];
+        messageresponse = jsonResponse['message'];
+      }
+
+      if (statusresponse == "success") {
+        ID = jsonResponse['data']['id'];
+        token = jsonResponse['data']['token'];
+
+        await secureStorage.write(key: 'ID', value: ID);
+        await secureStorage.write(key: 'token', value: token);
+
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(
+                builder: (BuildContext context) => const InputName()),
+            (Route<dynamic> route) => false);
+      }
+    } else if (response.statusCode == 400) {
+      print('message: ${jsonDecode(response.body)['message']}');
+    }
+  }
+
+  ///searching produk
+  getSearchingProdukByNameCategory(
+      context, String flag, String hasilEncode) async {
+    final FlutterSecureStorage secureStorage = FlutterSecureStorage();
+
+    Map<String, dynamic> data = {
+      'flag': flag,
+    };
+
+    String uri = constant.urlAPi + constant.RequestOTP;
+    Uri uriValue = Uri.parse(uri);
+
+    var response = await http.post(
+      uriValue,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $hasilEncode',
+      },
+      body: json.encode(data),
+    );
+
+    if (response.statusCode == 200) {
+      var jsonResponse = json.decode(response.body);
+
+      if (jsonResponse != null) {
+        statusresponse = jsonResponse['status'];
+        messageresponse = jsonResponse['message'];
+      }
+
+      if (statusresponse == "success") {
+        ID = jsonResponse['data']['id'];
+        token = jsonResponse['data']['token'];
+
+        await secureStorage.write(key: 'ID', value: ID);
+        await secureStorage.write(key: 'token', value: token);
+
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(
+                builder: (BuildContext context) => const InputName()),
+            (Route<dynamic> route) => false);
+      }
+    } else if (response.statusCode == 400) {
+      print('message: ${jsonDecode(response.body)['message']}');
+    }
+  }
+
+  ///getBIO USER
+  getAlamat(context, String flag, String hasilEncode) async {
+    final FlutterSecureStorage secureStorage = FlutterSecureStorage();
+
+    Map<String, dynamic> data = {
+      'flag': flag,
+    };
+
+    String uri = constant.urlAPi + constant.RequestOTP;
+    Uri uriValue = Uri.parse(uri);
+
+    var response = await http.post(
+      uriValue,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $hasilEncode',
+      },
+      body: json.encode(data),
+    );
+
+    if (response.statusCode == 200) {
+      var jsonResponse = json.decode(response.body);
+
+      if (jsonResponse != null) {
+        statusresponse = jsonResponse['status'];
+        messageresponse = jsonResponse['message'];
+      }
+
+      if (statusresponse == "success") {
+        ID = jsonResponse['data']['id'];
+        token = jsonResponse['data']['token'];
+
+        await secureStorage.write(key: 'ID', value: ID);
+        await secureStorage.write(key: 'token', value: token);
+
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(
+                builder: (BuildContext context) => const InputName()),
+            (Route<dynamic> route) => false);
+      }
+    } else if (response.statusCode == 400) {
+      print('message: ${jsonDecode(response.body)['message']}');
+    }
+  }
+
+  ///geTransaksi
+  getTransaksi(context, String flag, String hasilEncode) async {
+    final FlutterSecureStorage secureStorage = FlutterSecureStorage();
+
+    Map<String, dynamic> data = {
+      'flag': flag,
+    };
+
+    String uri = constant.urlAPi + constant.RequestOTP;
+    Uri uriValue = Uri.parse(uri);
+
+    var response = await http.post(
+      uriValue,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $hasilEncode',
+      },
+      body: json.encode(data),
+    );
+
+    if (response.statusCode == 200) {
+      var jsonResponse = json.decode(response.body);
+
+      if (jsonResponse != null) {
+        statusresponse = jsonResponse['status'];
+        messageresponse = jsonResponse['message'];
+      }
+
+      if (statusresponse == "success") {
+        ID = jsonResponse['data']['id'];
+        token = jsonResponse['data']['token'];
+
+        await secureStorage.write(key: 'ID', value: ID);
+        await secureStorage.write(key: 'token', value: token);
+
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(
+                builder: (BuildContext context) => const InputName()),
+            (Route<dynamic> route) => false);
+      }
+    } else if (response.statusCode == 400) {
+      print('message: ${jsonDecode(response.body)['message']}');
+    }
+  }
 }

@@ -89,36 +89,44 @@ class _GridMenuState extends State<GridMenu> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 180,
-      decoration: BoxDecoration(
-        color: assetsColor.bgLightMode,
-      ),
-      padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-      child: GridView.builder(
-        itemCount: gridMenuItems.length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 6,
-          crossAxisSpacing: 1,
-          mainAxisSpacing: 30,
-        ),
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        itemBuilder: (context, index) {
-          final item = gridMenuItems[index];
-          return GridTile(
-            child: GridMenuTile(
-              gridMenuIcon: item['gridMenuIcon'],
-              gridMenuText: item['gridMenuText'],
-              gridMenuBoxColor: item['gridMenuColor'],
-              onPressed: () {
-                Navigator.pushNamed(context, item['gridMenuRoutes']);
-              },
-              gridMenuRoutes: item['gridMenuRoutes'],
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          height: 180,
+          decoration: BoxDecoration(
+            color: assetsColor.bgLightMode,
+          ),
+          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+          child: GridView.builder(
+            itemCount: gridMenuItems.length,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 6,
+              crossAxisSpacing: 1,
+              mainAxisSpacing: 30,
             ),
-          );
-        },
-      ),
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemBuilder: (context, index) {
+              final item = gridMenuItems[index];
+              return GridTile(
+                child: GridMenuTile(
+                  gridMenuIcon: item['gridMenuIcon'],
+                  gridMenuText: item['gridMenuText'],
+                  gridMenuBoxColor: item['gridMenuColor'],
+                  onPressed: () {
+                    Navigator.pushNamed(context, item['gridMenuRoutes']);
+                  },
+                  gridMenuRoutes: item['gridMenuRoutes'],
+                ),
+              );
+            },
+          ),
+
+
+        ),
+
+      ],
     );
   }
 }

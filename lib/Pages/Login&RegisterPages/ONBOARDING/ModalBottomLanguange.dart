@@ -1,59 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:jasa_bantu/Pages/Login&RegisterPages/ONBOARDING/ModalBottomLanguange.dart';
+import 'package:jasa_bantu/Pages/Login&RegisterPages/ONBOARDING/OnboardingPages.dart';
 import 'package:jasa_bantu/Settings/Languange.dart';
 import 'package:jasa_bantu/assets/AssetsColor.dart';
+import 'package:jasa_bantu/local_database/model_share_prefrences.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:translator/translator.dart';
 
 AssetsColor assetsColor = AssetsColor();
+Bahasa bahasa = Bahasa();
 
-class ModalBottomOTPContent extends StatefulWidget {
+class ModalBottomLanguange extends StatefulWidget {
   final Function(bool, bool) updateSelection;
 
-  const ModalBottomOTPContent({Key? key, required this.updateSelection})
+  const ModalBottomLanguange({Key? key, required this.updateSelection})
       : super(key: key);
 
   @override
-  _ModalBottomOTPContentState createState() => _ModalBottomOTPContentState();
+  _ModalBottomLanguangeState createState() => _ModalBottomLanguangeState();
 }
 
-class _ModalBottomOTPContentState extends State<ModalBottomOTPContent> {
-  bool _sendOTPViaSMS = true;
-  bool _sendOTPViaWhatsApp = false;
+ModelSharePreferences modelSharePreferences = ModelSharePreferences();
+final translator = GoogleTranslator();
+
+class _ModalBottomLanguangeState extends State<ModalBottomLanguange> {
+  String tombolBahasaIndonesia = "";
+  String tombolBahasaEnglish = "";
   final FlutterLocalization _localization = FlutterLocalization.instance;
-
-  String? bahasa;
-  bool bahasatrigger = true;
-
-  String tombolWa = "";
-  String tombolSMS = "";
+  var translation = "";
+  bool ID = true;
+  bool EN = false;
 
   @override
   void initState() {
     modelSharePreferences.dataShareprefrences().then((data) {
       setState(() {
         // Ambil nilai dari SharePreferences
-        tombolWa = data['tombolWhatsapp']!;
-        tombolSMS = data['tombolSMS']!;
+        tombolBahasaIndonesia = data['tombolBahasaIndo']!;
+        tombolBahasaEnglish = data['tombolBahasaEnglish']!;
 
-        _sendOTPViaWhatsApp = tombolWa ==
+        // Konversi string ke boolean
+        ID = tombolBahasaIndonesia ==
             'true'; // Jika 'true' maka ID akan true, jika 'false' maka ID akan false
-        _sendOTPViaSMS = tombolSMS ==
+        EN = tombolBahasaEnglish ==
             'true'; // Jika 'true' maka EN akan true, jika 'false' maka EN akan false
-
-        bahasa = data['bahasa'] ?? 'id';
-
-        if (bahasa == "id") {
-          _localization.translate('id');
-          bahasatrigger = true;
-        } else if (bahasa == "en") {
-          _localization.translate('en');
-          bahasatrigger = false;
-        } else {
-          _localization.translate('id');
-          bahasatrigger = true;
-        }
       });
     });
 
@@ -71,6 +62,7 @@ class _ModalBottomOTPContentState extends State<ModalBottomOTPContent> {
       initLanguageCode: 'id',
     );
     _localization.onTranslatedLanguage = _onTranslatedLanguage;
+    super.initState();
   }
 
   void _onTranslatedLanguage(Locale? locale) {
@@ -85,11 +77,7 @@ class _ModalBottomOTPContentState extends State<ModalBottomOTPContent> {
         children: <Widget>[
           Container(
             padding: const EdgeInsets.fromLTRB(0, 20, 0, 10),
-            child: Text(
-              bahasatrigger
-                  ? Bahasa.ID['Teks1ModalOTP']
-                  : Bahasa.EN['Teks1ModalOTP'],
-            ),
+            child: Text(ID ? Bahasa.ID['NamaModal'] : Bahasa.EN['NamaModal']),
           ),
 
           /// SEND OTP SMS
@@ -98,15 +86,15 @@ class _ModalBottomOTPContentState extends State<ModalBottomOTPContent> {
             child: ElevatedButton(
               onPressed: () {
                 setState(() {
-                  _sendOTPViaSMS = true;
-                  _sendOTPViaWhatsApp = false;
+                  ID = true;
+                  EN = false;
                   widget.updateSelection(true, false);
                 });
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: assetsColor.buttonWhite,
                 side: BorderSide(
-                    color: _sendOTPViaSMS
+                    color: ID
                         ? assetsColor.borderBlack
                         : assetsColor.borderDefault),
                 shape: RoundedRectangleBorder(
@@ -117,24 +105,22 @@ class _ModalBottomOTPContentState extends State<ModalBottomOTPContent> {
                 children: [
                   Row(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 20.0),
-                        child: Icon(
-                          Icons.message_outlined,
-                          color: assetsColor.textBlack,
+                      const Padding(
+                        padding: EdgeInsets.only(right: 20.0),
+                        child: FaIcon(
+                          FontAwesomeIcons.language,
+                          color: Colors.black,
                           size: 20,
                         ),
                       ),
                       Text(
-                        bahasatrigger
-                            ? Bahasa.ID['OTPSMSMODAL']
-                            : Bahasa.EN['OTPSMSMODAL'],
+                        'Bahasa Indonesia',
                         style: TextStyle(color: assetsColor.textBlack),
                       ),
                     ],
                   ),
                   Icon(
-                    _sendOTPViaSMS
+                    ID
                         ? Icons.radio_button_checked
                         : Icons.radio_button_unchecked_outlined,
                     color: assetsColor.textBlack,
@@ -150,15 +136,15 @@ class _ModalBottomOTPContentState extends State<ModalBottomOTPContent> {
             child: ElevatedButton(
               onPressed: () {
                 setState(() {
-                  _sendOTPViaSMS = false;
-                  _sendOTPViaWhatsApp = true;
+                  ID = false;
+                  EN = true;
                   widget.updateSelection(false, true);
                 });
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: assetsColor.buttonWhite,
                 side: BorderSide(
-                    color: _sendOTPViaWhatsApp
+                    color: EN
                         ? assetsColor.borderBlack
                         : assetsColor.borderDefault),
                 shape: RoundedRectangleBorder(
@@ -172,21 +158,19 @@ class _ModalBottomOTPContentState extends State<ModalBottomOTPContent> {
                       const Padding(
                         padding: EdgeInsets.only(right: 20.0),
                         child: FaIcon(
-                          FontAwesomeIcons.whatsapp,
-                          color: Colors.lightGreen,
+                          FontAwesomeIcons.language,
+                          color: Colors.black,
                           size: 20,
                         ),
                       ),
                       Text(
-                        bahasatrigger
-                            ? Bahasa.ID['OTPWAMODAL']
-                            : Bahasa.EN['OTPWAMODAL'],
+                        'English',
                         style: TextStyle(color: assetsColor.textBlack),
                       ),
                     ],
                   ),
                   Icon(
-                    _sendOTPViaWhatsApp
+                    EN
                         ? Icons.radio_button_checked
                         : Icons.radio_button_unchecked_outlined,
                     color: assetsColor.textBlack,
@@ -205,20 +189,23 @@ class _ModalBottomOTPContentState extends State<ModalBottomOTPContent> {
                   SharedPreferences prefs =
                       await SharedPreferences.getInstance();
 
-                  if (_sendOTPViaSMS == true) {
-                    await prefs.setString("tombolSMS", "true");
-                    await modelSharePreferences.deleteTombolWA(context);
-
-                    setState(() {
-                      _sendOTPViaSMS = true;
-                    });
-                  } else if (_sendOTPViaWhatsApp == true) {
-                    await prefs.setString("tombolWhatsapp", "true");
-                    await modelSharePreferences.deleteTombolSMS(context);
-                    setState(() {
-                      _sendOTPViaWhatsApp = true;
-                    });
+                  if (ID == true) {
+                    _localization.translate('id');
+                    await prefs.setString("tombolBahasaIndo", "true");
+                    await prefs.setString("bahasa", "id");
+                    await modelSharePreferences.deleteTombolEnglish(context);
+                  } else if (EN == true) {
+                    _localization.translate('en');
+                    await prefs.setString("tombolBahasaEnglish", "true");
+                    await prefs.setString("bahasa", "en");
+                    await modelSharePreferences.deleteTombolIndonesia(context);
                   }
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const OnboardingPages(),
+                    ),
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: assetsColor.buttonPrimary,
@@ -230,9 +217,7 @@ class _ModalBottomOTPContentState extends State<ModalBottomOTPContent> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      bahasatrigger
-                          ? Bahasa.ID['TombolKirimKodeOTP']
-                          : Bahasa.EN['TombolKirimKodeOTP'],
+                      ID ? Bahasa.ID['NamaModal'] : Bahasa.EN['NamaModal'],
                       style:
                           TextStyle(color: assetsColor.textWhite, fontSize: 18),
                     ),

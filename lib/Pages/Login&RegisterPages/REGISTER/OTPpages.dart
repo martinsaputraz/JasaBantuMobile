@@ -2,11 +2,14 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:jasa_bantu/Pages/Login&RegisterPages/ONBOARDING/ModalBottomLanguange.dart';
 import 'package:jasa_bantu/Pages/Login&RegisterPages/REGISTER/ModalBottomOTPContent.dart';
 import 'package:jasa_bantu/Pages/Login&RegisterPages/REGISTER/SettingPIN.dart';
 import 'package:jasa_bantu/Pages/Login&RegisterPages/ResendOTPButtonFunction.dart';
+import 'package:jasa_bantu/Settings/Languange.dart';
 import 'package:jasa_bantu/Settings/rotasi.dart';
 import 'package:jasa_bantu/assets/AssetsColor.dart';
 import 'package:otp_text_field/otp_field.dart';
@@ -27,6 +30,7 @@ class _OTPPagesState extends State<OTPPages> {
   ///FOR 'OTP'
   OtpFieldController otpRegisterController = OtpFieldController();
   final FlutterSecureStorage secureStorage = FlutterSecureStorage();
+  final FlutterLocalization _localization = FlutterLocalization.instance;
 
   String? storedNoHp;
   String rotatedText = "";
@@ -48,11 +52,56 @@ class _OTPPagesState extends State<OTPPages> {
   bool sendOTPViaSMS = false;
   bool sendOTPViaWhatsApp = false;
 
+  String? bahasa;
+  bool bahasatrigger = true;
+
+  String tombolWa = "";
+  String tombolSMS = "";
+
   @override
   void initState() {
-    super.initState();
+    modelSharePreferences.dataShareprefrences().then((data) {
+      setState(() {
+        // Ambil nilai dari SharePreferences
 
-    // Set waktu akhir, contoh 1 menit dari waktu sekarang
+        String tombolWa = data['tombolWhatsapp'] ?? 'false';
+        String tombolSMS = data['tombolSMS'] ?? 'false';
+
+        // Periksa dan atur variabel sendOTPViaSMS dan sendOTPViaWhatsApp
+        sendOTPViaSMS = tombolSMS == 'true';
+        sendOTPViaWhatsApp = tombolWa ==
+            'true'; // Jika 'true' maka EN akan true, jika 'false' maka EN akan false
+
+        bahasa = data['bahasa'] ?? 'id';
+
+        if (bahasa == "id") {
+          _localization.translate('id');
+          bahasatrigger = true;
+        } else if (bahasa == "en") {
+          _localization.translate('en');
+          bahasatrigger = false;
+        } else {
+          _localization.translate('id');
+          bahasatrigger = true;
+        }
+      });
+    });
+
+    _localization.init(
+      mapLocales: [
+        const MapLocale(
+          'id',
+          Bahasa.ID,
+        ),
+        const MapLocale(
+          'en',
+          Bahasa.EN,
+        ),
+      ],
+      initLanguageCode: 'id',
+    );
+    _localization.onTranslatedLanguage = _onTranslatedLanguage;
+
     endTime = DateTime.now().add(const Duration(minutes: 5));
 
     getStoredNoHp();
@@ -63,7 +112,10 @@ class _OTPPagesState extends State<OTPPages> {
 
       });
     })*/
-    ;
+  }
+
+  void _onTranslatedLanguage(Locale? locale) {
+    setState(() {});
   }
 
   Future<void> getStoredNoHp() async {
@@ -103,8 +155,10 @@ class _OTPPagesState extends State<OTPPages> {
       backgroundColor: assetsColor.bgLightMode,
       appBar: AppBar(
         backgroundColor: assetsColor.bgLightMode,
-        title: const Text(
-          'Verifikasi',
+        title: Text(
+          bahasatrigger
+              ? Bahasa.ID['APPVERIFIKASI']
+              : Bahasa.EN['APPVERIFIKASI'],
           style: TextStyle(fontSize: 20),
         ),
         actions: [
@@ -126,7 +180,9 @@ class _OTPPagesState extends State<OTPPages> {
               icon:
                   Icon(Icons.live_help_outlined, color: assetsColor.textBlack),
               label: Text(
-                'Bantuan',
+                bahasatrigger
+                    ? Bahasa.ID['TOMBOLBANTUAN']
+                    : Bahasa.EN['TOMBOLBANTUAN'],
                 style: TextStyle(color: assetsColor.textBlack),
               ),
             ),
@@ -140,7 +196,9 @@ class _OTPPagesState extends State<OTPPages> {
             Container(
               padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
               child: Text(
-                'Masukkan kode OTP',
+                bahasatrigger
+                    ? Bahasa.ID['TeksVerifikasi1']
+                    : Bahasa.EN['TeksVerifikasi1'],
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
@@ -152,8 +210,12 @@ class _OTPPagesState extends State<OTPPages> {
             Container(
               padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
               child: Text(
-                'Cek kotak pesan SMS kamu untuk melihat kode\n'
-                'OTP yang kami kirimkan ke nomor',
+                bahasatrigger
+                    ? Bahasa.ID['TeksVerifikasi2']
+                    : Bahasa.EN['TeksVerifikasi2'] +
+                        (bahasatrigger
+                            ? Bahasa.ID['TeksVerifikasi3']
+                            : Bahasa.EN['TeksVerifikasi3']),
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 15, color: assetsColor.textBlack),
               ),
@@ -202,6 +264,10 @@ class _OTPPagesState extends State<OTPPages> {
                             base64Encode(utf8.encode(rotatedText));
                       });
 
+                      /*      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => InputName()),
+                      );*/
                       if (pin.length == 6) {
                         logicApi.verifyOTPRegistrasi(
                             context, constant.flagnewUser, data_nilai);
@@ -217,8 +283,10 @@ class _OTPPagesState extends State<OTPPages> {
               child: OtpTimerButtonFunction(
                 height: 40,
                 onPressed: () {},
-                text: const Text(
-                  'Kirim Ulang',
+                text: Text(
+                  bahasatrigger
+                      ? Bahasa.ID['TombolKirimUlang']
+                      : Bahasa.EN['TombolKirimUlang'],
                   style: TextStyle(color: Colors.white, fontSize: 15),
                 ),
                 backgroundColor: Colors.indigo,
@@ -238,7 +306,9 @@ class _OTPPagesState extends State<OTPPages> {
                   Container(
                     padding: const EdgeInsets.fromLTRB(20, 0, 20, 5),
                     child: Text(
-                      'Kode OTP tidak masuk? Gunakan cara lain',
+                      bahasatrigger
+                          ? Bahasa.ID['TeksVerifikasi4']
+                          : Bahasa.EN['TeksVerifikasi4'],
                       style:
                           TextStyle(fontSize: 15, color: assetsColor.textBlack),
                     ),
@@ -295,9 +365,13 @@ class _OTPPagesState extends State<OTPPages> {
                                       ),
                                     ),
                                     Text(
-                                      sendOTPViaWhatsApp
-                                          ? 'OTP dikirim ke WhatsApp'
-                                          : 'OTP dikirim ke SMS',
+                                      bahasatrigger
+                                          ? (sendOTPViaWhatsApp
+                                              ? Bahasa.ID['TeksVerifikasi5']
+                                              : Bahasa.ID['TeksVerifikasi6'])
+                                          : (sendOTPViaWhatsApp
+                                              ? Bahasa.EN['TeksVerifikasi5']
+                                              : Bahasa.EN['TeksVerifikasi6']),
                                       style: TextStyle(
                                           color: assetsColor.textBlack),
                                     ),

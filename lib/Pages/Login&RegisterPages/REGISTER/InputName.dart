@@ -1,10 +1,10 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:jasa_bantu/Pages/Login&RegisterPages/LOGIN/LoginPages.dart';
+import 'package:jasa_bantu/Pages/Login&RegisterPages/ONBOARDING/ModalBottomLanguange.dart';
+import 'package:jasa_bantu/Pages/Login&RegisterPages/REGISTER/SettingPIN.dart';
+import 'package:jasa_bantu/Settings/Languange.dart';
 import 'package:jasa_bantu/Settings/constant.dart';
-import 'package:jasa_bantu/Settings/rotasi.dart';
 import 'package:jasa_bantu/assets/AssetsColor.dart';
 
 AssetsColor assetsColor = AssetsColor();
@@ -20,9 +20,10 @@ class _InputNameState extends State<InputName> {
   final FlutterSecureStorage secureStorage = FlutterSecureStorage();
   Constant constant = Constant();
 
-  //
   /// FOR 'NAMA'
   final TextEditingController _inputName = TextEditingController();
+  final FlutterLocalization _localization = FlutterLocalization.instance;
+
   String? ID;
 
   String? storedNoHp;
@@ -30,11 +31,51 @@ class _InputNameState extends State<InputName> {
   String textRotate = "";
   String data_nilai = "";
 
+  String? bahasa;
+  bool bahasatrigger = true;
+
   @override
   void initState() {
-    // TODO: implement initState
+    modelSharePreferences.dataShareprefrences().then((data) {
+      setState(() {
+        // Ambil nilai dari SharePreferences
+
+        bahasa = data['bahasa'] ?? 'id';
+
+        if (bahasa == "id") {
+          _localization.translate('id');
+          bahasatrigger = true;
+        } else if (bahasa == "en") {
+          _localization.translate('en');
+          bahasatrigger = false;
+        } else {
+          _localization.translate('id');
+          bahasatrigger = true;
+        }
+      });
+    });
+
+    _localization.init(
+      mapLocales: [
+        const MapLocale(
+          'id',
+          Bahasa.ID,
+        ),
+        const MapLocale(
+          'en',
+          Bahasa.EN,
+        ),
+      ],
+      initLanguageCode: 'id',
+    );
+    _localization.onTranslatedLanguage = _onTranslatedLanguage;
+
     getStorageID();
     super.initState();
+  }
+
+  void _onTranslatedLanguage(Locale? locale) {
+    setState(() {});
   }
 
   Future<void> getStorageID() async {
@@ -51,7 +92,7 @@ class _InputNameState extends State<InputName> {
       appBar: AppBar(
         backgroundColor: assetsColor.bgLightMode,
         title: Text(
-          'Daftar',
+          bahasatrigger ? Bahasa.ID['APPINPUTNAME'] : Bahasa.EN['APPINPUTNAME'],
           style: TextStyle(fontSize: 20, color: assetsColor.textBlack),
         ),
       ),
@@ -73,7 +114,9 @@ class _InputNameState extends State<InputName> {
           Container(
             padding: const EdgeInsets.only(left: 20, right: 20),
             child: Text(
-              'Masukkan Nama Lengkap Kamu Yuk',
+              bahasatrigger
+                  ? Bahasa.ID['Teks1InputName']
+                  : Bahasa.EN['Teks1InputName'],
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
@@ -103,7 +146,9 @@ class _InputNameState extends State<InputName> {
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0)),
-                  labelText: 'Masukkan Nama Kamu',
+                  labelText: bahasatrigger
+                      ? Bahasa.ID['FieldInputName']
+                      : Bahasa.EN['FieldInputName'],
                   prefixIcon: Icon(Icons.account_circle_outlined,
                       color: assetsColor.hintText),
                 ),
@@ -121,7 +166,7 @@ class _InputNameState extends State<InputName> {
             child: Center(
               child: ElevatedButton(
                 onPressed: () {
-                  if (_inputName.text == "") {
+                  /*       if (_inputName.text == "") {
                     print("HELO WORLD");
                   } else {
                     textRotate =
@@ -135,7 +180,11 @@ class _InputNameState extends State<InputName> {
                         base64Encode(utf8.encode(rotatedText));
 
                     logicApi.setName(context, _inputName.text, data_nilai);
-                  }
+                  }*/
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const SettingPIN()),
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: assetsColor.buttonPrimary,
@@ -147,7 +196,9 @@ class _InputNameState extends State<InputName> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Lanjutkan',
+                      bahasatrigger
+                          ? Bahasa.ID['TombolLanjutkan']
+                          : Bahasa.EN['TombolLanjutkan'],
                       style:
                           TextStyle(color: assetsColor.textWhite, fontSize: 18),
                     ),

@@ -8,11 +8,21 @@ class ModelSharePreferences {
     String nama_lengkap = prefs.getString("nama_lengkap") ?? '';
     String aksesMasuk = prefs.getString("akses_masuk") ?? '';
     String processSteps = prefs.getString("process_steps") ?? '';
+    String bahasa = prefs.getString("bahasa") ?? 'id';
+    String tombolBahasaIndo = prefs.getString("tombolBahasaIndo") ?? '';
+    String tombolBahasaEnglish = prefs.getString("tombolBahasaEnglish") ?? '';
+    String tombolWhatsapp = prefs.getString("tombolWhatsapp") ?? '';
+    String tombolSMS = prefs.getString("tombolSMS") ?? '';
 
     return {
       'nama_lengkap': nama_lengkap,
       'akses_masuk': aksesMasuk,
       'process_steps': processSteps,
+      'bahasa': bahasa,
+      'tombolBahasaIndo': tombolBahasaIndo,
+      'tombolBahasaEnglish': tombolBahasaEnglish,
+      'tombolWhatsapp': tombolWhatsapp,
+      'tombolSMS': tombolSMS,
     };
   }
 
@@ -32,5 +42,25 @@ class ModelSharePreferences {
   deleteProcess(context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.remove("process_steps");
+  }
+
+  deleteTombolIndonesia(context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove("tombolBahasaIndo");
+  }
+
+  deleteTombolEnglish(context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove("tombolBahasaEnglish");
+  }
+
+  deleteTombolWA(context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove("tombolWhatsapp");
+  }
+
+  deleteTombolSMS(context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove("tombolSMS");
   }
 }
