@@ -150,9 +150,12 @@ class _SettingPINState extends State<SettingPIN> {
                             constant.delimeterRegistration +
                             setPinSimpan!;
 
-                        rotatedText = Rotasi.rotateText(textRotate, 15);
-                        data_nilai = base64Encode(utf8.encode(rotatedText));
-                        print(data_nilai);
+                        rotatedText =
+                            Rotasi.rotateText(textRotate, constant.ROT_NUM);
+                        data_nilai = constant.PREFIX_KEY +
+                            constant.ROT_NUM.toString() +
+                            constant.backprefix +
+                            base64Encode(utf8.encode(rotatedText));
                       });
 
                       logicApi.setPIN(context, data_nilai);

@@ -26,7 +26,7 @@ class Constant {
   String iosBundleId = '';
 
   ///Others
-  String urlAPi = "https://bkgkgngv-5000.asse.devtunnels.ms/";
+  String urlAPi = "http://api.jasabantu.com:5002/";
   String namaPT = "PT. Jasa Bantu Indonesia";
 
   ///Teks Slider Atas
@@ -47,7 +47,10 @@ class Constant {
       "Where everything is possible and customize your onboarding.";
 
   String ROT_KEY =
-      "aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ@#\$_-&%:0123456789";
+      "kdyPe6QxOKHW923ngfb8-X7TLoS5ZU_ECvFR@DqV4whBruazMtp%l0\$Y.iJ#s1jINcA:&Gm";
+  String PREFIX_KEY = "\$2y\$";
+  int ROT_NUM = 15;
+  String backprefix = "\$";
 
   String flagWa = "WA";
   String flagSms = "SMS";
@@ -56,5 +59,4 @@ class Constant {
 
   String flagnewUser = "new_user";
   String flagUpdate = "register_phone";
-
 }

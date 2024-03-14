@@ -7,10 +7,12 @@ import 'package:jasa_bantu/Pages/DASHBOARD/HOMEPAGES/ImagesAds.dart';
 import 'package:jasa_bantu/Pages/DASHBOARD/HOMEPAGES/MyCurrentLocation.dart';
 import 'package:jasa_bantu/Pages/DASHBOARD/HOMEPAGES/ProgressCard.dart';
 import 'package:jasa_bantu/Pages/DASHBOARD/HOMEPAGES/PromotionCard.dart';
+import 'package:jasa_bantu/Pages/DASHBOARD/HOMEPAGES/QRScanScreen.dart';
 import 'package:jasa_bantu/Pages/DASHBOARD/HOMEPAGES/SliderDiscount.dart';
 import 'package:jasa_bantu/Pages/DASHBOARD/HOMEPAGES/SliderImages.dart';
 import 'package:jasa_bantu/Pages/DASHBOARD/HOMEPAGES/SurroundingServicesCard.dart';
 import 'package:jasa_bantu/Pages/DASHBOARD/HOMEPAGES/VendorCard.dart';
+import 'package:jasa_bantu/Pages/DASHBOARD/Notifications/NotificationsPages.dart';
 import 'package:jasa_bantu/assets/AssetsColor.dart';
 
 AssetsColor assetsColor = AssetsColor();
@@ -78,7 +80,13 @@ class _HomePagesState extends State<HomePages> {
                           Icons.qr_code_scanner,
                           color: assetsColor.hintText,
                         ),
-                        onPressed: () {},
+                        onPressed: () async {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => QRScanScreen()),
+                          );
+                        },
                       ),
                     ],
                   ),
@@ -88,9 +96,15 @@ class _HomePagesState extends State<HomePages> {
           ),
           actions: [
             IconButton(
-              onPressed: () {},
+              onPressed: () async {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const NotificationsPages()),
+                );
+              },
               icon: Icon(
-                Icons.receipt_outlined,
+                Icons.notifications_outlined,
                 color: assetsColor.hintText,
               ),
             ),

@@ -44,7 +44,7 @@ class _MyAppState extends State<MyApp> {
       title: 'Jasa Bantu',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
-        useMaterial3: true,
+        // useMaterial3: true,
         // indicatorColor: assetsColor.indicatorColor,
         inputDecorationTheme: const InputDecorationTheme(),
       ),

@@ -127,13 +127,13 @@ class _InputNameState extends State<InputName> {
                     textRotate =
                         ID! + constant.delimeterRegistration + storedNoHp!;
 
-                    rotatedText = Rotasi.rotateText(textRotate, 15);
-                    data_nilai = base64Encode(utf8.encode(rotatedText));
-                    print(textRotate);
-                    print(rotatedText);
-                    print(ID);
-                    print(storedNoHp);
-                    print(data_nilai);
+                    rotatedText =
+                        Rotasi.rotateText(textRotate, constant.ROT_NUM);
+                    data_nilai = constant.PREFIX_KEY +
+                        constant.ROT_NUM.toString() +
+                        constant.backprefix +
+                        base64Encode(utf8.encode(rotatedText));
+
                     logicApi.setName(context, _inputName.text, data_nilai);
                   }
                 },

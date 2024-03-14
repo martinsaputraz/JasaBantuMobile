@@ -9,7 +9,7 @@ import 'package:jasa_bantu/assets/AssetsColor.dart';
 AssetsColor assetsColor = AssetsColor();
 
 class RegisterPages extends StatefulWidget {
-  final String message; // Deklarasi variabel message
+  final String message;
 
   const RegisterPages({Key? key, required this.message}) : super(key: key);
 
@@ -184,8 +184,7 @@ class _RegisterPagesState extends State<RegisterPages> {
                                       padding:
                                           const EdgeInsets.only(right: 20.0),
                                       child: Image.asset(
-                                        'assets/icon/Icon_Google.png',
-                                        // color: assetsColor.textLoginwithGoogle,
+                                        assetsIcon.coloredGoogle,
                                         height: 20,
                                         width: 20,
                                       ),
@@ -283,14 +282,14 @@ class _RegisterPagesState extends State<RegisterPages> {
                 child: Center(
                   child: ElevatedButton(
                     onPressed: () {
-                      // if (phoneNumberRegis == "") {
-                      // } else {
-                      //   if (phoneNumberRegis.startsWith('+')) {
-                      //     phoneNumber = phoneNumberRegis
-                      //         .substring(1); // Remove the leading '+'
-                      //   }
-                      //   logicApi.sendOTPDefault(context, phoneNumber);
-                      // }
+                      if (phoneNumberRegis == "") {
+                      } else {
+                        if (phoneNumberRegis.startsWith('+')) {
+                          phoneNumber = phoneNumberRegis
+                              .substring(1); // Remove the leading '+'
+                        }
+                        logicApi.sendOTPDefault(context, phoneNumber);
+                      }
                       Navigator.push(
                           context,
                           MaterialPageRoute(

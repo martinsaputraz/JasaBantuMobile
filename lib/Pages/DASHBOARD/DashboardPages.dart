@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:jasa_bantu/Pages/DASHBOARD/CHAT_PAGES/ChatPages.dart';
 import 'package:jasa_bantu/Pages/DASHBOARD/HOMEPAGES/HomePages.dart';
+import 'package:jasa_bantu/Pages/DASHBOARD/ORDER_PAGES/OrderPages.dart';
+import 'package:jasa_bantu/Pages/DASHBOARD/PRODUCTS_PAGES/ProductsPages.dart';
+import 'package:jasa_bantu/Pages/DASHBOARD/PROFILE_PAGES/ProfilePages.dart';
 import 'package:jasa_bantu/assets/AssetsColor.dart';
 
 AssetsColor assetsColor = AssetsColor();
@@ -16,10 +20,10 @@ class _DashboardPagesState extends State<DashboardPages> {
   int _selectedIndexMenuNavBar = 0;
   final List<Widget> _bottomMenuNavBar = [
     const HomePages(),
-    // const ProductsPages(),
-    // const OrderPages(),
-    // const ChatPages(),
-    // const ProfilePages(),
+    const ProductsPages(),
+    const OrderPages(),
+    const ChatPages(),
+    const ProfilePages(),
   ];
 
   @override

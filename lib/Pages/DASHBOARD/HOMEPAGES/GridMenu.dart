@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:jasa_bantu/Pages/DASHBOARD/CategoryMenu.dart';
 import 'package:jasa_bantu/assets/AssetsColor.dart';
+import 'package:jasa_bantu/assets/AssetsIcon.dart';
 
 AssetsColor assetsColor = AssetsColor();
+AssetsIcon assetsIcon = AssetsIcon();
 
 class GridMenu extends StatefulWidget {
   const GridMenu({super.key});
@@ -14,107 +17,108 @@ class _GridMenuState extends State<GridMenu> {
   /// LIST MENU GRID
   final List<Map<String, dynamic>> gridMenuItems = [
     {
-      'gridMenuIcon': Icons.grid_view_rounded,
-      'gridMenuText': 'Kategori',
-      'gridMenuColor': Colors.deepPurple[200],
-      'gridMenuRoutes': '/home',
+      'gridMenuIcon': assetsIcon.iconKatTagihan,
+      'gridMenuText': 'Tagihan',
+      // 'gridMenuRoutes': '/tagihan',
     },
     {
-      'gridMenuIcon': Icons.credit_card,
-      'gridMenuText': 'Perbankan',
-      'gridMenuColor': Colors.blueAccent,
-      'gridMenuRoutes': '/cart',
+      'gridMenuIcon': assetsIcon.iconKatKonsultasi,
+      'gridMenuText': 'Konsultasi',
+      // 'gridMenuRoutes': '/consult',
     },
     {
-      'gridMenuIcon': Icons.fastfood,
-      'gridMenuText': 'Makanan',
-      'gridMenuColor': Colors.green,
-      'gridMenuRoutes': '/cart',
+      'gridMenuIcon': assetsIcon.iconKatBisnis,
+      'gridMenuText': 'Bisnis',
+      // 'gridMenuRoutes': '/business',
     },
     {
-      'gridMenuIcon': Icons.shopping_basket,
-      'gridMenuText': 'Kebutuhan',
-      'gridMenuColor': Colors.pinkAccent,
-      'gridMenuRoutes': '/cart',
-    },
-    {
-      'gridMenuIcon': Icons.health_and_safety,
+      'gridMenuIcon': assetsIcon.iconKatKesehatan,
       'gridMenuText': 'Kesehatan',
-      'gridMenuColor': Colors.tealAccent,
-      'gridMenuRoutes': '/cart',
+      // 'gridMenuRoutes': '/health',
     },
     {
-      'gridMenuIcon': Icons.water_drop,
-      'gridMenuText': 'Air',
-      'gridMenuColor': Colors.green,
-      'gridMenuRoutes': '/cart',
+      'gridMenuIcon': assetsIcon.iconKatKecantikan,
+      'gridMenuText': 'Kecantikan',
+      // 'gridMenuRoutes': '/beauty',
     },
     {
-      'gridMenuIcon': Icons.fitness_center,
-      'gridMenuText': 'Olahraga',
-      'gridMenuColor': Colors.pink,
-      'gridMenuRoutes': '/cart',
+      'gridMenuIcon': assetsIcon.iconKatDonasi,
+      'gridMenuText': 'Donasi',
+      // 'gridMenuRoutes': '/donate',
     },
     {
-      'gridMenuIcon': Icons.assignment,
-      'gridMenuText': 'Asuransi',
-      'gridMenuColor': Colors.orangeAccent,
-      'gridMenuRoutes': '/cart',
+      'gridMenuIcon': assetsIcon.iconKatReservasi,
+      'gridMenuText': 'Reservasi',
+      // 'gridMenuRoutes': '/reservation',
     },
     {
-      'gridMenuIcon': Icons.car_rental,
-      'gridMenuText': 'Kendaraan',
-      'gridMenuColor': Colors.blue,
-      'gridMenuRoutes': '/cart',
+      'gridMenuIcon': assetsIcon.iconKatProfesional,
+      'gridMenuText': 'Profesional',
+      // 'gridMenuRoutes': '/professional',
     },
     {
-      'gridMenuIcon': Icons.healing,
-      'gridMenuText': 'Perawatan',
-      'gridMenuColor': Colors.brown,
-      'gridMenuRoutes': '/cart',
+      'gridMenuIcon': assetsIcon.iconKatHomeCleaning,
+      'gridMenuText': 'Home Cleaning',
+      // 'gridMenuRoutes': '/homecleaning',
     },
     {
-      'gridMenuIcon': Icons.restaurant,
-      'gridMenuText': 'Restoran',
-      'gridMenuColor': Colors.pink,
-      'gridMenuRoutes': '/cart',
+      'gridMenuIcon': assetsIcon.iconKatTenagaKerja,
+      'gridMenuText': 'Tenaga Kerja',
+      // 'gridMenuRoutes': '/labor',
     },
     {
-      'gridMenuIcon': Icons.build_circle_outlined,
-      'gridMenuText': 'Teknologi',
-      'gridMenuColor': Colors.yellow,
-      'gridMenuRoutes': '/cart',
+      'gridMenuIcon': assetsIcon.iconKatHewanPeliharaan,
+      'gridMenuText': 'Hewan Peliharaan',
+      // 'gridMenuRoutes': '/pets',
+    },
+    {
+      'gridMenuIcon': assetsIcon.iconKatLayananPemerintah,
+      'gridMenuText': 'Layanan Pemerintah',
+      // 'gridMenuRoutes': '/governmentservices',
+    },
+    {
+      'gridMenuIcon': assetsIcon.iconKatEventOrganizer,
+      'gridMenuText': 'Event Organizer',
+      // 'gridMenuRoutes': '/eventorganizer',
+    },
+    {
+      'gridMenuIcon': assetsIcon.iconKatHomeService,
+      'gridMenuText': 'Home Service',
+      // 'gridMenuRoutes': '/homeservice',
     },
   ];
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 180,
+      height: 200,
       decoration: BoxDecoration(
         color: assetsColor.bgLightMode,
       ),
-      padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+      padding: const EdgeInsets.fromLTRB(10, 0, 10, 20),
       child: GridView.builder(
         itemCount: gridMenuItems.length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 6,
-          crossAxisSpacing: 1,
-          mainAxisSpacing: 30,
+        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+          maxCrossAxisExtent: 60,
+          crossAxisSpacing: 30,
+          // mainAxisSpacing: 1,
         ),
+        scrollDirection: Axis.horizontal,
         shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
           final item = gridMenuItems[index];
           return GridTile(
             child: GridMenuTile(
               gridMenuIcon: item['gridMenuIcon'],
               gridMenuText: item['gridMenuText'],
-              gridMenuBoxColor: item['gridMenuColor'],
               onPressed: () {
-                Navigator.pushNamed(context, item['gridMenuRoutes']);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const CategoryMenu()),
+                );
+                // Navigator.pushNamed(context, item['gridMenuRoutes']);
               },
-              gridMenuRoutes: item['gridMenuRoutes'],
+              // gridMenuRoutes: item['gridMenuRoutes'],
             ),
           );
         },
@@ -124,46 +128,60 @@ class _GridMenuState extends State<GridMenu> {
 }
 
 class GridMenuTile extends StatelessWidget {
-  final IconData gridMenuIcon;
+  final String gridMenuIcon;
   final String gridMenuText;
-  final Color gridMenuBoxColor;
   final VoidCallback onPressed;
-  final String gridMenuRoutes;
+
+  // final String gridMenuRoutes;
 
   const GridMenuTile({
     super.key,
     required this.gridMenuIcon,
     required this.gridMenuText,
-    required this.gridMenuBoxColor,
     required this.onPressed,
-    required this.gridMenuRoutes,
+    // required this.gridMenuRoutes,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onPressed,
+      onTap:
+          //     () {
+          //   Navigator.push(
+          //     context,
+          //     MaterialPageRoute(builder: (context) => const CategoryMenu()),
+          //   );
+          // },
+          onPressed,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Flexible(
+          IntrinsicWidth(
             child: Container(
-              width: 50,
-              height: 50,
+              width: 40,
+              height: 40,
               decoration: BoxDecoration(
-                color: gridMenuBoxColor,
+                color: Colors.indigo[50],
                 shape: BoxShape.circle,
               ),
-              child: Icon(
+              child: Image.asset(
                 gridMenuIcon,
-                color: assetsColor.textWhite,
+                height: 40,
+                width: 40,
+                fit: BoxFit.contain,
               ),
             ),
           ),
           const SizedBox(height: 5),
           Text(
             gridMenuText,
-            style: TextStyle(color: assetsColor.textBlack, fontSize: 10),
+            textAlign: TextAlign.center,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 2,
+            style: TextStyle(
+              color: assetsColor.textBlack,
+              fontSize: 10,
+            ),
           ),
         ],
       ),

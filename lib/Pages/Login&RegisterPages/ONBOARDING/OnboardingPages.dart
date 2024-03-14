@@ -4,6 +4,7 @@ import 'package:jasa_bantu/Pages/DASHBOARD/DashboardPages.dart';
 import 'package:jasa_bantu/Pages/Login&RegisterPages/LOGIN/LoginPages.dart';
 import 'package:jasa_bantu/Pages/Login&RegisterPages/ONBOARDING/OnboardingContent.dart';
 import 'package:jasa_bantu/Pages/Login&RegisterPages/REGISTER/RegisterPages.dart';
+import 'package:jasa_bantu/Settings/logicapi.dart';
 import 'package:jasa_bantu/assets/AssetsColor.dart';
 import 'package:jasa_bantu/assets/AssetsIcon.dart';
 import 'package:jasa_bantu/assets/AssetsImage.dart';
@@ -21,11 +22,34 @@ class OnboardingPages extends StatefulWidget {
   State<OnboardingPages> createState() => _OnboardingPagesState();
 }
 
+LogicApi logicApi = LogicApi();
+
 class _OnboardingPagesState extends State<OnboardingPages> {
   //
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
   User? _user;
+
+  void _handleGoogleSignIn() async {
+    try {
+      GoogleAuthProvider googleAuthProvider = GoogleAuthProvider();
+      UserCredential userCredential =
+          await _auth.signInWithProvider(googleAuthProvider);
+      User? user = userCredential.user;
+
+      if (user != null) {
+        setState(() {
+          _user = user;
+
+          logicApi.LoginApi(context, _user!.email!);
+        });
+      } else {
+        print("User is null");
+      }
+    } catch (error) {
+      print(error);
+    }
+  }
 
   @override
   void initState() {
@@ -93,7 +117,7 @@ class _OnboardingPagesState extends State<OnboardingPages> {
                   padding: const EdgeInsets.only(left: 20, right: 20),
                   child: ElevatedButton(
                     onPressed: () async {
-                      // _handleGoogleSignIn();
+                      _handleGoogleSignIn();
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -216,25 +240,5 @@ class _OnboardingPagesState extends State<OnboardingPages> {
         ],
       ),
     );
-  }
-
-  void _handleGoogleSignIn() async {
-    try {
-      GoogleAuthProvider googleAuthProvider = GoogleAuthProvider();
-      UserCredential userCredential =
-          await _auth.signInWithProvider(googleAuthProvider);
-      User? user = userCredential.user;
-
-      if (user != null) {
-        setState(() {
-          _user = user;
-          print("data_user: ${_user}");
-        });
-      } else {
-        print("User is null");
-      }
-    } catch (error) {
-      print(error);
-    }
   }
 }

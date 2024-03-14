@@ -220,8 +220,8 @@ class _OtpTimerButtonFunctionState extends State<OtpTimerButtonFunction> {
               _state == ButtonState.enable_button ? _onPressedButton : null,
           child: _childBuilder(),
           style: ElevatedButton.styleFrom(
-            primary: widget.backgroundColor,
-            onPrimary: widget.textColor,
+            foregroundColor: widget.textColor,
+            backgroundColor: widget.backgroundColor,
             shape: _roundedRectangleBorder(),
           ),
         );
@@ -231,7 +231,7 @@ class _OtpTimerButtonFunctionState extends State<OtpTimerButtonFunction> {
               _state == ButtonState.enable_button ? _onPressedButton : null,
           child: _childBuilder(),
           style: TextButton.styleFrom(
-            primary: widget.backgroundColor,
+            foregroundColor: widget.backgroundColor,
             shape: _roundedRectangleBorder(),
           ),
         );
@@ -241,7 +241,7 @@ class _OtpTimerButtonFunctionState extends State<OtpTimerButtonFunction> {
               _state == ButtonState.enable_button ? _onPressedButton : null,
           child: _childBuilder(),
           style: OutlinedButton.styleFrom(
-            primary: widget.backgroundColor,
+            foregroundColor: widget.backgroundColor,
             shape: _roundedRectangleBorder(),
           ),
         );

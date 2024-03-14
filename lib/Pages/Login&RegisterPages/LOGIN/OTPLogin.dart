@@ -203,9 +203,13 @@ class _OTPLoginState extends State<OTPLogin> {
                         textRotate =
                             storedNoHp! + constant.delimeterRegistration + pin;
 
-                        rotatedText = Rotasi.rotateText(textRotate, 15);
+                        rotatedText =
+                            Rotasi.rotateText(textRotate, constant.ROT_NUM);
 
-                        data_nilai = base64Encode(utf8.encode(rotatedText));
+                        data_nilai = constant.PREFIX_KEY +
+                            constant.ROT_NUM.toString() +
+                            constant.backprefix +
+                            base64Encode(utf8.encode(rotatedText));
                       });
 
                       if (pin.length == 6) {
