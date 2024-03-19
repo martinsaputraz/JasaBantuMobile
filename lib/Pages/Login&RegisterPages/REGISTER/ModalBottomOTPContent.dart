@@ -42,6 +42,10 @@ class _ModalBottomOTPContentState extends State<ModalBottomOTPContent> {
         _sendOTPViaSMS = tombolSMS ==
             'true'; // Jika 'true' maka EN akan true, jika 'false' maka EN akan false
 
+        if (tombolWa == '' && tombolSMS == '') {
+          _sendOTPViaSMS = true;
+        }
+
         bahasa = data['bahasa'] ?? 'id';
 
         if (bahasa == "id") {

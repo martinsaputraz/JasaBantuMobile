@@ -1,13 +1,15 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localization/flutter_localization.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:jasa_bantu/Pages/Login&RegisterPages/FORGET_PIN/NewPIN.dart';
-import 'package:jasa_bantu/Pages/Login&RegisterPages/LOGIN/LoginPages.dart';
+import 'package:jasa_bantu/Pages/Login&RegisterPages/ONBOARDING/ModalBottomLanguange.dart';
 import 'package:jasa_bantu/Pages/Login&RegisterPages/REGISTER/ModalBottomOTPContent.dart';
+import 'package:jasa_bantu/Pages/Login&RegisterPages/REGISTER/SettingPIN.dart';
 import 'package:jasa_bantu/Pages/Login&RegisterPages/ResendOTPButtonFunction.dart';
+import 'package:jasa_bantu/Settings/Languange.dart';
 import 'package:jasa_bantu/Settings/rotasi.dart';
 import 'package:jasa_bantu/assets/AssetsColor.dart';
 import 'package:otp_text_field/otp_field.dart';
@@ -23,10 +25,15 @@ class OTPPagesFP extends StatefulWidget {
 }
 
 class _OTPPagesFPState extends State<OTPPagesFP> {
-  //
-
   ///FOR 'OTP'
-  OtpFieldController otpFPController = OtpFieldController();
+  OtpFieldController otpRegisterController = OtpFieldController();
+  final FlutterSecureStorage secureStorage = FlutterSecureStorage();
+  final FlutterLocalization _localization = FlutterLocalization.instance;
+
+  String? storedNoHp;
+  String rotatedText = "";
+  String textRotate = "";
+  String data_nilai = "";
 
   /// FOR BUTTON "RESEND OTP"
   bool isResendOTPPressed = false;
@@ -43,34 +50,84 @@ class _OTPPagesFPState extends State<OTPPagesFP> {
   bool sendOTPViaSMS = false;
   bool sendOTPViaWhatsApp = false;
 
-  String? storedNoHp;
-  String rotatedText = "";
-  String textRotate = "";
-  String data_nilai = "";
-  String process = "";
+  String? bahasa;
+  bool bahasatrigger = true;
+
+  String tombolWa = "";
+  String tombolSMS = "";
 
   @override
   void initState() {
-    super.initState();
+    modelSharePreferences.dataShareprefrences().then((data) {
+      setState(() {
+        // Ambil nilai dari SharePreferences
 
-/*
-    setState(() {
-      process =
+        String tombolWa = data['tombolWhatsapp'] ?? 'false';
+        String tombolSMS = data['tombolSMS'] ?? 'false';
+
+        // Periksa dan atur variabel sendOTPViaSMS dan sendOTPViaWhatsApp
+        sendOTPViaSMS = tombolSMS == 'true';
+        sendOTPViaWhatsApp = tombolWa ==
+            'true'; // Jika 'true' maka EN akan true, jika 'false' maka EN akan false
+
+        bahasa = data['bahasa'] ?? 'id';
+
+        if (bahasa == "id") {
+          _localization.translate('id');
+          bahasatrigger = true;
+        } else if (bahasa == "en") {
+          _localization.translate('en');
+          bahasatrigger = false;
+        } else {
+          _localization.translate('id');
+          bahasatrigger = true;
+        }
+      });
     });
-*/
 
-    // Set waktu akhir, contoh 1 menit dari waktu sekarang
-    endTime = DateTime.now().add(const Duration(minutes: 1));
+    _localization.init(
+      mapLocales: [
+        const MapLocale(
+          'id',
+          Bahasa.ID,
+        ),
+        const MapLocale(
+          'en',
+          Bahasa.EN,
+        ),
+      ],
+      initLanguageCode: 'id',
+    );
+    _localization.onTranslatedLanguage = _onTranslatedLanguage;
+
+    endTime = DateTime.now().add(const Duration(minutes: 5));
+
+    getStoredNoHp();
 
     // Mulai timer mundur
-    timer = Timer.periodic(const Duration(seconds: 0), (Timer t) {
-      setState(() {});
+/*    timer = Timer.periodic(const Duration(seconds: 0), (Timer t) {
+      setState(() {
+
+      });
+    })*/
+  }
+
+  void _onTranslatedLanguage(Locale? locale) {
+    setState(() {});
+  }
+
+  Future<void> getStoredNoHp() async {
+    // Retrieve the phone number (noHp) from secure storage
+    String? noHp = await secureStorage.read(key: 'nomorHp');
+
+    setState(() {
+      storedNoHp = noHp;
     });
   }
 
   String _formatDuration(Duration duration) {
     String twoDigits(int n) {
-      if (n >= 10) return "$n";
+      if (n <= 10) return "$n";
       return "0$n";
     }
 
@@ -96,8 +153,10 @@ class _OTPPagesFPState extends State<OTPPagesFP> {
       backgroundColor: assetsColor.bgLightMode,
       appBar: AppBar(
         backgroundColor: assetsColor.bgLightMode,
-        title: const Text(
-          'Verifikasi',
+        title: Text(
+          bahasatrigger
+              ? Bahasa.ID['APPVERIFIKASI']
+              : Bahasa.EN['APPVERIFIKASI'],
           style: TextStyle(fontSize: 20),
         ),
         actions: [
@@ -105,8 +164,10 @@ class _OTPPagesFPState extends State<OTPPagesFP> {
             padding: const EdgeInsets.only(right: 30),
             child: ElevatedButton.icon(
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const NewPIN()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const SettingPIN()));
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: assetsColor.buttonWhite,
@@ -117,7 +178,9 @@ class _OTPPagesFPState extends State<OTPPagesFP> {
               icon:
                   Icon(Icons.live_help_outlined, color: assetsColor.textBlack),
               label: Text(
-                'Bantuan',
+                bahasatrigger
+                    ? Bahasa.ID['TOMBOLBANTUAN']
+                    : Bahasa.EN['TOMBOLBANTUAN'],
                 style: TextStyle(color: assetsColor.textBlack),
               ),
             ),
@@ -131,7 +194,9 @@ class _OTPPagesFPState extends State<OTPPagesFP> {
             Container(
               padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
               child: Text(
-                'Masukkan kode OTP',
+                bahasatrigger
+                    ? Bahasa.ID['TeksVerifikasi1']
+                    : Bahasa.EN['TeksVerifikasi1'],
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
@@ -143,7 +208,12 @@ class _OTPPagesFPState extends State<OTPPagesFP> {
             Container(
               padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
               child: Text(
-                'Cek kotak pesan SMS kamu untuk melihat kode\nOTP yang kami kirimkan ke nomor',
+                bahasatrigger
+                    ? Bahasa.ID['TeksVerifikasi2']
+                    : Bahasa.EN['TeksVerifikasi2'] +
+                        (bahasatrigger
+                            ? Bahasa.ID['TeksVerifikasi3']
+                            : Bahasa.EN['TeksVerifikasi3']),
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 15, color: assetsColor.textBlack),
               ),
@@ -151,7 +221,7 @@ class _OTPPagesFPState extends State<OTPPagesFP> {
 
             /// PHONE TEXT
             Container(
-              padding: const EdgeInsets.fromLTRB(20, 5, 20, 20),
+              padding: const EdgeInsets.fromLTRB(20, 5, 20, 10),
               child: Text(
                 '+62 818*****673',
                 textAlign: TextAlign.center,
@@ -169,7 +239,7 @@ class _OTPPagesFPState extends State<OTPPagesFP> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   OTPTextField(
-                    controller: otpFPController,
+                    controller: otpRegisterController,
                     obscureText: true,
                     keyboardType: TextInputType.number,
                     length: 6,
@@ -184,18 +254,21 @@ class _OTPPagesFPState extends State<OTPPagesFP> {
                         textRotate =
                             storedNoHp! + constant.delimeterRegistration + pin;
 
-                        rotatedText = Rotasi.rotateText(textRotate, 15);
-
-                        data_nilai = base64Encode(utf8.encode(rotatedText));
+                        rotatedText =
+                            Rotasi.rotateText(textRotate, constant.ROT_NUM);
+                        data_nilai = constant.PREFIX_KEY +
+                            constant.ROT_NUM.toString() +
+                            constant.backprefix +
+                            base64Encode(utf8.encode(rotatedText));
                       });
 
+                      /*      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => InputName()),
+                      );*/
                       if (pin.length == 6) {
-                        logicApi.verifyLogin(context, data_nilai, process);
-                      }
-                    },
-                    onCompleted: (pin) {
-                      if (kDebugMode) {
-                        print("Completed: $pin");
+                        /*logicApi.verifyOTPRegistrasi(
+                            context, constant.flagnewUser, data_nilai);*/
                       }
                     },
                   ),
@@ -204,15 +277,17 @@ class _OTPPagesFPState extends State<OTPPagesFP> {
             ),
 
             Container(
-              padding: const EdgeInsets.fromLTRB(50, 30, 50, 0),
+              padding: const EdgeInsets.fromLTRB(50, 10, 50, 0),
               child: OtpTimerButtonFunction(
                 height: 40,
                 onPressed: () {},
-                text: const Text(
-                  'Kirim Ulang',
+                text: Text(
+                  bahasatrigger
+                      ? Bahasa.ID['TombolKirimUlang']
+                      : Bahasa.EN['TombolKirimUlang'],
                   style: TextStyle(color: Colors.white, fontSize: 15),
                 ),
-                backgroundColor: assetsColor.buttonPrimary,
+                backgroundColor: Colors.indigo,
                 duration: 120,
                 radius: 5,
               ),
@@ -227,9 +302,11 @@ class _OTPPagesFPState extends State<OTPPagesFP> {
               child: Column(
                 children: [
                   Container(
-                    padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
+                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 5),
                     child: Text(
-                      'Kode OTP tidak masuk? Gunakan cara lain',
+                      bahasatrigger
+                          ? Bahasa.ID['TeksVerifikasi4']
+                          : Bahasa.EN['TeksVerifikasi4'],
                       style:
                           TextStyle(fontSize: 15, color: assetsColor.textBlack),
                     ),
@@ -263,8 +340,7 @@ class _OTPPagesFPState extends State<OTPPagesFP> {
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: assetsColor.buttonWhite,
-                              side:
-                                  BorderSide(color: assetsColor.borderDefault),
+                              side: BorderSide(color: assetsColor.borderBlack),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(5.0)),
                             ),
@@ -287,9 +363,13 @@ class _OTPPagesFPState extends State<OTPPagesFP> {
                                       ),
                                     ),
                                     Text(
-                                      sendOTPViaWhatsApp
-                                          ? 'OTP dikirim ke WhatsApp'
-                                          : 'OTP dikirim ke SMS',
+                                      bahasatrigger
+                                          ? (sendOTPViaWhatsApp
+                                              ? Bahasa.ID['TeksVerifikasi5']
+                                              : Bahasa.ID['TeksVerifikasi6'])
+                                          : (sendOTPViaWhatsApp
+                                              ? Bahasa.EN['TeksVerifikasi5']
+                                              : Bahasa.EN['TeksVerifikasi6']),
                                       style: TextStyle(
                                           color: assetsColor.textBlack),
                                     ),

@@ -7,6 +7,7 @@ class Constant {
   String RequestOTP = "/api/new_users";
   String verifyOTP = "/api/users/otp";
   String logoutApi = "";
+  String paymentRequest = "/transaction/create-transaction";
 
   /// firebase options mobile
   String apiKey = 'AIzaSyD6XrVj2dkYC942CHBqK3-x56Yv3SC3yOg';
@@ -26,7 +27,11 @@ class Constant {
   String iosBundleId = '';
 
   ///Others
+/*
   String urlAPi = "http://api.jasabantu.com:5002/";
+*/
+  String urlAPi = "https://bkgkgngv-5000.asse.devtunnels.ms/";
+
   String namaPT = "PT. Jasa Bantu Indonesia";
 
   ///Teks Slider Atas

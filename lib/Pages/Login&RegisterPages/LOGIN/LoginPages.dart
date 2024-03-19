@@ -21,124 +21,30 @@ class LoginPages extends StatefulWidget {
 }
 
 class _LoginPagesState extends State<LoginPages> {
-  //
-  /// FOR 'NOMOR HANDPHONE'
-/*
-  final TextEditingController _phoneNumber = TextEditingController();
-*/
-
   final translator = GoogleTranslator();
   final FlutterLocalization _localization = FlutterLocalization.instance;
 
-  String tombolAppbar = "";
-  String teks1 = "";
-  String teks2 = "";
-  String fieldTeks = "";
-  String teks3 = "";
-  String teks4 = "";
-  String teks5 = "";
-  String teks6 = "";
-  String teks7 = "";
-  String teks8 = "";
   bool bahasatrigger = true;
-
-  String tombolLanjutkan = "";
-
-  Future<void> fetchTranslatedText(String pilihan) async {
-    try {
-      List<Future<Translation>> translations = [];
-
-      if (pilihan == "id") {
-        translations = [
-          translator.translate("Signin", from: 'en', to: 'id'),
-          translator.translate("Signin with your cellphone number",
-              from: 'en', to: 'id'),
-          translator.translate("Welcome back!", from: 'en', to: 'id'),
-          translator.translate("Mobile phone number", from: 'en', to: 'id'),
-          translator.translate("Number is no longer active or lost?",
-              from: 'en', to: 'id'),
-          translator.translate("reset", from: 'en', to: 'id'),
-          translator.translate("By continuing, you agree to the same",
-              from: 'en', to: 'id'),
-          translator.translate("Terms of Service", from: 'en', to: 'id'),
-          translator.translate("and", from: 'en', to: 'id'),
-          translator.translate("Privacy Policy", from: 'en', to: 'id'),
-          translator.translate("Lanjutkan", from: 'en', to: 'id'),
-        ];
-      } else if (pilihan == "en") {
-        translations = [
-          translator.translate("Signin", from: 'id', to: 'en'),
-          translator.translate("Signin dengan nomor HP Kamu",
-              from: 'id', to: 'en'),
-          translator.translate("Selamat datang kembali!", from: 'id', to: 'en'),
-          translator.translate("Nomor Handphone", from: 'id', to: 'en'),
-          translator.translate("Nomor sudah tidak aktif atau hilang?",
-              from: 'id', to: 'en'),
-          translator.translate("Atur ulang", from: 'id', to: 'en'),
-          translator.translate("Dengan melanjutkan, kamu setuju sama",
-              from: 'id', to: 'en'),
-          translator.translate("Terms of Service", from: 'id', to: 'en'),
-          translator.translate("dan", from: 'id', to: 'en'),
-          translator.translate("Kebijakan Privasi", from: 'id', to: 'en'),
-          translator.translate("Next", from: 'id', to: 'en'),
-        ];
-      } else {
-        translations = [
-          translator.translate("Signin", from: 'id', to: 'en'),
-          translator.translate("Signin with your cellphone number",
-              from: 'id', to: 'en'),
-          translator.translate("Welcome back!", from: 'en', to: 'id'),
-          translator.translate("Mobile phone number", from: 'en', to: 'id'),
-          translator.translate("Number is no longer active or lost?",
-              from: 'en', to: 'id'),
-          translator.translate("reset", from: 'en', to: 'id'),
-          translator.translate("By continuing, you agree to the same\n",
-              from: 'en', to: 'id'),
-          translator.translate("Terms of Service", from: 'en', to: 'id'),
-          translator.translate("and", from: 'id', to: 'en'),
-          translator.translate("Lanjutkan", from: 'en', to: 'id'),
-        ];
-      }
-
-      List<Translation> translatedTexts = await Future.wait(translations);
-
-      setState(() {
-        tombolAppbar = translatedTexts[0].toString();
-        teks1 = translatedTexts[1].toString();
-        teks2 = translatedTexts[2].toString();
-        fieldTeks = translatedTexts[3].toString();
-        teks3 = translatedTexts[4].toString();
-        teks4 = translatedTexts[5].toString();
-        teks5 = translatedTexts[6].toString();
-        teks6 = translatedTexts[7].toString();
-        teks7 = translatedTexts[8].toString();
-        teks8 = translatedTexts[9].toString();
-
-        tombolLanjutkan = translatedTexts[10].toString();
-      });
-    } catch (e) {
-      print("Error during translation: $e");
-    }
-  }
+  String? bahasa;
 
   @override
   void initState() {
     modelSharePreferences.dataShareprefrences().then((data) {
-      String bahasa = data['bahasa'] ?? 'id';
+      setState(() {
+        // Ambil nilai dari SharePreferences
+        bahasa = data['bahasa'] ?? 'id';
 
-      if (bahasa == "id") {
-        _localization.translate('id');
-        bahasatrigger = true;
-      } else if (bahasa == "en") {
-        _localization.translate('en');
-        bahasatrigger = false;
-      } else {
-        _localization.translate('id');
-        bahasatrigger = true;
-      }
-
-      // Memanggil fungsi fetchTranslatedText untuk menerjemahkan teks
-      fetchTranslatedText(bahasa);
+        if (bahasa == "id") {
+          _localization.translate('id');
+          bahasatrigger = true;
+        } else if (bahasa == "en") {
+          _localization.translate('en');
+          bahasatrigger = false;
+        } else {
+          _localization.translate('id');
+          bahasatrigger = true;
+        }
+      });
     });
 
     _localization.init(
@@ -174,7 +80,7 @@ class _LoginPagesState extends State<LoginPages> {
       appBar: AppBar(
         backgroundColor: assetsColor.bgLightMode,
         title: Text(
-          tombolAppbar,
+          bahasatrigger ? Bahasa.ID['APPBARLOGIN'] : Bahasa.EN['APPBARLOGIN'],
           style: TextStyle(fontSize: 20, color: assetsColor.textBlack),
         ),
       ),
@@ -196,7 +102,9 @@ class _LoginPagesState extends State<LoginPages> {
           Container(
             padding: const EdgeInsets.only(left: 20, right: 20),
             child: Text(
-              teks1,
+              bahasatrigger
+                  ? Bahasa.ID['TEKS1LOGINPAGE']
+                  : Bahasa.EN['TEKS1LOGINPAGE'],
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
@@ -208,7 +116,9 @@ class _LoginPagesState extends State<LoginPages> {
           Container(
             padding: const EdgeInsets.fromLTRB(20, 5, 20, 10),
             child: Text(
-              teks2,
+              bahasatrigger
+                  ? Bahasa.ID['TEKS2LOGINPAGE']
+                  : Bahasa.EN['TEKS2LOGINPAGE'],
               style: TextStyle(
                 fontSize: 15,
                 color: assetsColor.textBlack,
@@ -221,7 +131,9 @@ class _LoginPagesState extends State<LoginPages> {
             child: Center(
               child: IntlPhoneField(
                 decoration: InputDecoration(
-                  labelText: fieldTeks,
+                  labelText: bahasatrigger
+                      ? Bahasa.ID['FIELDTEXTLOGINPAGE']
+                      : Bahasa.EN['FIELDTEXTLOGINPAGE'],
                   border: const OutlineInputBorder(
                     borderSide: BorderSide(),
                   ),
@@ -250,13 +162,17 @@ class _LoginPagesState extends State<LoginPages> {
                   text: TextSpan(
                     children: [
                       TextSpan(
-                        text: teks3 + "\t",
+                        text: bahasatrigger
+                            ? Bahasa.ID['TEKS3LOGINPAGE']
+                            : Bahasa.EN['TEKS3LOGINPAGE'],
                         style: TextStyle(
                           color: assetsColor.textBlack,
                         ),
                       ),
                       TextSpan(
-                        text: teks4,
+                        text: bahasatrigger
+                            ? Bahasa.ID['TEKS4LOGINPAGE']
+                            : Bahasa.EN['TEKS4LOGINPAGE'],
                         style: TextStyle(
                           color: assetsColor.textBlack,
                           fontWeight: FontWeight.bold,
@@ -294,13 +210,17 @@ class _LoginPagesState extends State<LoginPages> {
                     text: TextSpan(
                       children: [
                         TextSpan(
-                          text: teks5 + "\n",
+                          text: bahasatrigger
+                              ? Bahasa.ID['TEKS5LOGINPAGE']
+                              : Bahasa.EN['TEKS5LOGINPAGE'],
                           style: TextStyle(
                             color: assetsColor.textBlack,
                           ),
                         ),
                         TextSpan(
-                          text: teks6,
+                          text: bahasatrigger
+                              ? Bahasa.ID['TEKS6LOGINPAGE']
+                              : Bahasa.EN['TEKS6LOGINPAGE'],
                           style: TextStyle(
                             color: assetsColor.textBlack,
                             fontWeight: FontWeight.bold,
@@ -316,13 +236,17 @@ class _LoginPagesState extends State<LoginPages> {
                             },
                         ),
                         TextSpan(
-                          text: "\t" + teks7 + "\t",
+                          text: bahasatrigger
+                              ? Bahasa.ID['TEKS7LOGINPAGE']
+                              : Bahasa.EN['TEKS7LOGINPAGE'],
                           style: TextStyle(
                             color: assetsColor.textBlack,
                           ),
                         ),
                         TextSpan(
-                          text: teks8,
+                          text: bahasatrigger
+                              ? Bahasa.ID['TEKS8LOGINPAGE']
+                              : Bahasa.EN['TEKS8LOGINPAGE'],
                           style: TextStyle(
                             color: assetsColor.textBlack,
                             fontWeight: FontWeight.bold,
@@ -355,7 +279,7 @@ class _LoginPagesState extends State<LoginPages> {
                 child: Center(
                   child: ElevatedButton(
                     onPressed: () async {
-                      /*  if (phoneNumberLogin == "") {
+                      /*    if (phoneNumberLogin == "") {
                       } else {
                         if (phoneNumberLogin.startsWith('+')) {
                           phoneNumber = phoneNumberLogin
@@ -380,7 +304,9 @@ class _LoginPagesState extends State<LoginPages> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          tombolLanjutkan,
+                          bahasatrigger
+                              ? Bahasa.ID['TOMBOLLANJUTKANLOGIN']
+                              : Bahasa.EN['TOMBOLLANJUTKANLOGIN'],
                           style: TextStyle(
                               color: assetsColor.textWhite, fontSize: 18),
                         ),

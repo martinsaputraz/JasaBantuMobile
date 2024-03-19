@@ -27,6 +27,10 @@ final translator = GoogleTranslator();
 class _ModalBottomLanguangeState extends State<ModalBottomLanguange> {
   String tombolBahasaIndonesia = "";
   String tombolBahasaEnglish = "";
+
+  String? bahasa;
+  bool bahasatrigger = true;
+
   final FlutterLocalization _localization = FlutterLocalization.instance;
   var translation = "";
   bool ID = true;
@@ -40,11 +44,27 @@ class _ModalBottomLanguangeState extends State<ModalBottomLanguange> {
         tombolBahasaIndonesia = data['tombolBahasaIndo']!;
         tombolBahasaEnglish = data['tombolBahasaEnglish']!;
 
+        bahasa = data['bahasa'] ?? 'id';
+
+        if (bahasa == "id") {
+          _localization.translate('id');
+          bahasatrigger = true;
+        } else if (bahasa == "en") {
+          _localization.translate('en');
+          bahasatrigger = false;
+        } else {
+          _localization.translate('id');
+          bahasatrigger = true;
+        }
+
         // Konversi string ke boolean
         ID = tombolBahasaIndonesia ==
             'true'; // Jika 'true' maka ID akan true, jika 'false' maka ID akan false
         EN = tombolBahasaEnglish ==
             'true'; // Jika 'true' maka EN akan true, jika 'false' maka EN akan false
+        if (tombolBahasaIndonesia == '' && tombolBahasaEnglish == '') {
+          ID = true;
+        }
       });
     });
 
@@ -77,10 +97,12 @@ class _ModalBottomLanguangeState extends State<ModalBottomLanguange> {
         children: <Widget>[
           Container(
             padding: const EdgeInsets.fromLTRB(0, 20, 0, 10),
-            child: Text(ID ? Bahasa.ID['NamaModal'] : Bahasa.EN['NamaModal']),
+            child: Text(
+              bahasatrigger ? Bahasa.ID['NamaModal'] : Bahasa.EN['NamaModal'],
+              style: TextStyle(color: assetsColor.textBlack),
+            ),
           ),
 
-          /// SEND OTP SMS
           Container(
             padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
             child: ElevatedButton(
@@ -217,7 +239,9 @@ class _ModalBottomLanguangeState extends State<ModalBottomLanguange> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      ID ? Bahasa.ID['NamaModal'] : Bahasa.EN['NamaModal'],
+                      bahasatrigger
+                          ? Bahasa.ID['NamaModal']
+                          : Bahasa.EN['NamaModal'],
                       style:
                           TextStyle(color: assetsColor.textWhite, fontSize: 18),
                     ),

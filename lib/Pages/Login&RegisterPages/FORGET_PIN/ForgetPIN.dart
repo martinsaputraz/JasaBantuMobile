@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:jasa_bantu/Pages/Login&RegisterPages/FORGET_PIN/OTPPagesFP.dart';
+import 'package:jasa_bantu/Pages/Login&RegisterPages/ONBOARDING/ModalBottomLanguange.dart';
+import 'package:jasa_bantu/Settings/Languange.dart';
 import 'package:jasa_bantu/assets/AssetsColor.dart';
 
 AssetsColor assetsColor = AssetsColor();
@@ -16,6 +19,52 @@ class _ForgetPINState extends State<ForgetPIN> {
   //
   /// FOR 'NOMOR HANDPHONE'
   final TextEditingController _phoneNumberFP = TextEditingController();
+  final FlutterLocalization _localization = FlutterLocalization.instance;
+
+  bool bahasatrigger = true;
+  String? bahasa;
+
+  @override
+  void initState() {
+    modelSharePreferences.dataShareprefrences().then((data) {
+      setState(() {
+        // Ambil nilai dari SharePreferences
+        bahasa = data['bahasa'] ?? 'id';
+
+        if (bahasa == "id") {
+          _localization.translate('id');
+          bahasatrigger = true;
+        } else if (bahasa == "en") {
+          _localization.translate('en');
+          bahasatrigger = false;
+        } else {
+          _localization.translate('id');
+          bahasatrigger = true;
+        }
+      });
+    });
+
+    _localization.init(
+      mapLocales: [
+        const MapLocale(
+          'id',
+          Bahasa.ID,
+        ),
+        const MapLocale(
+          'en',
+          Bahasa.EN,
+        ),
+      ],
+      initLanguageCode: 'id',
+    );
+    _localization.onTranslatedLanguage = _onTranslatedLanguage;
+
+    super.initState();
+  }
+
+  void _onTranslatedLanguage(Locale? locale) {
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +73,7 @@ class _ForgetPINState extends State<ForgetPIN> {
       appBar: AppBar(
         backgroundColor: assetsColor.bgLightMode,
         title: Text(
-          'Lupa PIN',
+          bahasatrigger ? Bahasa.ID['APPBARFORGET'] : Bahasa.EN['APPBARFORGET'],
           style: TextStyle(fontSize: 20, color: assetsColor.textBlack),
         ),
       ),
@@ -36,7 +85,9 @@ class _ForgetPINState extends State<ForgetPIN> {
           Container(
             padding: const EdgeInsets.only(left: 20, right: 20),
             child: Text(
-              'Masukkan nomor HP Kamu',
+              bahasatrigger
+                  ? Bahasa.ID['TEKS1FORGETPAGE']
+                  : Bahasa.EN['TEKS1FORGETPAGE'],
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
@@ -50,7 +101,9 @@ class _ForgetPINState extends State<ForgetPIN> {
             child: Center(
               child: IntlPhoneField(
                 decoration: InputDecoration(
-                  labelText: 'Nomor Handphone',
+                  labelText: bahasatrigger
+                      ? Bahasa.ID['FIELDTEXTFORGETPAGE']
+                      : Bahasa.EN['FIELDTEXTFORGETPAGE'],
                   border: const OutlineInputBorder(
                     borderSide: BorderSide(),
                   ),
@@ -98,7 +151,9 @@ class _ForgetPINState extends State<ForgetPIN> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Lanjutkan',
+                          bahasatrigger
+                              ? Bahasa.ID['TOMBOLLANJUTFORGET']
+                              : Bahasa.EN['TOMBOLLANJUTFORGET'],
                           style: TextStyle(
                               color: assetsColor.textWhite, fontSize: 18),
                         ),

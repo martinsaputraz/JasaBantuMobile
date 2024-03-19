@@ -1,6 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:jasa_bantu/Pages/DASHBOARD/DashboardPages.dart';
+import 'package:jasa_bantu/Pages/Login&RegisterPages/ONBOARDING/ModalBottomLanguange.dart';
+import 'package:jasa_bantu/Settings/Languange.dart';
 import 'package:jasa_bantu/assets/AssetsColor.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
@@ -19,10 +22,50 @@ class _NewPINState extends State<NewPIN> {
 
   ///FOR 'OTP'
   OtpFieldController setPINController = OtpFieldController();
+  String? bahasa;
+  bool bahasatrigger = true;
+  final FlutterLocalization _localization = FlutterLocalization.instance;
 
   @override
   void initState() {
+    modelSharePreferences.dataShareprefrences().then((data) {
+      setState(() {
+        // Ambil nilai dari SharePreferences
+        bahasa = data['bahasa'] ?? 'id';
+
+        if (bahasa == "id") {
+          _localization.translate('id');
+          bahasatrigger = true;
+        } else if (bahasa == "en") {
+          _localization.translate('en');
+          bahasatrigger = false;
+        } else {
+          _localization.translate('id');
+          bahasatrigger = true;
+        }
+      });
+    });
+
+    _localization.init(
+      mapLocales: [
+        const MapLocale(
+          'id',
+          Bahasa.ID,
+        ),
+        const MapLocale(
+          'en',
+          Bahasa.EN,
+        ),
+      ],
+      initLanguageCode: 'id',
+    );
+    _localization.onTranslatedLanguage = _onTranslatedLanguage;
+
     super.initState();
+  }
+
+  void _onTranslatedLanguage(Locale? locale) {
+    setState(() {});
   }
 
   @override
@@ -36,8 +79,8 @@ class _NewPINState extends State<NewPIN> {
       backgroundColor: assetsColor.bgLightMode,
       appBar: AppBar(
         backgroundColor: assetsColor.bgLightMode,
-        title: const Text(
-          'Atur PIN',
+        title: Text(
+          bahasatrigger ? Bahasa.ID['APPBARNEWPIN'] : Bahasa.EN['APPBARNEWPIN'],
           style: TextStyle(fontSize: 20),
         ),
       ),
@@ -63,7 +106,9 @@ class _NewPINState extends State<NewPIN> {
             Container(
               padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
               child: Text(
-                'Buat PIN baru kamu',
+                bahasatrigger
+                    ? Bahasa.ID['TEKS1NEWPIN']
+                    : Bahasa.EN['TEKS1NEWPIN'],
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
@@ -75,8 +120,12 @@ class _NewPINState extends State<NewPIN> {
             Container(
               padding: const EdgeInsets.fromLTRB(20, 5, 20, 20),
               child: Text(
-                'PIN akan digunakan untuk hal penting seperti\n'
-                'masuk ke akun, bertransaksi, dll',
+                bahasatrigger
+                    ? Bahasa.ID['TEKS2NEWPIN']
+                    : Bahasa.EN['TEKS2NEWPIN'] +
+                        (bahasatrigger
+                            ? Bahasa.ID['TEKS3NEWPIN']
+                            : Bahasa.EN['TEKS3NEWPIN']),
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 15, color: assetsColor.textBlack),
               ),
@@ -143,7 +192,9 @@ class _NewPINState extends State<NewPIN> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Simpan PIN & Selesai',
+                        bahasatrigger
+                            ? Bahasa.ID['TombolSimpanPin']
+                            : Bahasa.EN['TombolSimpanPin'],
                         style: TextStyle(
                             color: assetsColor.textWhite, fontSize: 18),
                       ),

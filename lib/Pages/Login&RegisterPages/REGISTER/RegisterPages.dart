@@ -88,9 +88,17 @@ class _RegisterPagesState extends State<RegisterPages> {
       backgroundColor: assetsColor.bgLightMode,
       appBar: AppBar(
         backgroundColor: assetsColor.bgLightMode,
-        title: Text(
-          bahasatrigger ? Bahasa.ID['APPBARDAFTAR'] : Bahasa.EN['APPBARDAFTAR'],
-          style: TextStyle(fontSize: 20, color: assetsColor.textBlack),
+        title: GestureDetector(
+          onTap: () {
+            // Navigate back to the dashboard page
+            Navigator.pop(context);
+          },
+          child: Text(
+            bahasatrigger
+                ? Bahasa.ID['APPBARDAFTAR']
+                : Bahasa.EN['APPBARDAFTAR'],
+            style: TextStyle(fontSize: 20, color: assetsColor.textBlack),
+          ),
         ),
       ),
       body: Column(
@@ -328,14 +336,14 @@ class _RegisterPagesState extends State<RegisterPages> {
                 child: Center(
                   child: ElevatedButton(
                     onPressed: () {
-                      if (phoneNumberRegis == "") {
-                      } else {
-                        if (phoneNumberRegis.startsWith('+')) {
-                          phoneNumber = phoneNumberRegis
-                              .substring(1); // Remove the leading '+'
-                        }
-                        logicApi.sendOTPDefault(context, phoneNumber);
-                      }
+                      /*      if (phoneNumberRegis == "") {
+                        } else {
+                          if (phoneNumberRegis.startsWith('+')) {
+                            phoneNumber = phoneNumberRegis
+                                .substring(1); // Remove the leading '+'
+                          }
+                          logicApi.sendOTPDefault(context, phoneNumber);
+                        }*/
                       Navigator.push(
                           context,
                           MaterialPageRoute(

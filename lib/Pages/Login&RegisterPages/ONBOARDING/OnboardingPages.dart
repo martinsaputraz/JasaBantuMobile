@@ -31,9 +31,6 @@ Bahasa bahasa = Bahasa();
 class _OnboardingPagesState extends State<OnboardingPages> {
   final FlutterLocalization _localization = FlutterLocalization.instance;
 
-  String? bahasa;
-  bool bahasatrigger = true;
-
   final FirebaseAuth _auth = FirebaseAuth.instance;
   User? _user;
 
@@ -57,6 +54,9 @@ class _OnboardingPagesState extends State<OnboardingPages> {
       print(error);
     }
   }
+
+  String? bahasa;
+  bool bahasatrigger = true;
 
   @override
   void initState() {
@@ -176,10 +176,11 @@ class _OnboardingPagesState extends State<OnboardingPages> {
 /*
                       _handleGoogleSignIn();
 */
-                      Navigator.push(
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const DashboardPages()),
+                          builder: (context) => const DashboardPages(),
+                        ),
                       );
                     },
                     style: ElevatedButton.styleFrom(

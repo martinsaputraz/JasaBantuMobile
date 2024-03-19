@@ -1,16 +1,15 @@
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:jasa_bantu/Pages/Login&RegisterPages/ONBOARDING/ModalBottomLanguange.dart';
+import 'package:jasa_bantu/Pages/Login&RegisterPages/REGISTER/InputName.dart';
 import 'package:jasa_bantu/Pages/Login&RegisterPages/REGISTER/ModalBottomOTPContent.dart';
 import 'package:jasa_bantu/Pages/Login&RegisterPages/REGISTER/SettingPIN.dart';
 import 'package:jasa_bantu/Pages/Login&RegisterPages/ResendOTPButtonFunction.dart';
 import 'package:jasa_bantu/Settings/Languange.dart';
-import 'package:jasa_bantu/Settings/rotasi.dart';
 import 'package:jasa_bantu/assets/AssetsColor.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
@@ -252,7 +251,7 @@ class _OTPPagesState extends State<OTPPages> {
                     outlineBorderRadius: 5,
                     style: const TextStyle(fontSize: 15),
                     onChanged: (pin) {
-                      setState(() {
+                      /*      setState(() {
                         textRotate =
                             storedNoHp! + constant.delimeterRegistration + pin;
 
@@ -262,16 +261,16 @@ class _OTPPagesState extends State<OTPPages> {
                             constant.ROT_NUM.toString() +
                             constant.backprefix +
                             base64Encode(utf8.encode(rotatedText));
-                      });
+                      });*/
 
-                      /*      Navigator.push(
+                      Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => InputName()),
-                      );*/
-                      if (pin.length == 6) {
+                      );
+                      /*    if (pin.length == 6) {
                         logicApi.verifyOTPRegistrasi(
                             context, constant.flagnewUser, data_nilai);
-                      }
+                      }*/
                     },
                   ),
                 ],

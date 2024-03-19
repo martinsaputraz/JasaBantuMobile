@@ -78,7 +78,6 @@ class _OTPLoginState extends State<OTPLogin> {
         sendOTPViaWhatsApp = tombolWa ==
             'true'; // Jika 'true' maka EN akan true, jika 'false' maka EN akan false
 
-
         bahasa = data['bahasa'] ?? 'id';
 
         if (bahasa == "id") {
@@ -108,7 +107,6 @@ class _OTPLoginState extends State<OTPLogin> {
       initLanguageCode: 'id',
     );
     _localization.onTranslatedLanguage = _onTranslatedLanguage;
-
 
     getStoredNoHp();
 
@@ -189,7 +187,7 @@ class _OTPLoginState extends State<OTPLogin> {
                     borderRadius: BorderRadius.circular(5.0)),
               ),
               icon:
-              Icon(Icons.live_help_outlined, color: assetsColor.textBlack),
+                  Icon(Icons.live_help_outlined, color: assetsColor.textBlack),
               label: Text(
                 bahasatrigger
                     ? Bahasa.ID['TOMBOLBANTUAN']
@@ -203,7 +201,6 @@ class _OTPLoginState extends State<OTPLogin> {
       body: Center(
         child: Column(
           children: [
-
             /// TITLE TEXT
             Container(
               padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
@@ -225,9 +222,9 @@ class _OTPLoginState extends State<OTPLogin> {
                 bahasatrigger
                     ? Bahasa.ID['TeksVerifikasi2']
                     : Bahasa.EN['TeksVerifikasi2'] +
-                    (bahasatrigger
-                        ? Bahasa.ID['TeksVerifikasi3']
-                        : Bahasa.EN['TeksVerifikasi3']),
+                        (bahasatrigger
+                            ? Bahasa.ID['TeksVerifikasi3']
+                            : Bahasa.EN['TeksVerifikasi3']),
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 15, color: assetsColor.textBlack),
               ),
@@ -257,17 +254,14 @@ class _OTPLoginState extends State<OTPLogin> {
                     obscureText: true,
                     keyboardType: TextInputType.number,
                     length: 6,
-                    width: MediaQuery
-                        .of(context)
-                        .size
-                        .width,
+                    width: MediaQuery.of(context).size.width,
                     textFieldAlignment: MainAxisAlignment.spaceAround,
                     fieldWidth: 40,
                     fieldStyle: FieldStyle.box,
                     outlineBorderRadius: 5,
                     style: const TextStyle(fontSize: 15),
                     onChanged: (pin) {
-                      /*     setState(() {
+                      /* setState(() {
                         textRotate =
                             storedNoHp! + constant.delimeterRegistration + pin;
 
@@ -278,12 +272,12 @@ class _OTPLoginState extends State<OTPLogin> {
                             constant.ROT_NUM.toString() +
                             constant.backprefix +
                             base64Encode(utf8.encode(rotatedText));
-                      });*/
+                      });
 
                       if (pin.length == 6) {
                         print(data_nilai);
                         logicApi.verifyLogin(context, data_nilai, process);
-                      }
+                      }*/
 
                       Navigator.push(
                         context,
@@ -333,7 +327,7 @@ class _OTPLoginState extends State<OTPLogin> {
                           ? Bahasa.ID['TeksVerifikasi4']
                           : Bahasa.EN['TeksVerifikasi4'],
                       style:
-                      TextStyle(fontSize: 15, color: assetsColor.textBlack),
+                          TextStyle(fontSize: 15, color: assetsColor.textBlack),
                     ),
                   ),
 
@@ -366,7 +360,7 @@ class _OTPLoginState extends State<OTPLogin> {
                             style: ElevatedButton.styleFrom(
                               backgroundColor: assetsColor.buttonWhite,
                               side:
-                              BorderSide(color: assetsColor.borderDefault),
+                                  BorderSide(color: assetsColor.borderDefault),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(5.0)),
                             ),
@@ -377,7 +371,7 @@ class _OTPLoginState extends State<OTPLogin> {
                                   children: [
                                     Padding(
                                       padding:
-                                      const EdgeInsets.only(right: 20.0),
+                                          const EdgeInsets.only(right: 20.0),
                                       child: Icon(
                                         sendOTPViaWhatsApp
                                             ? FontAwesomeIcons.whatsapp
@@ -391,11 +385,11 @@ class _OTPLoginState extends State<OTPLogin> {
                                     Text(
                                       bahasatrigger
                                           ? (sendOTPViaWhatsApp
-                                          ? Bahasa.ID['TeksVerifikasi5']
-                                          : Bahasa.ID['TeksVerifikasi6'])
+                                              ? Bahasa.ID['TeksVerifikasi5']
+                                              : Bahasa.ID['TeksVerifikasi6'])
                                           : (sendOTPViaWhatsApp
-                                          ? Bahasa.EN['TeksVerifikasi5']
-                                          : Bahasa.EN['TeksVerifikasi6']),
+                                              ? Bahasa.EN['TeksVerifikasi5']
+                                              : Bahasa.EN['TeksVerifikasi6']),
                                       style: TextStyle(
                                           color: assetsColor.textBlack),
                                     ),

@@ -864,4 +864,72 @@ class LogicApi {
       print('message: ${jsonDecode(response.body)['message']}');
     }
   }
+
+  PaymentRequest(context, String phone, String qty, String service,
+      String voucher, String gross_amount, String type) async {
+    Map<String, dynamic> data = {
+      'phone': phone,
+      'qty': qty,
+      'service': service,
+      'voucher': voucher,
+      'gross_amount': gross_amount,
+      'type': type,
+    };
+
+    String uri = constant.urlAPi + constant.paymentRequest;
+    Uri uriValue = Uri.parse(uri);
+
+    try {
+      var response = await http.post(
+        uriValue,
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode(data),
+      );
+
+      if (response.statusCode == 200) {
+        var jsonResponse = json.decode(response.body);
+
+        if (jsonResponse != null) {
+          statusresponse = jsonResponse['status'];
+          messageresponse = jsonResponse['message'];
+        }
+
+        if (statusresponse == "success") {
+/*
+          await secureStorage.write(key: 'nomorHp', value: phone);
+*/
+
+          /*    Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const OTPPages()),
+          );*/
+        }
+      } else if (response.statusCode == 202) {
+        var jsonResponse = json.decode(response.body);
+
+        if (jsonResponse != null) {
+          statusresponse = jsonResponse['status'];
+          messageresponse = jsonResponse['message'];
+        }
+
+        if (statusresponse == "failed") {
+          /*  Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(
+                  builder: (BuildContext context) =>
+                      RegisterPages(message: messageresponse)),
+                  (Route<dynamic> route) => true);*/
+        }
+      } else if (response.statusCode == 400) {
+        var jsonResponse = json.decode(response.body);
+
+        if (jsonResponse != null) {
+          statusresponse = jsonResponse['status'];
+          messageresponse = jsonResponse['message'];
+        }
+      }
+    } catch (e) {
+      print('Error during OTP request: $e');
+      // Handle the error as needed
+    }
+  }
 }

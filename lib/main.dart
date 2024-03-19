@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dynamic_icon/flutter_dynamic_icon.dart';
 import 'package:jasa_bantu/Pages/StarterPages/SplashScreen.dart';
 import 'package:jasa_bantu/Settings/constant.dart';
 import 'package:jasa_bantu/Settings/firebase_options.dart';
@@ -30,6 +31,23 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final List<String> iconName = ['logolebaran', 'logodasar'];
+
+  String event = "Lebaran";
+  bool _isIconChanged = false;
+  int iconIndex = 0;
+
+  @override
+  void initState() {
+    _changeAppIcon();
+    super.initState();
+  }
+
+  void _changeAppIcon() async {
+    print(iconName[iconIndex]);
+    await FlutterDynamicIcon.setAlternateIconName(iconName[iconIndex]);
+  }
+
   final PackageInfo packageInfo;
 
   _MyAppState({required this.packageInfo});

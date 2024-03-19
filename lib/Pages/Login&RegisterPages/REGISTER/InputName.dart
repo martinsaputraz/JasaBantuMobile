@@ -166,21 +166,21 @@ class _InputNameState extends State<InputName> {
             child: Center(
               child: ElevatedButton(
                 onPressed: () {
-                  /*       if (_inputName.text == "") {
-                    print("HELO WORLD");
-                  } else {
-                    textRotate =
-                        ID! + constant.delimeterRegistration + storedNoHp!;
-
-                    rotatedText =
-                        Rotasi.rotateText(textRotate, constant.ROT_NUM);
-                    data_nilai = constant.PREFIX_KEY +
-                        constant.ROT_NUM.toString() +
-                        constant.backprefix +
-                        base64Encode(utf8.encode(rotatedText));
-
-                    logicApi.setName(context, _inputName.text, data_nilai);
-                  }*/
+                  // if (_inputName.text == "") {
+                  //   print("HELO WORLD");
+                  // } else {
+                  //   textRotate =
+                  //       ID! + constant.delimeterRegistration + storedNoHp!;
+                  //
+                  //   rotatedText =
+                  //       Rotasi.rotateText(textRotate, constant.ROT_NUM);
+                  //   data_nilai = constant.PREFIX_KEY +
+                  //       constant.ROT_NUM.toString() +
+                  //       constant.backprefix +
+                  //       base64Encode(utf8.encode(rotatedText));
+                  //
+                  //   logicApi.setName(context, _inputName.text, data_nilai);
+                  // }
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => const SettingPIN()),
