@@ -187,6 +187,15 @@ class Bahasa {
   static const String tentangjasabantu1 = 'tentangjasabantu1';
   static const String tentangjasabantu2 = 'tentangjasabantu2';
   static const String keluarakun = 'keluarakun';
+  static const String scanQRCODE1 = 'scanQRCODE1';
+  static const String scanQRCODE2 = 'scanQRCODE2';
+  static const String scanQRCODE3 = 'scanQRCODE3';
+  static const String dalampengerjaan1 = 'dalampengerjaan1';
+  static const String dalampengerjaan2 = 'dalampengerjaan2';
+  static const String dalampengerjaan3 = 'dalampengerjaan3';
+  static const String bukanakunvendor1 = 'bukanakunvendor1';
+  static const String bukanakunvendor2 = 'bukanakunvendor2';
+  static const String bukanakunvendor3 = 'bukanakunvendor3';
 
   static const Map<String, dynamic> ID = {
     ///Page ONBOARDING PAGE
@@ -196,6 +205,35 @@ class Bahasa {
     ButtonRegistrasi: 'Daftar',
     textPageOnBoarding: 'Atau gunakan nomor handphone kamu',
     ButtonMasukGoogle: 'Masuk dengan Google',
+
+    ///profile pages
+    appbarProfile: 'Profil Saya',
+    metodepembayaran1: 'Metode Pembayaran',
+    metodepembayaran2: 'Atur kartu kredit, E-Wallet, Debit terdaftar',
+    keamananakun1: 'Keamanan Akun',
+    keamananakun2: 'Ubah kata sandi akun dan PIN',
+    daftaralamat1: 'Daftar Alamat',
+    daftaralamat2: 'Tambah alamat pengerjaan jasa',
+    tokoyangdikutin1: 'Toko yang Diikuti',
+    tokoyangdikutin2: 'Tambah alamat pengerjaan jasa',
+    Notifikasi1: 'Notifikasi',
+    Notifikasi2: 'Ubah jenis topik notifikasi',
+    butuhbantuan1: 'Butuh Bantuan?',
+    butuhbantuan2: 'Pelayanan bantuan setiap hari',
+    jasakomplain1: 'Jasa Dikomplain',
+    jasakomplain2: 'Jasa yang tidak sesuai deskripsi',
+    tentangjasabantu1: 'Tentang Jasa Bantu',
+    tentangjasabantu2: 'Pelayanan bantuan setiap hari',
+    keluarakun: 'Keluar Akun',
+    scanQRCODE1: 'Scan QR Code',
+    scanQRCODE2: 'Scan untuk verifikasi penyewaan',
+    scanQRCODE3: 'Scan QR Code',
+    dalampengerjaan1: 'Dalam Pengerjaan',
+    dalampengerjaan2: 'Lihat dan baca kemajuan proses jasa',
+    dalampengerjaan3: 'Cek proses',
+    bukanakunvendor1: 'Buka Akun Vendor',
+    bukanakunvendor2: 'Proses registrasi gratis, mudah & cepat',
+    bukanakunvendor3: 'Buka gratis',
 
     ///chatbox pages
     appbarboxchat: 'Inbox pesan',
@@ -534,5 +572,34 @@ class Bahasa {
     BantuanTitle1: 'Help',
     BantuanTitle2: 'Help center for you',
     BantuanTitle3: 'Comprehensive and interesting information about needs',
+
+    ///profile pages
+    appbarProfile: "My Profile",
+    metodepembayaran1: "Payment Methods",
+    metodepembayaran2: "Manage credit cards, E-Wallets, registered Debit cards",
+    keamananakun1: "Account Security",
+    keamananakun2: "Change account password and PIN",
+    daftaralamat1: "Address List",
+    daftaralamat2: "Add service delivery address",
+    tokoyangdikutin1: "Followed Stores",
+    tokoyangdikutin2: "Add service delivery address",
+    Notifikasi1: "Notifications",
+    Notifikasi2: "Change notification topic types",
+    butuhbantuan1: "Need Help?",
+    butuhbantuan2: "Assistance services available every day",
+    jasakomplain1: "Complained Services",
+    jasakomplain2: "Services that do not match the description",
+    tentangjasabantu1: "About Jasa Bantu",
+    tentangjasabantu2: "Assistance services available every day",
+    keluarakun: "Log Out",
+    scanQRCODE1: 'Scan QR Code',
+    scanQRCODE2: 'Scan for rental verification',
+    scanQRCODE3: 'Scan QR Code',
+    dalampengerjaan1: 'In Progress',
+    dalampengerjaan2: 'View and read the progress of the service process',
+    dalampengerjaan3: 'Check Process',
+    bukanakunvendor1: 'Open Vendor Account',
+    bukanakunvendor2: 'Free, easy, and fast registration process',
+    bukanakunvendor3: 'Open for free',
   };
 }
