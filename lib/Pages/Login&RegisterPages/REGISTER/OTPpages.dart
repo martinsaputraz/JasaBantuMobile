@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:jasa_bantu/Pages/Login&RegisterPages/REGISTER/InputName.dart';
 import 'package:jasa_bantu/Pages/Login&RegisterPages/REGISTER/ModalBottomOTPContent.dart';
 import 'package:jasa_bantu/Pages/Login&RegisterPages/REGISTER/SettingPIN.dart';
 import 'package:jasa_bantu/Pages/Login&RegisterPages/ResendOTPButtonFunction.dart';
@@ -103,6 +104,12 @@ class _OTPPagesState extends State<OTPPages> {
       backgroundColor: assetsColor.bgLightMode,
       appBar: AppBar(
         backgroundColor: assetsColor.bgLightMode,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back, color: assetsColor.textBlack),
+        ),
         title: const Text(
           'Verifikasi',
           style: TextStyle(fontSize: 20),
@@ -112,10 +119,8 @@ class _OTPPagesState extends State<OTPPages> {
             padding: const EdgeInsets.only(right: 30),
             child: ElevatedButton.icon(
               onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const SettingPIN()));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const InputName()));
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: assetsColor.buttonWhite,

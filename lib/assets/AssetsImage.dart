@@ -5,4 +5,13 @@ class AssetsImages {
   String imageSlider3 = 'assets/images/slideshow/slide_3.png';
   String imageSlider4 = 'assets/images/slideshow/slide_2.png';
   String imageSlider5 = 'assets/images/slideshow/slide_3.png';
+
+  /// MASCOTT STICKERS
+  String stickersTanyaBantu =
+      'assets/images/Stickers/Ada yang bisa dibantu.png';
+  String stickersMakasih = 'assets/images/Stickers/Makasih.png';
+  String stickersBeres = 'assets/images/Stickers/Beres.png';
+  String stickersCongrats = 'assets/images/Stickers/Congrats.png';
+  String stickersSiap = 'assets/images/Stickers/Siap.png';
+  String stickersSorry = 'assets/images/Stickers/Sorry.png';
 }

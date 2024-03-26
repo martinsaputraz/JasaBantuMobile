@@ -4,52 +4,52 @@ import 'package:jasa_bantu/assets/AssetsColor.dart';
 
 AssetsColor assetsColor = AssetsColor();
 
-class DiscountCard extends StatefulWidget {
-  const DiscountCard({Key? key}) : super(key: key);
+class SimiliarProducts extends StatefulWidget {
+  const SimiliarProducts({Key? key}) : super(key: key);
 
   @override
-  State<DiscountCard> createState() => _DiscountCardState();
+  State<SimiliarProducts> createState() => _SimiliarProductsState();
 }
 
-class _DiscountCardState extends State<DiscountCard> {
-  List<Map<String, dynamic>> discountCardData = [
+class _SimiliarProductsState extends State<SimiliarProducts> {
+  List<Map<String, dynamic>> similiarCardData = [
     {
-      'discountCardTitle': 'Express Elite',
-      'discountCardLocation': 'Jakarta Barat',
-      'discountCardServiceName': 'Jasa Foto Produk Profesional',
-      'discountCardPrice': '80.000',
-      'discountCardPercentage': '74%',
-      'discountedCardPrice': '355.000',
-      'discountCardRating': '4.8',
-      'discountCardBannerImages':
+      'similiarCardTitle': 'Express Elite',
+      'similiarCardLocation': 'Jakarta Barat',
+      'similiarCardServiceName': 'Jasa Foto Produk Profesional',
+      'similiarCardPrice': '80.000',
+      'similiarCardPercentage': '74%',
+      'similiaredCardPrice': '355.000',
+      'similiarCardRating': '4.8',
+      'similiarCardBannerImages':
           'assets/images/CardImages/CardContent_Banner(1).png',
-      'discountCardProfileImages':
+      'similiarCardProfileImages':
           'assets/images/CardImages/CardContent_Profile(1).png',
     },
     {
-      'discountCardTitle': 'Zenith Group Innovation',
-      'discountCardLocation': 'Tangerang Selatan',
-      'discountCardServiceName': 'Konsultasi Desain Rumah',
-      'discountCardPrice': '150.000',
-      'discountCardPercentage': '43%',
-      'discountedCardPrice': '275.000',
-      'discountCardRating': '4.9',
-      'discountCardBannerImages':
+      'similiarCardTitle': 'Zenith Group Innovation',
+      'similiarCardLocation': 'Tangerang Selatan',
+      'similiarCardServiceName': 'Konsultasi Desain Rumah',
+      'similiarCardPrice': '150.000',
+      'similiarCardPercentage': '43%',
+      'similiaredCardPrice': '275.000',
+      'similiarCardRating': '4.9',
+      'similiarCardBannerImages':
           'assets/images/CardImages/CardContent_Banner(2).png',
-      'discountCardProfileImages':
+      'similiarCardProfileImages':
           'assets/images/CardImages/CardContent_Profile(2).png',
     },
     {
-      'discountCardTitle': 'Sonic Flare',
-      'discountCardLocation': 'Bekasi Barat',
-      'discountCardServiceName': 'Perawatan Wajah & Kuku',
-      'discountCardPrice': '2.750.000',
-      'discountCardPercentage': '55%',
-      'discountedCardPrice': '5.200.000',
-      'discountCardRating': '4.7',
-      'discountCardBannerImages':
+      'similiarCardTitle': 'Sonic Flare',
+      'similiarCardLocation': 'Bekasi Barat',
+      'similiarCardServiceName': 'Perawatan Wajah & Kuku',
+      'similiarCardPrice': '2.750.000',
+      'similiarCardPercentage': '55%',
+      'similiaredCardPrice': '5.200.000',
+      'similiarCardRating': '4.7',
+      'similiarCardBannerImages':
           'assets/images/CardImages/CardContent_Banner(3).png',
-      'discountCardProfileImages':
+      'similiarCardProfileImages':
           'assets/images/CardImages/CardContent_Profile(3).png',
     },
     // Add more data entries as needed
@@ -71,7 +71,7 @@ class _DiscountCardState extends State<DiscountCard> {
                 child: const Row(
                   children: [
                     Text(
-                      'Kejar diskon setiap hari 🛍️',
+                      'Produk serupa untukmu',
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                     ),
@@ -82,11 +82,11 @@ class _DiscountCardState extends State<DiscountCard> {
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: List.generate(
-                    discountCardData.length,
+                    similiarCardData.length,
                     (index) => Padding(
                       padding: const EdgeInsets.all(5),
-                      child: DiscountCardWidget(
-                          cardDataDiscount: discountCardData[index]),
+                      child: SimiliarProductsWidget(
+                          cardDataSimiliarProducts: similiarCardData[index]),
                     ),
                   ),
                 ),
@@ -99,13 +99,13 @@ class _DiscountCardState extends State<DiscountCard> {
   }
 }
 
-class DiscountCardWidget extends StatelessWidget {
-  final Map<String, dynamic> cardDataDiscount;
+class SimiliarProductsWidget extends StatelessWidget {
+  final Map<String, dynamic> cardDataSimiliarProducts;
 
-  DiscountCardWidget({Key? key, required this.cardDataDiscount})
+  SimiliarProductsWidget({Key? key, required this.cardDataSimiliarProducts})
       : super(key: key);
 
-  bool showProfilePictureDiscountCard = true;
+  bool showProfilePictureSimiliarProducts = true;
 
   @override
   Widget build(BuildContext context) {
@@ -126,7 +126,7 @@ class DiscountCardWidget extends StatelessWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(10),
                   child: Image.asset(
-                    cardDataDiscount['discountCardBannerImages'],
+                    cardDataSimiliarProducts['similiarCardBannerImages'],
                     height: 100,
                     width: 200,
                     fit: BoxFit.cover,
@@ -150,7 +150,7 @@ class DiscountCardWidget extends StatelessWidget {
                         Icon(Icons.star, color: Colors.white),
                         SizedBox(width: 5),
                         Text(
-                          // Using hardcoded rating for now, you can replace it with cardDataDiscount['discountCardRating']
+                          // Using hardcoded rating for now, you can replace it with cardDataSimiliarProducts['similiarCardRating']
                           '4.8',
                           style: TextStyle(color: Colors.white),
                         ),
@@ -166,11 +166,11 @@ class DiscountCardWidget extends StatelessWidget {
                   child: CircleAvatar(
                     radius: 40,
                     backgroundColor: Colors.brown.shade800,
-                    backgroundImage: showProfilePictureDiscountCard
-                        ? AssetImage(
-                            cardDataDiscount['discountCardProfileImages'])
+                    backgroundImage: showProfilePictureSimiliarProducts
+                        ? AssetImage(cardDataSimiliarProducts[
+                            'similiarCardProfileImages'])
                         : null,
-                    child: showProfilePictureDiscountCard
+                    child: showProfilePictureSimiliarProducts
                         ? null
                         : const Text('EP'),
                   ),
@@ -183,7 +183,7 @@ class DiscountCardWidget extends StatelessWidget {
                 children: [
                   Flexible(
                     child: Text(
-                      cardDataDiscount['discountCardTitle'],
+                      cardDataSimiliarProducts['similiarCardTitle'],
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
                       style: const TextStyle(
@@ -203,7 +203,7 @@ class DiscountCardWidget extends StatelessWidget {
             Container(
               padding: const EdgeInsets.only(left: 10),
               child: Text(
-                cardDataDiscount['discountCardLocation'],
+                cardDataSimiliarProducts['similiarCardLocation'],
                 textAlign: TextAlign.start,
                 style: const TextStyle(
                   color: Colors.black45,
@@ -215,7 +215,7 @@ class DiscountCardWidget extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(10),
               child: Text(
-                cardDataDiscount['discountCardServiceName'],
+                cardDataSimiliarProducts['similiarCardServiceName'],
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
                 style: const TextStyle(
@@ -236,7 +236,7 @@ class DiscountCardWidget extends StatelessWidget {
               child: Row(
                 children: [
                   Text(
-                    'Rp${cardDataDiscount['discountCardPrice']}',
+                    'Rp${cardDataSimiliarProducts['similiarCardPrice']}',
                     style: const TextStyle(
                       color: Colors.deepOrange,
                       fontSize: 20,
@@ -263,7 +263,7 @@ class DiscountCardWidget extends StatelessWidget {
                   ),
                   const SizedBox(width: 5),
                   Text(
-                    cardDataDiscount['discountCardPercentage'],
+                    cardDataSimiliarProducts['similiarCardPercentage'],
                     style: const TextStyle(
                       color: Colors.red,
                       fontSize: 15,
@@ -272,7 +272,7 @@ class DiscountCardWidget extends StatelessWidget {
                   ),
                   const SizedBox(width: 5),
                   Text(
-                    'Rp${cardDataDiscount['discountedCardPrice']}',
+                    'Rp${cardDataSimiliarProducts['similiaredCardPrice']}',
                     style: const TextStyle(
                       decoration: TextDecoration.lineThrough,
                       color: Colors.black45,

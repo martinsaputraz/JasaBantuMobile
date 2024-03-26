@@ -34,6 +34,12 @@ class _LoginPagesState extends State<LoginPages> {
       backgroundColor: assetsColor.bgLightMode,
       appBar: AppBar(
         backgroundColor: assetsColor.bgLightMode,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back, color: assetsColor.textBlack),
+        ),
         title: Text(
           'Masuk',
           style: TextStyle(fontSize: 20, color: assetsColor.textBlack),

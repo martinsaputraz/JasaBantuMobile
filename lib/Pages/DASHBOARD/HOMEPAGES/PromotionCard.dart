@@ -3,52 +3,47 @@ import 'package:jasa_bantu/assets/AssetsColor.dart';
 
 AssetsColor assetsColor = AssetsColor();
 
-class PromotionCard extends StatefulWidget {
-  const PromotionCard({super.key});
-
-  @override
-  State<PromotionCard> createState() => _PromotionCardState();
-}
-
-class _PromotionCardState extends State<PromotionCard> {
-  /// LIST DATA PROMO CARD
-  List<Map<String, dynamic>> promotionCardData = [
-    {
-      'promotionCardTitle': 'Salon Anabul Kesayangan',
-      'promotionCardPromoType': 'Promo 50%',
-      'promotionCardImagePath':
-          'assets/images/PromoGridContent/PromoGrid(1).png',
-      'promotionCardColorBox': Colors.blue,
-      'promotionCardBGColor': Colors.blue[50],
-    },
-    {
-      'promotionCardTitle': 'Salon Anabul Kesayangan',
-      'promotionCardPromoType': 'Gratis Ongkir',
-      'promotionCardImagePath':
-          'assets/images/PromoGridContent/PromoGrid(2).png',
-      'promotionCardColorBox': Colors.deepOrange,
-      'promotionCardBGColor': Colors.deepOrange[50],
-    },
-    {
-      'promotionCardTitle': 'Salon Anabul Kesayangan',
-      'promotionCardPromoType': 'Promo 50%',
-      'promotionCardImagePath':
-          'assets/images/PromoGridContent/PromoGrid(3).png',
-      'promotionCardColorBox': Colors.amber,
-      'promotionCardBGColor': Colors.amber[50],
-    },
-    {
-      'promotionCardTitle': 'Salon Anabul Kesayangan',
-      'promotionCardPromoType': 'Promo 50%',
-      'promotionCardImagePath':
-          'assets/images/PromoGridContent/PromoGrid(4).png',
-      'promotionCardColorBox': Colors.green,
-      'promotionCardBGColor': Colors.green[50],
-    },
-  ];
+class PromotionCard extends StatelessWidget {
+  const PromotionCard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    /// LIST DATA PROMO CARD
+    final List<Map<String, dynamic>> promotionCardData = [
+      {
+        'promotionCardTitle': 'Salon Anabul Kesayangan',
+        'promotionCardPromoType': 'Promo 50%',
+        'promotionCardImagePath':
+            'assets/images/PromoGridContent/PromoGrid(1).png',
+        'promotionCardColorBox': Colors.blue,
+        'promotionCardBGColor': Colors.blue[50],
+      },
+      {
+        'promotionCardTitle': 'Salon Anabul Kesayangan',
+        'promotionCardPromoType': 'Gratis Ongkir',
+        'promotionCardImagePath':
+            'assets/images/PromoGridContent/PromoGrid(2).png',
+        'promotionCardColorBox': Colors.deepOrange,
+        'promotionCardBGColor': Colors.deepOrange[50],
+      },
+      {
+        'promotionCardTitle': 'Salon Anabul Kesayangan',
+        'promotionCardPromoType': 'Promo 50%',
+        'promotionCardImagePath':
+            'assets/images/PromoGridContent/PromoGrid(3).png',
+        'promotionCardColorBox': Colors.amber,
+        'promotionCardBGColor': Colors.amber[50],
+      },
+      {
+        'promotionCardTitle': 'Salon Anabul Kesayangan',
+        'promotionCardPromoType': 'Promo 50%',
+        'promotionCardImagePath':
+            'assets/images/PromoGridContent/PromoGrid(4).png',
+        'promotionCardColorBox': Colors.green,
+        'promotionCardBGColor': Colors.green[50],
+      },
+    ];
+
     return Container(
       height: 230,
       decoration: BoxDecoration(
@@ -80,51 +75,51 @@ class _PromotionCardState extends State<PromotionCard> {
               padding: const EdgeInsets.all(10),
               child: Row(
                 children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        constraints: const BoxConstraints(
-                          maxWidth: 100,
-                        ),
-                        child: Text(
-                          promotionCardData[index]['promotionCardTitle'],
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          softWrap: true,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12,
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Container(),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          color: promotionCardData[index]
-                              ['promotionCardColorBox'],
-                        ),
-                        child: Text(
-                          promotionCardData[index]['promotionCardPromoType'],
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          softWrap: true,
-                          style: TextStyle(
-                            color: assetsColor.textWhite,
-                            fontSize: 10,
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
                   Expanded(
-                    child: Container(),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          constraints: const BoxConstraints(
+                            maxWidth: 100,
+                          ),
+                          child: Text(
+                            promotionCardData[index]['promotionCardTitle'],
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            softWrap: true,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Container(),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: promotionCardData[index]
+                                ['promotionCardColorBox'],
+                          ),
+                          child: Text(
+                            promotionCardData[index]['promotionCardPromoType'],
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            softWrap: true,
+                            style: TextStyle(
+                              color: assetsColor.textWhite,
+                              fontSize: 10,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
+                  const SizedBox(width: 10),
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(50),

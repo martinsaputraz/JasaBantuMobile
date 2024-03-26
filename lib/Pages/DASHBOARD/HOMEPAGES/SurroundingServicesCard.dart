@@ -97,12 +97,6 @@ class _SurroundingServicesState extends State<SurroundingServices> {
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                     ),
-                    // const SizedBox(width: 5),
-                    // Image.asset(
-                    //   'assets/icon/Icon_Home(1).jpg',
-                    //   height: 30,
-                    //   width: 30,
-                    // ),
                   ],
                 ),
               ),
@@ -114,8 +108,8 @@ class _SurroundingServicesState extends State<SurroundingServices> {
                     (index) => Padding(
                       padding: const EdgeInsets.all(5),
                       child: SurroundingServicesWidget(
-                          cardSurroundingServices:
-                              surroundingServicesData[index]),
+                        cardSurroundingServices: surroundingServicesData[index],
+                      ),
                     ),
                   ),
                 ),
@@ -148,7 +142,6 @@ class SurroundingServicesWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            /// PROFILE IMAGE & BANNER AREA
             Stack(
               clipBehavior: Clip.none,
               children: [
@@ -165,12 +158,13 @@ class SurroundingServicesWidget extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 70),
                   child: Container(
                     padding: const EdgeInsets.fromLTRB(3, 3, 10, 3),
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.only(
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.only(
                         bottomLeft: Radius.circular(10),
                         bottomRight: Radius.circular(10),
                       ),
-                      color: Colors.purpleAccent,
+                      color: cardSurroundingServices[
+                          'surroundingServicesPromoBoxColor'],
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -179,9 +173,9 @@ class SurroundingServicesWidget extends StatelessWidget {
                         const Icon(Icons.star, color: Colors.white),
                         const SizedBox(width: 5),
                         Text(
-                            cardSurroundingServices[
-                                'surroundingServicesRating'],
-                            style: const TextStyle(color: Colors.white)),
+                          cardSurroundingServices['surroundingServicesRating'],
+                          style: const TextStyle(color: Colors.white),
+                        ),
                       ],
                     ),
                   ),
@@ -203,22 +197,18 @@ class SurroundingServicesWidget extends StatelessWidget {
                 ),
               ],
             ),
-
-            /// MITRA'S NAME & MITRA'S LOCATION
             Container(
               padding: const EdgeInsets.only(left: 10, right: 10),
               child: Row(
                 children: [
                   Expanded(
-                    child: Flexible(
-                      child: Text(
-                        cardSurroundingServices['surroundingServicesTitle'],
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 15,
-                        ),
+                    child: Text(
+                      cardSurroundingServices['surroundingServicesTitle'],
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 15,
                       ),
                     ),
                   ),
@@ -242,9 +232,6 @@ class SurroundingServicesWidget extends StatelessWidget {
                 ),
               ),
             ),
-
-            /// SERVICE AREA
-            /// SERVICE'S PROMO TYPE
             Container(
               padding: const EdgeInsets.fromLTRB(10, 10, 10, 5),
               child: Container(
@@ -271,31 +258,26 @@ class SurroundingServicesWidget extends StatelessWidget {
                     Text(
                       cardSurroundingServices['surroundingServicesPromoType'],
                       style: TextStyle(
-                          color: cardSurroundingServices[
-                              'surroundingServicesPromoBoxColor']),
+                        color: cardSurroundingServices[
+                            'surroundingServicesPromoBoxColor'],
+                      ),
                     ),
                   ],
                 ),
               ),
             ),
-
-            /// SERVICE'S NAME
             Container(
-              padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-              child: Flexible(
-                child: Text(
-                  cardSurroundingServices['surroundingServicesName'],
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 2,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                  ),
+              padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+              child: Text(
+                cardSurroundingServices['surroundingServicesName'],
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
                 ),
               ),
             ),
-
-            /// TIMES SERVICE'S USED
             Container(
               padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
               child: Row(
@@ -319,8 +301,6 @@ class SurroundingServicesWidget extends StatelessWidget {
                 ],
               ),
             ),
-
-            /// PRICE AREA
             Container(
               padding: const EdgeInsets.only(left: 10),
               child: const Text(

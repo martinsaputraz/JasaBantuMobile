@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jasa_bantu/Pages/DASHBOARD/PRODUCTS_PAGES/PRODUCTS_BY_CATEGORY/KAT_PRODUCTS_PROFESIONAL/PelukisProducts.dart';
 import 'package:jasa_bantu/assets/AssetsColor.dart';
 import 'package:jasa_bantu/assets/AssetsIcon.dart';
 
@@ -36,7 +37,9 @@ class _CategoryMenuState extends State<CategoryMenu> {
         ),
         child: Row(
           children: <Widget>[
+            /// NAVIGATION RAIL SCROLL MADE BY ELSAAA
             Container(
+              width: 110,
               decoration: BoxDecoration(
                 color: assetsColor.bgGrey200,
               ),
@@ -49,25 +52,378 @@ class _CategoryMenuState extends State<CategoryMenu> {
                         //
                       },
                       child: Container(
-                        padding: const EdgeInsets.all(30),
+                        padding: const EdgeInsets.all(15),
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Container(
-                              height: 50,
-                              width: 50,
+                              height: 30,
+                              width: 30,
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: Colors.indigo[100],
                               ),
                               child: Image.asset(
                                 assetsIcon.iconKatTagihan,
-                                height: 50,
-                                width: 50,
+                                height: 30,
+                                width: 30,
                               ),
                             ),
                             const SizedBox(height: 10),
                             Text(
                               'Tagihan',
+                              maxLines: 2,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: assetsColor.textBlack,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        //
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              height: 30,
+                              width: 30,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.indigo[100],
+                              ),
+                              child: Image.asset(
+                                assetsIcon.iconKatKonsultasi,
+                                height: 30,
+                                width: 30,
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            Text(
+                              'Konsultasi',
+                              maxLines: 2,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: assetsColor.textBlack,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        //
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              height: 30,
+                              width: 30,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.indigo[100],
+                              ),
+                              child: Image.asset(
+                                assetsIcon.iconKatProfesional,
+                                height: 30,
+                                width: 30,
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            Text(
+                              'Profesional',
+                              maxLines: 2,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: assetsColor.textBlack,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        //
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              height: 30,
+                              width: 30,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.indigo[100],
+                              ),
+                              child: Image.asset(
+                                assetsIcon.iconKatHomeCleaning,
+                                height: 30,
+                                width: 30,
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            Text(
+                              'Home Cleaning',
+                              maxLines: 2,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: assetsColor.textBlack,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        //
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              height: 30,
+                              width: 30,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.indigo[100],
+                              ),
+                              child: Image.asset(
+                                assetsIcon.iconKatBisnis,
+                                height: 30,
+                                width: 30,
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            Text(
+                              'Bisnis',
+                              maxLines: 2,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: assetsColor.textBlack,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        //
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              height: 30,
+                              width: 30,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.indigo[100],
+                              ),
+                              child: Image.asset(
+                                assetsIcon.iconKatKesehatan,
+                                height: 30,
+                                width: 30,
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            Text(
+                              'Kesehatan',
+                              maxLines: 2,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: assetsColor.textBlack,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        //
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              height: 30,
+                              width: 30,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.indigo[100],
+                              ),
+                              child: Image.asset(
+                                assetsIcon.iconKatTenagaKerja,
+                                height: 30,
+                                width: 30,
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            Text(
+                              'Tenaga Kerja',
+                              maxLines: 2,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: assetsColor.textBlack,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        //
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              height: 30,
+                              width: 30,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.indigo[100],
+                              ),
+                              child: Image.asset(
+                                assetsIcon.iconKatLayananPemerintah,
+                                height: 30,
+                                width: 30,
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            Text(
+                              'Layanan Pemerintahan',
+                              maxLines: 2,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: assetsColor.textBlack,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        //
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              height: 30,
+                              width: 30,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.indigo[100],
+                              ),
+                              child: Image.asset(
+                                assetsIcon.iconKatKecantikan,
+                                height: 30,
+                                width: 30,
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            Text(
+                              'Kecantikan',
+                              maxLines: 2,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: assetsColor.textBlack,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        //
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              height: 30,
+                              width: 30,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.indigo[100],
+                              ),
+                              child: Image.asset(
+                                assetsIcon.iconKatEventOrganizer,
+                                height: 30,
+                                width: 30,
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            Text(
+                              'Event Organizer',
+                              maxLines: 2,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: assetsColor.textBlack,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        //
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              height: 30,
+                              width: 30,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.indigo[100],
+                              ),
+                              child: Image.asset(
+                                assetsIcon.iconKatHomeService,
+                                height: 30,
+                                width: 30,
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            Text(
+                              'Home Services',
+                              maxLines: 2,
+                              textAlign: TextAlign.center,
                               style: TextStyle(
                                 color: assetsColor.textBlack,
                               ),
@@ -81,7 +437,7 @@ class _CategoryMenuState extends State<CategoryMenu> {
               ),
             ),
 
-            ///
+            /// MENU LIST TILE BY CATEGORY
             Expanded(
               child: ListView.builder(
                 itemCount: 10,
@@ -103,8 +459,12 @@ class _CategoryMenuState extends State<CategoryMenu> {
                       color: assetsColor.hintText,
                     ),
                     title: Text('Item ${index + 1}'),
-                    onTap: () {
-                      // Handle item tap here
+                    onTap: () async {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const PelukisProducts()),
+                      );
                     },
                   );
                 },

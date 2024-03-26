@@ -4,52 +4,52 @@ import 'package:jasa_bantu/assets/AssetsColor.dart';
 
 AssetsColor assetsColor = AssetsColor();
 
-class DiscountCard extends StatefulWidget {
-  const DiscountCard({Key? key}) : super(key: key);
+class VARecommendProducts extends StatefulWidget {
+  const VARecommendProducts({Key? key}) : super(key: key);
 
   @override
-  State<DiscountCard> createState() => _DiscountCardState();
+  State<VARecommendProducts> createState() => _VARecommendProductsState();
 }
 
-class _DiscountCardState extends State<DiscountCard> {
-  List<Map<String, dynamic>> discountCardData = [
+class _VARecommendProductsState extends State<VARecommendProducts> {
+  List<Map<String, dynamic>> recommendCardData = [
     {
-      'discountCardTitle': 'Express Elite',
-      'discountCardLocation': 'Jakarta Barat',
-      'discountCardServiceName': 'Jasa Foto Produk Profesional',
-      'discountCardPrice': '80.000',
-      'discountCardPercentage': '74%',
-      'discountedCardPrice': '355.000',
-      'discountCardRating': '4.8',
-      'discountCardBannerImages':
+      'recommendCardTitle': 'Express Elite',
+      'recommendCardLocation': 'Jakarta Barat',
+      'recommendCardServiceName': 'Jasa Foto Produk Profesional',
+      'recommendCardPrice': '80.000',
+      'recommendCardPercentage': '74%',
+      'recommendedCardPrice': '355.000',
+      'recommendCardRating': '4.8',
+      'recommendCardBannerImages':
           'assets/images/CardImages/CardContent_Banner(1).png',
-      'discountCardProfileImages':
+      'recommendCardProfileImages':
           'assets/images/CardImages/CardContent_Profile(1).png',
     },
     {
-      'discountCardTitle': 'Zenith Group Innovation',
-      'discountCardLocation': 'Tangerang Selatan',
-      'discountCardServiceName': 'Konsultasi Desain Rumah',
-      'discountCardPrice': '150.000',
-      'discountCardPercentage': '43%',
-      'discountedCardPrice': '275.000',
-      'discountCardRating': '4.9',
-      'discountCardBannerImages':
+      'recommendCardTitle': 'Zenith Group Innovation',
+      'recommendCardLocation': 'Tangerang Selatan',
+      'recommendCardServiceName': 'Konsultasi Desain Rumah',
+      'recommendCardPrice': '150.000',
+      'recommendCardPercentage': '43%',
+      'recommendedCardPrice': '275.000',
+      'recommendCardRating': '4.9',
+      'recommendCardBannerImages':
           'assets/images/CardImages/CardContent_Banner(2).png',
-      'discountCardProfileImages':
+      'recommendCardProfileImages':
           'assets/images/CardImages/CardContent_Profile(2).png',
     },
     {
-      'discountCardTitle': 'Sonic Flare',
-      'discountCardLocation': 'Bekasi Barat',
-      'discountCardServiceName': 'Perawatan Wajah & Kuku',
-      'discountCardPrice': '2.750.000',
-      'discountCardPercentage': '55%',
-      'discountedCardPrice': '5.200.000',
-      'discountCardRating': '4.7',
-      'discountCardBannerImages':
+      'recommendCardTitle': 'Sonic Flare',
+      'recommendCardLocation': 'Bekasi Barat',
+      'recommendCardServiceName': 'Perawatan Wajah & Kuku',
+      'recommendCardPrice': '2.750.000',
+      'recommendCardPercentage': '55%',
+      'recommendedCardPrice': '5.200.000',
+      'recommendCardRating': '4.7',
+      'recommendCardBannerImages':
           'assets/images/CardImages/CardContent_Banner(3).png',
-      'discountCardProfileImages':
+      'recommendCardProfileImages':
           'assets/images/CardImages/CardContent_Profile(3).png',
     },
     // Add more data entries as needed
@@ -71,7 +71,7 @@ class _DiscountCardState extends State<DiscountCard> {
                 child: const Row(
                   children: [
                     Text(
-                      'Kejar diskon setiap hari 🛍️',
+                      'Bisa bermanfaat untukmu 🪴',
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                     ),
@@ -82,11 +82,11 @@ class _DiscountCardState extends State<DiscountCard> {
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: List.generate(
-                    discountCardData.length,
+                    recommendCardData.length,
                     (index) => Padding(
                       padding: const EdgeInsets.all(5),
-                      child: DiscountCardWidget(
-                          cardDataDiscount: discountCardData[index]),
+                      child: VARecommendProductsWidget(
+                          cardDataDiscount: recommendCardData[index]),
                     ),
                   ),
                 ),
@@ -99,13 +99,13 @@ class _DiscountCardState extends State<DiscountCard> {
   }
 }
 
-class DiscountCardWidget extends StatelessWidget {
+class VARecommendProductsWidget extends StatelessWidget {
   final Map<String, dynamic> cardDataDiscount;
 
-  DiscountCardWidget({Key? key, required this.cardDataDiscount})
+  VARecommendProductsWidget({Key? key, required this.cardDataDiscount})
       : super(key: key);
 
-  bool showProfilePictureDiscountCard = true;
+  bool showProfilePictureVARecommendProducts = true;
 
   @override
   Widget build(BuildContext context) {
@@ -126,7 +126,7 @@ class DiscountCardWidget extends StatelessWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(10),
                   child: Image.asset(
-                    cardDataDiscount['discountCardBannerImages'],
+                    cardDataDiscount['recommendCardBannerImages'],
                     height: 100,
                     width: 200,
                     fit: BoxFit.cover,
@@ -150,7 +150,7 @@ class DiscountCardWidget extends StatelessWidget {
                         Icon(Icons.star, color: Colors.white),
                         SizedBox(width: 5),
                         Text(
-                          // Using hardcoded rating for now, you can replace it with cardDataDiscount['discountCardRating']
+                          // Using hardcoded rating for now, you can replace it with cardDataDiscount['recommendCardRating']
                           '4.8',
                           style: TextStyle(color: Colors.white),
                         ),
@@ -166,11 +166,11 @@ class DiscountCardWidget extends StatelessWidget {
                   child: CircleAvatar(
                     radius: 40,
                     backgroundColor: Colors.brown.shade800,
-                    backgroundImage: showProfilePictureDiscountCard
+                    backgroundImage: showProfilePictureVARecommendProducts
                         ? AssetImage(
-                            cardDataDiscount['discountCardProfileImages'])
+                            cardDataDiscount['recommendCardProfileImages'])
                         : null,
-                    child: showProfilePictureDiscountCard
+                    child: showProfilePictureVARecommendProducts
                         ? null
                         : const Text('EP'),
                   ),
@@ -183,7 +183,7 @@ class DiscountCardWidget extends StatelessWidget {
                 children: [
                   Flexible(
                     child: Text(
-                      cardDataDiscount['discountCardTitle'],
+                      cardDataDiscount['recommendCardTitle'],
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
                       style: const TextStyle(
@@ -203,7 +203,7 @@ class DiscountCardWidget extends StatelessWidget {
             Container(
               padding: const EdgeInsets.only(left: 10),
               child: Text(
-                cardDataDiscount['discountCardLocation'],
+                cardDataDiscount['recommendCardLocation'],
                 textAlign: TextAlign.start,
                 style: const TextStyle(
                   color: Colors.black45,
@@ -215,7 +215,7 @@ class DiscountCardWidget extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(10),
               child: Text(
-                cardDataDiscount['discountCardServiceName'],
+                cardDataDiscount['recommendCardServiceName'],
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
                 style: const TextStyle(
@@ -236,7 +236,7 @@ class DiscountCardWidget extends StatelessWidget {
               child: Row(
                 children: [
                   Text(
-                    'Rp${cardDataDiscount['discountCardPrice']}',
+                    'Rp${cardDataDiscount['recommendCardPrice']}',
                     style: const TextStyle(
                       color: Colors.deepOrange,
                       fontSize: 20,
@@ -263,7 +263,7 @@ class DiscountCardWidget extends StatelessWidget {
                   ),
                   const SizedBox(width: 5),
                   Text(
-                    cardDataDiscount['discountCardPercentage'],
+                    cardDataDiscount['recommendCardPercentage'],
                     style: const TextStyle(
                       color: Colors.red,
                       fontSize: 15,
@@ -272,7 +272,7 @@ class DiscountCardWidget extends StatelessWidget {
                   ),
                   const SizedBox(width: 5),
                   Text(
-                    'Rp${cardDataDiscount['discountedCardPrice']}',
+                    'Rp${cardDataDiscount['recommendedCardPrice']}',
                     style: const TextStyle(
                       decoration: TextDecoration.lineThrough,
                       color: Colors.black45,

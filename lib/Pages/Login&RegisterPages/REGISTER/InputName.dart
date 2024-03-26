@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:jasa_bantu/Pages/Login&RegisterPages/LOGIN/LoginPages.dart';
+import 'package:jasa_bantu/Pages/Login&RegisterPages/REGISTER/SettingPIN.dart';
 import 'package:jasa_bantu/Settings/constant.dart';
 import 'package:jasa_bantu/Settings/rotasi.dart';
 import 'package:jasa_bantu/assets/AssetsColor.dart';
@@ -50,6 +50,12 @@ class _InputNameState extends State<InputName> {
       backgroundColor: assetsColor.bgLightMode,
       appBar: AppBar(
         backgroundColor: assetsColor.bgLightMode,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back, color: assetsColor.textBlack),
+        ),
         title: Text(
           'Daftar',
           style: TextStyle(fontSize: 20, color: assetsColor.textBlack),
@@ -134,8 +140,12 @@ class _InputNameState extends State<InputName> {
                         constant.backprefix +
                         base64Encode(utf8.encode(rotatedText));
 
-                    logicApi.setName(context, _inputName.text, data_nilai);
+                    // logicApi.setName(context, _inputName.text, data_nilai);
                   }
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const SettingPIN()));
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: assetsColor.buttonPrimary,

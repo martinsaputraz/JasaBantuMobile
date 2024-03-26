@@ -1,8 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:jasa_bantu/assets/AssetsColor.dart';
-
-AssetsColor assetsColor = AssetsColor();
 
 class VendorCard extends StatefulWidget {
   const VendorCard({Key? key}) : super(key: key);
@@ -65,43 +62,36 @@ class _VendorCardState extends State<VendorCard> {
                       children: [
                         Icon(
                           Icons.shopping_bag_outlined,
-                          color: assetsColor.textPrimary,
+                          color: Colors.black,
                         ),
                         const SizedBox(width: 5),
                         Text(
                           'Vendor',
                           style: TextStyle(
                             fontSize: 20,
-                            color: assetsColor.textPrimary,
+                            color: Colors.black,
                           ),
                         ),
                       ],
                     ),
                     const SizedBox(height: 10),
-                    const Row(
-                      children: [
-                        Text(
-                          'Vendor pilihan untuk kebutuhanmu 🤩',
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
-                        ),
-                        // SizedBox(width: 5),
-                        // Icon(Icons.star),
-                      ],
+                    const Text(
+                      'Vendor pilihan untuk kebutuhanmu 🤩',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                    Container(
-                      child: const Text(
-                        'Informasi lengkap dan menarik tentang keperluan rumah atau pribadi ada disini',
-                        style: TextStyle(
-                          color: Colors.black45,
-                        ),
+                    const SizedBox(height: 5),
+                    const Text(
+                      'Informasi lengkap dan menarik tentang keperluan rumah atau pribadi ada disini',
+                      style: TextStyle(
+                        color: Colors.black45,
                       ),
                     ),
                   ],
                 ),
               ),
-
-              //
               Container(
                 padding: const EdgeInsets.fromLTRB(15, 15, 0, 10),
                 child: SingleChildScrollView(
@@ -109,8 +99,9 @@ class _VendorCardState extends State<VendorCard> {
                   child: Row(
                     children: List.generate(
                       vendorCardData.length,
-                      (index) => SurroundingServicesWidget(
-                          cardDataVendor: vendorCardData[index]),
+                      (index) => VendorCardWidget(
+                        cardDataVendor: vendorCardData[index],
+                      ),
                     ),
                   ),
                 ),
@@ -123,11 +114,10 @@ class _VendorCardState extends State<VendorCard> {
   }
 }
 
-class SurroundingServicesWidget extends StatelessWidget {
+class VendorCardWidget extends StatelessWidget {
   final Map<String, dynamic> cardDataVendor;
 
-  SurroundingServicesWidget({Key? key, required this.cardDataVendor})
-      : super(key: key);
+  VendorCardWidget({Key? key, required this.cardDataVendor}) : super(key: key);
 
   bool showImage = true;
 
@@ -143,9 +133,7 @@ class SurroundingServicesWidget extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            /// PROFILE IMAGE & BANNER AREA
             Stack(
-              // clipBehavior: Clip.none,
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(10),
@@ -174,39 +162,32 @@ class SurroundingServicesWidget extends StatelessWidget {
                 ),
               ],
             ),
-
-            /// MITRA'S NAME & MITRA'S LOCATION
-            Center(
-              child: Container(
-                padding: const EdgeInsets.fromLTRB(10, 10, 10, 5),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      child: Flexible(
-                        child: Text(
-                          cardDataVendor['vendorCardTitle'],
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 2,
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 15,
-                          ),
-                        ),
+            Container(
+              padding: const EdgeInsets.fromLTRB(10, 10, 10, 5),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Text(
+                      cardDataVendor['vendorCardTitle'],
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 15,
                       ),
                     ),
-                    const SizedBox(width: 5),
-                    const Icon(
-                      CupertinoIcons.checkmark_seal_fill,
-                      color: Colors.green,
-                    ),
-                  ],
-                ),
+                  ),
+                  const SizedBox(width: 5),
+                  const Icon(
+                    CupertinoIcons.checkmark_seal_fill,
+                    color: Colors.green,
+                  ),
+                ],
               ),
             ),
-
             Container(
               padding: const EdgeInsets.only(bottom: 40),
               child: Text(
@@ -219,12 +200,7 @@ class SurroundingServicesWidget extends StatelessWidget {
                 ),
               ),
             ),
-
-            Expanded(
-              child: Container(),
-            ),
-
-            /// RATING AREA
+            const Spacer(),
             Container(
               padding: const EdgeInsets.all(5),
               constraints: const BoxConstraints(

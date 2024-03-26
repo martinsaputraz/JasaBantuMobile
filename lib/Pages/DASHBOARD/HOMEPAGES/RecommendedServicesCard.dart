@@ -85,60 +85,56 @@ class _RecommendedServicesState extends State<RecommendedServices> {
     return Column(
       children: [
         Container(
-          constraints: const BoxConstraints(maxHeight: 1000),
-          padding: const EdgeInsets.fromLTRB(20, 10, 0, 10),
+          constraints: const BoxConstraints(maxHeight: 950),
+          padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
           decoration: const BoxDecoration(
             color: Colors.white,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                padding: const EdgeInsets.all(5),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.star_border,
+              Row(
+                children: [
+                  Icon(
+                    Icons.star_border,
+                    color: assetsColor.textPrimary,
+                  ),
+                  const SizedBox(width: 5),
+                  Text(
+                    'Rekomendasi',
+                    style: TextStyle(
+                      fontSize: 18,
                       color: assetsColor.textPrimary,
                     ),
-                    const SizedBox(width: 5),
-                    Text(
-                      'Rekomendasi',
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: assetsColor.textPrimary,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                child: Text(
-                  'Jasa yang mungkin kamu butuh',
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      color: assetsColor.textBlack),
-                ),
-              ),
-              GridView.count(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                crossAxisCount: 2,
-                // crossAxisSpacing: 5,
-                // mainAxisSpacing: 5,
-                // childAspectRatio: 1,
-                children: List.generate(
-                  recommendedServicesData.length,
-                  (index) => Padding(
-                    padding: const EdgeInsets.all(5),
-                    child: Flexible(
-                      child: SurroundingServicesWidget(
-                        cardSurroundingServices: recommendedServicesData[index],
-                      ),
-                    ),
                   ),
+                ],
+              ),
+              const SizedBox(height: 5),
+              Text(
+                'Jasa yang mungkin kamu butuh',
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    color: assetsColor.textBlack),
+              ),
+              GridView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 5,
+                  mainAxisSpacing: 5,
+                  childAspectRatio: 0.45,
                 ),
+                itemCount: recommendedServicesData.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: SurroundingServicesWidget(
+                      cardSurroundingServices: recommendedServicesData[index],
+                    ),
+                  );
+                },
               ),
             ],
           ),
@@ -231,15 +227,13 @@ class SurroundingServicesWidget extends StatelessWidget {
               child: Row(
                 children: [
                   Expanded(
-                    child: Flexible(
-                      child: Text(
-                        cardSurroundingServices['recommendCardTitle'],
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 15,
-                        ),
+                    child: Text(
+                      cardSurroundingServices['recommendCardTitle'],
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 15,
                       ),
                     ),
                   ),
@@ -303,15 +297,13 @@ class SurroundingServicesWidget extends StatelessWidget {
             /// SERVICE'S NAME
             Container(
               padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-              child: Flexible(
-                child: Text(
-                  cardSurroundingServices['recommendCardServiceName'],
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 2,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                  ),
+              child: Text(
+                cardSurroundingServices['recommendCardServiceName'],
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
                 ),
               ),
             ),
@@ -340,6 +332,8 @@ class SurroundingServicesWidget extends StatelessWidget {
                 ],
               ),
             ),
+
+            const Spacer(),
 
             /// PRICE AREA
             Container(

@@ -8,6 +8,7 @@ import 'package:jasa_bantu/Pages/DASHBOARD/HOMEPAGES/MyCurrentLocation.dart';
 import 'package:jasa_bantu/Pages/DASHBOARD/HOMEPAGES/ProgressCard.dart';
 import 'package:jasa_bantu/Pages/DASHBOARD/HOMEPAGES/PromotionCard.dart';
 import 'package:jasa_bantu/Pages/DASHBOARD/HOMEPAGES/QRScanScreen.dart';
+import 'package:jasa_bantu/Pages/DASHBOARD/HOMEPAGES/RecommendedServicesCard.dart';
 import 'package:jasa_bantu/Pages/DASHBOARD/HOMEPAGES/SliderDiscount.dart';
 import 'package:jasa_bantu/Pages/DASHBOARD/HOMEPAGES/SliderImages.dart';
 import 'package:jasa_bantu/Pages/DASHBOARD/HOMEPAGES/SurroundingServicesCard.dart';
@@ -159,7 +160,7 @@ class _HomePagesState extends State<HomePages> {
           ImagesAds(),
 
           /// RECOMMENDED GRID SERVICES CARD
-          // RecommendedServices(),
+          RecommendedServices(),
 
           /// VENDOR CARD
           VendorCard(),

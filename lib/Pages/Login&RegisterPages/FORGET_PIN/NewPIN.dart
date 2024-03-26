@@ -36,6 +36,12 @@ class _NewPINState extends State<NewPIN> {
       backgroundColor: assetsColor.bgLightMode,
       appBar: AppBar(
         backgroundColor: assetsColor.bgLightMode,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back, color: assetsColor.textBlack),
+        ),
         title: const Text(
           'Atur PIN',
           style: TextStyle(fontSize: 20),

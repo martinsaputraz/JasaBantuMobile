@@ -26,7 +26,7 @@ class MyCurrentLocation extends StatelessWidget {
                   color: assetsColor.hintText,
                 ),
                 Text(
-                  'Rumah Saya',
+                  'Lokasi Saya',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: assetsColor.hintText,

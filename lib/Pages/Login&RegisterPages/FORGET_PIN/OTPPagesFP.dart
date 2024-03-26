@@ -96,6 +96,12 @@ class _OTPPagesFPState extends State<OTPPagesFP> {
       backgroundColor: assetsColor.bgLightMode,
       appBar: AppBar(
         backgroundColor: assetsColor.bgLightMode,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back, color: assetsColor.textBlack),
+        ),
         title: const Text(
           'Verifikasi',
           style: TextStyle(fontSize: 20),
