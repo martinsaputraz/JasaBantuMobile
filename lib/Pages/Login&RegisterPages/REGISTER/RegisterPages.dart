@@ -4,7 +4,6 @@ import 'package:flutter_localization/flutter_localization.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:jasa_bantu/Pages/Login&RegisterPages/ONBOARDING/ModalBottomLanguange.dart';
 import 'package:jasa_bantu/Pages/Login&RegisterPages/ONBOARDING/OnboardingPages.dart';
-import 'package:jasa_bantu/Pages/Login&RegisterPages/REGISTER/OTPpages.dart';
 import 'package:jasa_bantu/Settings/Languange.dart';
 import 'package:jasa_bantu/Settings/logicapi.dart';
 import 'package:jasa_bantu/assets/AssetsColor.dart';
@@ -336,18 +335,18 @@ class _RegisterPagesState extends State<RegisterPages> {
                 child: Center(
                   child: ElevatedButton(
                     onPressed: () {
-                      /*      if (phoneNumberRegis == "") {
-                        } else {
-                          if (phoneNumberRegis.startsWith('+')) {
-                            phoneNumber = phoneNumberRegis
-                                .substring(1); // Remove the leading '+'
-                          }
-                          logicApi.sendOTPDefault(context, phoneNumber);
-                        }*/
-                      Navigator.push(
+                      if (phoneNumberRegis == "") {
+                      } else {
+                        if (phoneNumberRegis.startsWith('+')) {
+                          phoneNumber = phoneNumberRegis
+                              .substring(1); // Remove the leading '+'
+                        }
+                        logicApi.sendOTPDefault(context, phoneNumber);
+                      }
+                      /*         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const OTPPages()));
+                              builder: (context) => const OTPPages()));*/
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: assetsColor.buttonPrimary,

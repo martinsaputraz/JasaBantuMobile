@@ -127,7 +127,7 @@ class _PINLoginState extends State<PINLogin> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const DashboardPages()),
+                            builder: (context) => DashboardPages(dataIndex: 0)),
                       );
 
                       if (kDebugMode) {

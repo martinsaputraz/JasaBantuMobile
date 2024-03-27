@@ -27,10 +27,11 @@ class Constant {
   String iosBundleId = '';
 
   ///Others
+  String urlAPi = "http://api.jasabantu.com:50002/";
+
 /*
-  String urlAPi = "http://api.jasabantu.com:5002/";
-*/
   String urlAPi = "https://bkgkgngv-5000.asse.devtunnels.ms/";
+*/
 
   String namaPT = "PT. Jasa Bantu Indonesia";
 

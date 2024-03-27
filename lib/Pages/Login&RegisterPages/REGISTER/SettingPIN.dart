@@ -211,7 +211,9 @@ class _SettingPINState extends State<SettingPIN> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const DashboardPages()),
+                          builder: (context) => const DashboardPages(
+                                dataIndex: 0,
+                              )),
                     );
                   },
                   style: ElevatedButton.styleFrom(

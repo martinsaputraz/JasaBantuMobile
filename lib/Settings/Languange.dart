@@ -31,6 +31,13 @@ class Bahasa {
   static const String TeksVerifikasi6 = 'TeksVerifikasi6';
   static const String TombolKirimUlang = 'TombolKirimUlang';
 
+  ///VERIFIKASI EMAIL
+  static const String APPVERIFIKASIEMAIL = 'APPVERIFIKASIEMAIL';
+  static const String TOMBOLBANTUANEMAIL = 'TOMBOLBANTUANEMAIL';
+  static const String TeksVerifikasiemail1 = 'TeksVerifikasiemail1';
+  static const String TeksVerifikasiemail2 = 'TeksVerifikasiemail2';
+  static const String TombolKirimUlangEmail = 'TombolKirimUlangEmail';
+
   ///ModalButtonPage OTP
   static const String Teks1ModalOTP = 'Teks1ModalOTP';
   static const String OTPWAMODAL = 'OTPWAMODAL';
@@ -81,7 +88,7 @@ class Bahasa {
   static const String TEKS3NEWPIN = 'TEKS3NEWPIN';
   static const String TombolSimpanPin = 'TombolSimpanPin';
 
-  ///InfoUnregisterEmail
+  ///InfoUnregisterEmailpage
   static const String APPBARUNREGISTER = 'APPBARUNREGISTER';
   static const String TEKS1UNREGISTER = 'TEKS1UNREGISTER';
   static const String TEKS2UNREGISTER = 'TEKS2UNREGISTER';
@@ -163,6 +170,7 @@ class Bahasa {
   static const String LayananPemerintahBar = 'LayananPemerintahBar';
   static const String EventOrganizerBar = 'EventOrganizerBar';
   static const String HomeServiceBar = 'HomeServiceBar';
+  static const String Kategorie = 'Kategorie';
 
   ///chatbox pages
   static const String appbarboxchat = 'appbarboxchat';
@@ -197,6 +205,20 @@ class Bahasa {
   static const String bukanakunvendor2 = 'bukanakunvendor2';
   static const String bukanakunvendor3 = 'bukanakunvendor3';
 
+  ///resetphone pages
+  static const String appbarresetphone = 'appbarresetphone';
+  static const String teksresetphone1 = 'teksresetphone1';
+  static const String teksresetphone2 = 'teksresetphone2';
+  static const String fieldphonereset = 'fieldphonereset';
+  static const String tombollanjutreset = 'tombollanjutreset';
+
+  ///SetNewPhone
+  static const String appbarsetnewphone = 'appbarsetnewphone';
+  static const String tekssetnewohone1 = 'tekssetnewohone1';
+  static const String tekssetnewohone2 = 'tekssetnewohone2';
+  static const String fieldphonenew = 'fieldphonenew';
+  static const String tombollanjutnew = 'tombollanjutnew';
+
   static const Map<String, dynamic> ID = {
     ///Page ONBOARDING PAGE
     NamaModal: 'Pemilihan Bahasa',
@@ -205,6 +227,30 @@ class Bahasa {
     ButtonRegistrasi: 'Daftar',
     textPageOnBoarding: 'Atau gunakan nomor handphone kamu',
     ButtonMasukGoogle: 'Masuk dengan Google',
+
+    ///SetNewphone pages
+    appbarsetnewphone: 'Atur Ulang',
+    tekssetnewohone1: 'Masukkan nomor HP barumu',
+    tekssetnewohone2:
+        'Pastikan nomor kamu benar karena kami akan mengirimkan kode OTP',
+    fieldphonenew: 'Nomor Handphone',
+    tombollanjutnew: 'Lanjutkan',
+
+    ///verifikasi email pages
+    APPVERIFIKASIEMAIL: 'Verifikasi',
+    TOMBOLBANTUANEMAIL: 'Bantuan',
+    TeksVerifikasiemail1: 'Masukkan kode verifikasi',
+    TeksVerifikasiemail2:
+        'Kami sudah mengirimkan kode verifikasi ke email yang terdaftar pada nomormu',
+    TombolKirimUlangEmail: 'Kirim Ulang',
+
+    ///resetphone pages
+    appbarresetphone: 'Atur Ulang',
+    teksresetphone1: 'Atur ulang nomor HP',
+    teksresetphone2:
+        'Masukkan nomor handphone yang kamu pakai untuk daftar di Jasa Bantu',
+    fieldphonereset: 'Nomor Handphone',
+    tombollanjutreset: 'Lanjutkan',
 
     ///profile pages
     appbarProfile: 'Profil Saya',
@@ -254,6 +300,7 @@ class Bahasa {
     LayananPemerintahBar: 'Layanan Pemerintah',
     EventOrganizerBar: 'Event Organizer',
     HomeServiceBar: 'Home Service',
+    Kategorie: 'Kategori',
 
     ///Progress Card pages
     tombolProgressCard: 'Lihat semua pesanan',
@@ -416,6 +463,14 @@ class Bahasa {
     appbarboxchat: 'Incoming Messages',
     searchingboxchat: 'Search your messages...',
 
+    ///verifikasi email pages
+    APPVERIFIKASIEMAIL: 'Verification',
+    TOMBOLBANTUANEMAIL: 'Help',
+    TeksVerifikasiemail1: 'Enter verification code',
+    TeksVerifikasiemail2:
+        'We have sent a verification code to the email registered to your number',
+    TombolKirimUlangEmail: 'Resend Email',
+
     ///Progress Card pages
     tombolProgressCard: 'View all orders',
 
@@ -434,6 +489,7 @@ class Bahasa {
     LayananPemerintahBar: 'Government Services',
     EventOrganizerBar: 'Event Organizer',
     HomeServiceBar: 'Home Service',
+    Kategorie: 'Category',
 
     ///Vendor Pages
     vendortitle: 'Vendor',
@@ -601,5 +657,21 @@ class Bahasa {
     bukanakunvendor1: 'Open Vendor Account',
     bukanakunvendor2: 'Free, easy, and fast registration process',
     bukanakunvendor3: 'Open for free',
+
+    ///reset phone pages
+    appbarresetphone: 'Reset',
+    teksresetphone1: 'Reset phone number',
+    teksresetphone2:
+        'Enter the phone number you used to register with Jasa Bantu',
+    fieldphonereset: 'Phone Number',
+    tombollanjutreset: 'Next',
+
+    /// Set New Phone pages
+    appbarsetnewphone: 'Reset',
+    tekssetnewohone1: 'Enter your new phone number',
+    tekssetnewohone2:
+        'Make sure your number is correct as we will send OTP code',
+    fieldphonenew: 'Phone Number',
+    tombollanjutnew: 'Next',
   };
 }

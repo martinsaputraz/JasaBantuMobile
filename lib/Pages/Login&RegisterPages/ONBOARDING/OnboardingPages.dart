@@ -179,7 +179,9 @@ class _OnboardingPagesState extends State<OnboardingPages> {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const DashboardPages(),
+                          builder: (context) => const DashboardPages(
+                            dataIndex: 0,
+                          ),
                         ),
                       );
                     },

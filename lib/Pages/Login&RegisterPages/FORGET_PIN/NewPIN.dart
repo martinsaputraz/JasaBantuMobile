@@ -179,7 +179,7 @@ class _NewPINState extends State<NewPIN> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const DashboardPages()),
+                          builder: (context) => DashboardPages(dataIndex: 0)),
                     );
                   },
                   style: ElevatedButton.styleFrom(

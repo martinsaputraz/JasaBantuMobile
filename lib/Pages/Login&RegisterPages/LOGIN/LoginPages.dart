@@ -279,7 +279,7 @@ class _LoginPagesState extends State<LoginPages> {
                 child: Center(
                   child: ElevatedButton(
                     onPressed: () async {
-                      /*    if (phoneNumberLogin == "") {
+                      if (phoneNumberLogin == "") {
                       } else {
                         if (phoneNumberLogin.startsWith('+')) {
                           phoneNumber = phoneNumberLogin
@@ -287,12 +287,12 @@ class _LoginPagesState extends State<LoginPages> {
                         }
 
                         logicApi.LoginApi(context, phoneNumber);
-                      }*/
-                      Navigator.push(
+                      }
+                      /*    Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => const OTPLogin()),
-                      );
+                      );*/
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: assetsColor.buttonPrimary,

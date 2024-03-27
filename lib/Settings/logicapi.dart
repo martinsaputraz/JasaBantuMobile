@@ -30,6 +30,7 @@ class LogicApi {
 
     Map<String, dynamic> data = {
       'phone': phone,
+      'type': constant.flagWa,
     };
 
     String uri = constant.urlAPi + constant.RequestOTP;
@@ -335,7 +336,8 @@ class LogicApi {
       if (statusresponse == "success") {
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(
-                builder: (BuildContext context) => const DashboardPages()),
+                builder: (BuildContext context) =>
+                    DashboardPages(dataIndex: 0)),
             (Route<dynamic> route) => false);
       }
     } else if (response.statusCode == 400) {
@@ -496,7 +498,8 @@ class LogicApi {
       if (statusresponse == "success") {
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(
-                builder: (BuildContext context) => const DashboardPages()),
+                builder: (BuildContext context) =>
+                    DashboardPages(dataIndex: 0)),
             (Route<dynamic> route) => false);
       }
     } else if (response.statusCode == 400) {

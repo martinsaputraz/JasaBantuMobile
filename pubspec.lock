@@ -81,6 +81,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.3.0"
+  chatbox:
+    dependency: "direct main"
+    description:
+      name: chatbox
+      sha256: "58d832cd9395842f13c2777665910263f6ca7915f620b20c84b16a8c95f57585"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.4"
   checked_yaml:
     dependency: transitive
     description:
@@ -113,6 +121,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.18.0"
+  colorful_iconify_flutter:
+    dependency: transitive
+    description:
+      name: colorful_iconify_flutter
+      sha256: "5ebc63d10c3e97279849162b415fda8e71b7ff24ddd663539d7328279dae9c1d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.2"
   convert:
     dependency: transitive
     description:
@@ -340,7 +356,7 @@ packages:
     source: hosted
     version: "3.0.0"
   flutter_svg:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
       name: flutter_svg
       sha256: "7b4ca6cf3304575fe9c8ec64813c8d02ee41d2afe60bcfe0678bcb5375d596a2"
@@ -365,6 +381,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "10.7.0"
+  frino_icons:
+    dependency: "direct main"
+    description:
+      name: frino_icons
+      sha256: "2b0d03baa53f2e9193c1ce807fd0a4e52a788d0957fb474f0cc17fcf17c4c8db"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.0"
   html:
     dependency: transitive
     description:
@@ -389,6 +413,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.2"
+  iconify_flutter:
+    dependency: "direct main"
+    description:
+      name: iconify_flutter
+      sha256: a2d5d36a8381331c8d4e0a6b71378fca51bd6d15e38192568a30c0a91133a9af
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.5"
   icons_plus:
     dependency: "direct main"
     description:
@@ -421,6 +453,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.2.0"
+  ionicons:
+    dependency: "direct main"
+    description:
+      name: ionicons
+      sha256: "5496bc65a16115ecf05b15b78f494ee4a8869504357668f0a11d689e970523cf"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.2"
   js:
     dependency: transitive
     description:
@@ -834,6 +874,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
+  sunicons:
+    dependency: "direct main"
+    description:
+      name: sunicons
+      sha256: fb3620f2d38288d965576d97d5d161ccc7cd3152e7558cce68016b25e00bdfbe
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.3"
   synchronized:
     dependency: transitive
     description:
@@ -874,6 +922,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.3.2"
+  ubicons:
+    dependency: "direct main"
+    description:
+      name: ubicons
+      sha256: "37f1af067a502c9d4c8480931de97b7bbae96514f799d7a85e89e6cb3e91a4c8"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.3"
+  unicons:
+    dependency: "direct main"
+    description:
+      name: unicons
+      sha256: dbfcf93ff4d4ea19b324113857e358e4882115ab85db04417a4ba1c72b17a670
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.1"
   universal_io:
     dependency: transitive
     description:
